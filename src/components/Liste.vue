@@ -6,11 +6,9 @@
                 <tr class="categories">
                     <div class="categories__partOne">
                         <td>
-                            <v-container class="px-0" fluid>
-                                <v-checkbox  v-model="checkbox" :label="`Checkbox 1: ${checkbox.toString()}`">
-                                </v-checkbox>
-                            </v-container>
-                            
+                              <input type="checkbox" name="festivals" style="background-color: #000000"/>
+                              <label for="festivals">Sélectionner tous les éléments</label>
+                              <img src="../assets/img/icon_material-sort.svg" />
                         </td>
                         <td>Date<img src="../assets/img/icon_material-sort.svg" /></td>
                         <td>Lieu<img src="../assets/img/icon_material-sort.svg" /></td>
@@ -25,12 +23,10 @@
                     <div class="categories__partOne">
                         <td> <input type="checkbox" class="elements" name="elements"
                                 style="background-color: #000000"><label for="elements">{{ item.name }}</label></td>
-                        <td>Date</td>
+                        <td>{{ dayjs(item.start_date).format('DD/MM/YYYY') }}</td>
                         <td>{{ item.location }}</td>
                     </div>
-                    <div class="categories__partTwo">
-                        <td><button>Supprimer</button></td>
-                    </div>
+                    
                 </tr>
 
             </tbody>
@@ -40,7 +36,7 @@
 </template>
 
 <script>
-
+const dayjs = require('dayjs')
 
 
 export default {
@@ -50,17 +46,19 @@ export default {
         return {
             festivals: '',
             checkbox: true,
+            dayjs,
+            
         }
     },
 
     mounted() {
-        this.callFestivals();
+        this.callNameFestivals  ();
     },
 
     methods: {
 
 
-        callFestivals() {
+        callNameFestivals() {
             this.$http
                 .get('festivals?page=1', {
                     headers: {
@@ -69,8 +67,6 @@ export default {
                 })
                 .then(res => {
                     this.festivals = res.data
-                    console.log(this.festivals)
-
                 }
                 )
 
@@ -130,7 +126,7 @@ table {
                 display: flex;
                 justify-content: left;
                 gap: 10%;
-                width: 40%;
+                width: 100%;
                 align-items: center;
 
                 td {

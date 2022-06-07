@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import ListeBackoffice from '../components/menu'
+import ListeBackoffice from '../components/Liste'
 
 export default{
   
