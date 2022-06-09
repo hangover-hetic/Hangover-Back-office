@@ -15,7 +15,8 @@ const base = axios.create({
 
 
 
-Vue.prototype.$http = base;
+
+//Vue.prototype.$http = base;
 
 Vue.config.productionTip = false
 

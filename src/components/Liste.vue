@@ -2,33 +2,29 @@
     <div class="menu">
 
         <table>
-            <tbody>
-                <tr class="categories">
-                    <div class="categories__partOne">
-                        <td>
-                              <input type="checkbox" name="festivals" style="background-color: #000000"/>
-                              <label for="festivals">Sélectionner tous les éléments</label>
-                              <img src="../assets/img/icon_material-sort.svg" />
-                        </td>
-                        <td>Date<img src="../assets/img/icon_material-sort.svg" /></td>
-                        <td>Lieu<img src="../assets/img/icon_material-sort.svg" /></td>
-                    </div>
-                    <div class="categories__partTwo">
-                        <td><button>Supprimer</button></td>
-                    </div>
+            <thead>
+                <tr>
+                    <th align="left">Sélectionner tous les éléments</th>
+                    <th align="left">Date</th>
+                    <th align="left">Lieu</th>
                 </tr>
+            </thead>
+            <tbody>
 
                 <tr class="categories bibaboup" v-for="item in festivals" :key="item.festivals">
 
-                    <div class="categories__partOne">
-                        <td> <input type="checkbox" class="elements" name="elements"
-                                style="background-color: #000000"><label for="elements">{{ item.name }}</label></td>
-                        <td>{{ dayjs(item.start_date).format('DD/MM/YYYY') }}</td>
-                        <td>{{ item.location }}</td>
-                    </div>
-                    
-                </tr>
 
+
+                    <td> <label for="elements">{{
+                            item.name
+                    }}</label></td>
+                    <td>{{ dayjs(item.start_date).format('DD / MM / YYYY') }}</td>
+                    <td>{{ item.location }}</td>
+                    <td><img src="../assets/img/delete.svg" v-on:click="CallDelete(item.id)" /></td>
+                    <td><img src="../assets/img/ecrans.svg" /></td>
+                    <td><img src="../assets/img/edit.svg" /></td>
+
+                </tr>
             </tbody>
         </table>
 
@@ -37,41 +33,49 @@
 
 <script>
 const dayjs = require('dayjs')
+import { mapState } from 'vuex';
+import store from '/src/store/index'
+import Vuex from 'vuex'
+global.v = Vuex
 
 
 export default {
     name: 'ListeBackoffice',
+    store: store,
+    
 
     data() {
         return {
-            festivals: '',
-            checkbox: true,
-            dayjs,
             
+            //checkbox: true,
+            dayjs,
+            tab: [],
+            
+
+
         }
     },
 
     mounted() {
-        this.callNameFestivals  ();
+        this.$store.dispatch('loadFestivals')
     },
 
-    methods: {
+    //methods: {
 
 
-        callNameFestivals() {
-            this.$http
-                .get('festivals?page=1', {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(res => {
-                    this.festivals = res.data
-                }
-                )
+     //   CallDelete(id) {
+        //    console.log(id)
+            //this.$http
+            //.delete('festivals/' + id)
+            //.then(response => {
+            //  console.log(response);
+            //});
+       // }
+   // },
 
-        }
-    }
+    computed: mapState([
+        'festivals'
+    ]),
 }
 
 </script>
@@ -80,75 +84,51 @@ export default {
 
 
 <style scoped lang="scss">
-* {
-    font-family: 'Poppins', sans-serif;
+tr {
 
+    th,
+    td {
+        font-family: 'Poppins', sans-serif;
+        color: #FFFFFF;
+    }
 }
 
+
 table {
-    width: 70%;
+    width: 60%;
+    border-collapse: collapse;
 
     tbody {
 
-        .bibaboup {
-
-            .categories__partOne {
-                td:first-child {
-                    min-width: 286px;
-                }
-
-                td {
-                    input {
-                        accent-color: #202020
-                    }
-                }
-
-                td:nth-child(3) {
-                    margin-left: 17px;
-                }
-            }
+        tr {
+            display: table-row;
+            border-top: 2px solid #707070;
 
 
-        }
+            td {
+                padding: 15px 0;
 
-        .categories {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid white;
-            height: 2.5vw;
+               img{
+                   display: flex;
+                   align-self: center;
 
+                   &:hover{
+                       cursor: pointer
+                   }
+               }
 
-
-
-
-
-            .categories__partOne {
-                display: flex;
-                justify-content: left;
-                gap: 10%;
-                width: 100%;
-                align-items: center;
-
-                td {
-                    color: #FFFFFF;
-
-                    img {
-                        margin-left: 5px;
-                    }
-
-                }
-            }
-
-            .categories__partTwo {
-                display: flex;
-                align-items: center;
-                color: #FFFFFF;
 
             }
         }
+    }
 
+    thead {
+        tr {
+            th {
+                padding-bottom: 15px;
+            }
 
-
+        }
     }
 }
 </style>
