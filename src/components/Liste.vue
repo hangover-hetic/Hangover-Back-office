@@ -33,55 +33,49 @@
 
 <script>
 const dayjs = require('dayjs')
+import { mapState } from 'vuex';
+import store from '/src/store/index'
+import Vuex from 'vuex'
+global.v = Vuex
 
 
 export default {
     name: 'ListeBackoffice',
+    store: store,
+    
 
     data() {
         return {
-            festivals: '',
-            checkbox: true,
+            
+            //checkbox: true,
             dayjs,
-            tab: []
+            tab: [],
+            
 
 
         }
     },
 
     mounted() {
-        this.callNameFestivals();
+        this.$store.dispatch('loadFestivals')
     },
 
-    methods: {
+    //methods: {
 
 
-        callNameFestivals() {
-            this.$http
-                .get('festivals?page=1', {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(res => {
-                    this.festivals = res.data
-                }
-                )
-
-
-
-        },
-
-
-        CallDelete(id) {
-            console.log(id)
+     //   CallDelete(id) {
+        //    console.log(id)
             //this.$http
             //.delete('festivals/' + id)
             //.then(response => {
             //  console.log(response);
             //});
-        }
-    }
+       // }
+   // },
+
+    computed: mapState([
+        'festivals'
+    ]),
 }
 
 </script>
