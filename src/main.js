@@ -3,20 +3,21 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import axios from "axios";
-import '@fortawesome/fontawesome-free/css/all.css'
-import '@fortawesome/fontawesome-free/js/all.js'
-const base = axios.create({
-  baseURL: "https://hangover.timotheedurand.fr/api/", 
-});
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
 
+/* import specific icons */
+import { faBuilding, faDisplay, faUserGroup, faCircleUser, faArrowRightFromBracket  } from '@fortawesome/free-solid-svg-icons'
 
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+/* add icons to the library */
+library.add(faBuilding, faDisplay, faUserGroup, faCircleUser, faArrowRightFromBracket)
 
+/* add font awesome icon component */
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-
-
-//Vue.prototype.$http = base;
 
 Vue.config.productionTip = false
 

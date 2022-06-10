@@ -10,19 +10,19 @@ export default {
         <nav>
             <div id="logo" />
             <a href="#">
-                <span class="fa-solid fa-building size"></span>
+                <font-awesome-icon icon="fa-solid fa-building" class="size"/>
             </a>
             <a href="#">
-                <span class="fa-solid fa-display size"></span>
+                <font-awesome-icon icon="fa-solid fa-display" class="size"/>
             </a>
             <a href="#">
-                <span class="fa-solid fa-user-group size"></span>
+               <font-awesome-icon icon="fa-solid fa-user-group" class="size"/>
             </a>
             <a href="#">
-                <span class="fa-solid fa-circle-user size"></span>
+               <font-awesome-icon icon="fa-solid fa-circle-user" class="size"/>
             </a>
             <a href="#">
-                <span class="size-arrow-bottom fa-solid fa-arrow-right-from-bracket"></span>
+                <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="size-arrow-bottom"/>
             </a>
         </nav>
     </div>
