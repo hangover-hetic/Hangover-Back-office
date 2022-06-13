@@ -106,18 +106,23 @@ export default {
   methods: {
 
     PostFestival(){
-        axios
-        .post('https://hangover.timotheedurand.fr/api/festivals',{
-            body:{
+        axios({
+          url: 'https://hangover.timotheedurand.fr/api/festivals',
+          method: 'Post',
+          data:{
                 name : this.name,
                 description : this.description,
                 location : this.location,
                 startDate : this.startDate,
                 endDate : this.endDate
             },
+
             headers:{
+              Accept: 'application/json',
               'Content-Type': 'application/json'
-            }
+            },
+            
+           
            
                 
             
