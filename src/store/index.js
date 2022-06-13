@@ -10,21 +10,30 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     festivals: '',
+    screens: '',
   },
   getters: {
     festivals: state => {
       return state.festivals;
+  },
+
+  screens: state => {
+      return state.screens;
   }
   },
   mutations: {
     SET_Festivals(state, festivals) {
       state.festivals = festivals
-  }
+  },
+
+  SET_Screens(state, screens) {
+    state.screens = screens
+}
   },
   actions: {
     loadFestivals ({ commit }) {
       axios
-          .get('https://hangover.timotheedurand.fr/api/festivals?page=1', {
+          .get('https://hangover.timotheedurand.fr/api/festivals', {
               headers: {
                 'Accept': 'application/json'
               }
@@ -34,7 +43,26 @@ export default new Vuex.Store({
     
               commit('SET_Festivals',festivals)
       })
-  }
+  },
+
+  loadScreens({ commit }) {
+
+    const path = window.location.pathname;
+    const split = path.substr(10)
+    console.log(split)
+
+    axios
+        .get('https://hangover.timotheedurand.fr/api/festivals/' + split, {
+            headers: {
+              'Accept': 'application/json'
+            }
+        })
+        .then(response => response.data)
+        .then(screens => {
+  
+            commit('SET_Screens',screens)
+    })
+}
   
   },
   modules: {

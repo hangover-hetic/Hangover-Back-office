@@ -21,8 +21,7 @@
                     <td>{{ dayjs(item.start_date).format('DD / MM / YYYY') }}</td>
                     <td>{{ item.location }}</td>
                     <td><img src="../assets/img/delete.svg" v-on:click="CallDelete(item.id)" /></td>
-                    <td><img src="../assets/img/ecrans.svg" /></td>
-                    <td><img src="../assets/img/edit.svg" /></td>
+                    <router-link :to="{ name: 'festival', params: { name: item.id }}"><td><img src="../assets/img/edit.svg" /></td></router-link>
 
                 </tr>
             </tbody>
@@ -50,6 +49,7 @@ export default {
             //checkbox: true,
             dayjs,
             tab: [],
+           
             
 
 
@@ -57,7 +57,8 @@ export default {
     },
 
     mounted() {
-        this.$store.dispatch('loadFestivals')
+        this.$store.dispatch('loadFestivals');
+        
     },
 
     //methods: {

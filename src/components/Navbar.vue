@@ -9,9 +9,9 @@ export default {
     <div class="navbar">
         <nav>
             <div id="logo" />
-            <a href="#">
+            <router-link to="/">
                 <font-awesome-icon icon="fa-solid fa-building" class="size"/>
-            </a>
+            </router-link>
             <a href="#">
                 <font-awesome-icon icon="fa-solid fa-display" class="size"/>
             </a>

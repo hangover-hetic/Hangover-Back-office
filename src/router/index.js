@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import FestivalView from '../views/FestivalView.vue'
+import FestivalView from '../views/ModifFestivals.vue'
+import CreateFestivals from '../views/CreateFestivals'
 
 Vue.use(VueRouter)
 
@@ -12,9 +13,14 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/festival',
+    path: '/festival/:name',
     name: 'festival',
     component: FestivalView
+  },
+  {
+    path: '/createfestivals',
+    name: 'createfestivals',
+    component: CreateFestivals
   },
   {
     path: '/about',
