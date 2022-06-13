@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <h1 class="h1-title">Festivals</h1>
     <table>
             <thead>
                 <tr>
@@ -25,11 +26,14 @@
                 </tr>
             </tbody>
         </table>
+         <TheNavbar></TheNavbar>
   </div>
+ 
 </template>
 
 <script>
 // @ is an alias to /src
+import TheNavbar from "@/components/Navbar";
 const dayjs = require('dayjs')
 import { mapState } from 'vuex';
 import store from '/src/store/index'
@@ -43,6 +47,10 @@ global.v = Vuex
 export default {
     name: 'ListeBackoffice',
     store: store,
+
+    components: {
+    TheNavbar,
+  },
     
 
     data() {
@@ -87,7 +95,17 @@ export default {
 
 
 <style scoped lang="scss">
-@import '../assets/style/liste.scss'
+@import '../assets/style/liste.scss';
+
+* {
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+}
+
+.home{
+    width: 90%;
+  margin: auto;
+}
 
 
 
