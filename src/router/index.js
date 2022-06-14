@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import FestivalView from '../views/ModifFestivals.vue'
 import CreateFestivals from '../views/CreateFestivals'
+import Account from '../views/Account'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/createfestivals',
     name: 'createfestivals',
     component: CreateFestivals
+  },
+  {
+    path: '/Account',
+    name: 'Account',
+    component: Account
   },
   {
     path: '/about',
