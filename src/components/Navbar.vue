@@ -18,9 +18,9 @@ export default {
             <a href="#">
                <font-awesome-icon icon="fa-solid fa-user-group" class="size"/>
             </a>
-            <a href="#">
+            <router-link to="/Account">
                <font-awesome-icon icon="fa-solid fa-circle-user" class="size"/>
-            </a>
+            </router-link>
             <a href="#">
                 <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="size-arrow-bottom"/>
             </a>
