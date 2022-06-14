@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import FestivalView from '../views/ModifFestivals.vue'
 import CreateFestivals from '../views/CreateFestivals'
 import Connexion from '../views/ConnexionView'
+import Register from '../views/RegisterView'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/connexion',
     name: 'connexion',
     component: Connexion
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
   },
   {
     path: '/about',

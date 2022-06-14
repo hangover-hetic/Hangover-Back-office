@@ -7,23 +7,53 @@
         <form>
            
             <div class="form"> 
-                <h1>Login</h1>
+                <h1>Register</h1>
                 <input
-                    class="form-1 input-text"
-                    id="email"
+                    class="input-text"
+                    id="firstName"
                     type="text"
+                    placeholder="firstname"
+                />
+                <input
+                    class="input-text"
+                    id="lastName"
+                    type="text"
+                    placeholder="lastname"
+                />
+                <input
+                    class="input-text"
+                    id="Email"
+                    type="mail"
                     placeholder="Email"
                 />
                 <input
-                    class="form-2 input-text"
+                    class="input-text"
                     id="password"
                     type="password"
-                    placeholder="mot de passe"
+                    placeholder="password"
+                />
+                <input
+                    class="input-text"
+                    id="phone"
+                    type="text"
+                    placeholder="phone number"
+                />
+                <input
+                    class="input-text"
+                    id="address"
+                    type="text"
+                    placeholder="address"
+                />
+                 <input
+                    class="input-text"
+                    id="country"
+                    type="text"
+                    placeholder="country"
                 />
                 <div>
                     <input
                         class=" button-login"
-                        id="login"
+                        id="country"
                         type="submit"
                         value="Login"
                     />
@@ -40,13 +70,13 @@
 </template>
 
 <style scoped lang="scss">
+   
 
    .form {
        display: flex;
        flex-direction: column;
-       position: fixed;
+       position: absolute;
        margin: auto;
-       top: 50%;
        left: 50%;
 
     h1 {
