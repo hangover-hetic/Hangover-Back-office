@@ -1,59 +1,92 @@
 <script>
 
+
+
+       export default {
+        data () {
+            return {
+            firstName: null,
+            lastName: null,
+            Email: null,
+            password: null,
+            phone: null,
+            address: null,
+            country: null
+            }
+        },
+        methods:{
+            submitForm () {
+                console.log(this.firstName)
+
+            }
+        }
+    }
+
+
 </script>
 
 <template>
     <div class="login">
         <form>
            
-            <div class="form"> 
+            <div 
+                class="form"
+                @submmit="submitForm"
+            > 
                 <h1>Register</h1>
                 <input
                     class="input-text"
                     id="firstName"
+                    v-model="firstName"
                     type="text"
                     placeholder="firstname"
                 />
                 <input
                     class="input-text"
                     id="lastName"
+                    v-model="lastName"
                     type="text"
                     placeholder="lastname"
                 />
                 <input
                     class="input-text"
-                    id="Email"
-                    type="mail"
+                    id="email"
+                    v-model="email"
+                    type="email"
                     placeholder="Email"
                 />
                 <input
                     class="input-text"
                     id="password"
+                    v-model="password"
                     type="password"
                     placeholder="password"
                 />
                 <input
                     class="input-text"
                     id="phone"
+                    v-model="phone"
                     type="text"
                     placeholder="phone number"
                 />
                 <input
                     class="input-text"
                     id="address"
+                    v-model="address"
                     type="text"
                     placeholder="address"
                 />
                  <input
                     class="input-text"
                     id="country"
+                    v-model="country"
                     type="text"
                     placeholder="country"
                 />
                 <div>
                     <input
                         class=" button-login"
-                        id="country"
+                        id="login"
                         type="submit"
                         value="Login"
                     />
@@ -77,10 +110,12 @@
        flex-direction: column;
        position: absolute;
        margin: auto;
-       left: 50%;
+       top: 28%;
+       left: 43%;
 
     h1 {
-        color: #fff                                                                   ;
+        color: #fff;
+        text-align: center;
     }
 
     .input-text {
@@ -101,8 +136,8 @@
         padding          : 8px;
         width            : 150px;
         background       : rgb(212, 85, 11) 0 0 no-repeat padding-box;
-        border-radius    : 8px;
         border           : none;
+        margin-right     : 50px;
         outline          : 0;
         box-shadow       : none;
         &:hover {
@@ -119,7 +154,6 @@
             padding          : 8px;
             width            : 150px;
             background       : rgb(59, 58, 58) 0 0 no-repeat padding-box;
-            border-radius    : 8px;
             border           : none;
             outline          : 0;
             box-shadow       : none;

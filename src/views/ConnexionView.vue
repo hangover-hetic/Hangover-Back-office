@@ -42,63 +42,61 @@
 <style scoped lang="scss">
 
    .form {
-       display: flex;
+       display       : flex;
        flex-direction: column;
-       position: fixed;
-       margin: auto;
-       top: 50%;
-       left: 50%;
+       position      : fixed;
+       margin        : auto;
+       top           : 35%;
+       left          : 43%;
 
     h1 {
-        color: #fff                                                                   ;
+        color     : #fff;
+        text-align: center;                                                 
     }
 
     .input-text {
-        width: 100%;
-        padding: 10px 0;
-        font-size: 16px;
-        color: #fff;
+        width        : 100%;
+        padding      : 10px 0;
+        font-size    : 16px;
+        color        : #fff;
         margin-bottom: 30px;
-        border: none;
+        border       : none;
         border-bottom: 1px solid #fff;
-        outline: none;
-        background: transparent;
+        outline      : none;
+        background   : transparent;
     };
 
     .button-login {
-        color            : rgb(255, 255, 255);
-        margin           : 0px 0px 10px;
-        padding          : 8px;
-        width            : 150px;
-        background       : rgb(212, 85, 11) 0 0 no-repeat padding-box;
-        border-radius    : 8px;
-        border           : none;
-        outline          : 0;
-        box-shadow       : none;
+        color       : rgb(255, 255, 255);
+        margin      : 0px 0px 10px;
+        padding     : 8px;
+        width       : 150px;
+        margin-right: 50px;
+        background  : rgb(212, 85, 11) 0 0 no-repeat padding-box;
+        border      : none;
+        outline     : 0;
+        box-shadow  : none;
         &:hover {
-            background     : rgb(255, 255, 255) 0 0 no-repeat padding-box;
-            border-radius  : 8px;
-            color          : rgb(15, 14, 14);
-            outline        : 0;
-            box-shadow     : none;
+            background: rgb(255, 255, 255) 0 0 no-repeat padding-box;
+            color     : rgb(15, 14, 14);
+            outline   : 0;
+            box-shadow: none;
         }
     }
         .button-registration {
-            color            : rgb(255, 255, 255);
-            margin           : 0px 0px 10px;
-            padding          : 8px;
-            width            : 150px;
-            background       : rgb(59, 58, 58) 0 0 no-repeat padding-box;
-            border-radius    : 8px;
-            border           : none;
-            outline          : 0;
-            box-shadow       : none;
+            color     : rgb(255, 255, 255);
+            margin    : 0px 0px 10px;
+            padding   : 8px;
+            width     : 150px;
+            background: rgb(59, 58, 58) 0 0 no-repeat padding-box;
+            border    : none;
+            outline   : 0;
+            box-shadow: none;
             &:hover {
-                background     : rgb(119, 76, 52) 0 0 no-repeat padding-box;
-                border-radius  : 8px;
-                color          : rgb(255, 255, 255);
-                outline        : 0;
-                box-shadow     : none;
+                background: rgb(119, 76, 52) 0 0 no-repeat padding-box;
+                color     : rgb(255, 255, 255);
+                outline   : 0;
+                box-shadow: none;
             }
         }
     }
