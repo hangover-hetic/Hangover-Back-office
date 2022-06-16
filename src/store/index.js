@@ -49,7 +49,7 @@ export default new Vuex.Store({
 
     const path = window.location.pathname;
     const split = path.substr(10)
-    console.log(split)
+    
 
     axios
         .get('https://hangover.timotheedurand.fr/api/festivals/' + split, {
