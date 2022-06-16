@@ -41,6 +41,7 @@
 <script>
 // @ is an alias to /src
 import TheNavbar from "@/components/Navbar";
+import axios from 'axios'
 const dayjs = require("dayjs");
 import { mapState } from "vuex";
 import store from "/src/store/index";
@@ -67,17 +68,18 @@ export default {
     this.$store.dispatch("loadFestivals");
   },
 
-  //methods: {
+  methods: {
 
-  //   CallDelete(id) {
-  //    console.log(id)
-  //this.$http
-  //.delete('festivals/' + id)
-  //.then(response => {
-  //  console.log(response);
-  //});
-  // }
-  // },
+   CallDelete(id) {
+      console.log(id)
+  axios
+  .delete('https://hangover.timotheedurand.fr/api/festivals/' + id)
+  .then(response => {
+    console.log(response);
+     this.$store.dispatch("loadFestivals");
+  });
+   }
+   },
 
   computed: mapState(["festivals"]),
 };

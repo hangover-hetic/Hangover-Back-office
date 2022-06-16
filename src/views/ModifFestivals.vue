@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="h1-title">Modifier un festival</h1>
-    <form @submit.prevent="PostFestival">
+    <form @submit.prevent="modifFestivals">
       <div class="form">
         <div class="box">
           <i class="fa-solid fa-images custom-icon"></i>
@@ -74,6 +74,7 @@
         <thead>
           <tr>
             <th align="left">Écrans</th>
+            <th align="left"><router-link to="/createfestivals"><img src="../assets/img/add.svg" alt="add"></router-link></th>
             
           </tr>
         </thead>
@@ -97,6 +98,7 @@ const dayjs = require("dayjs");
 import { mapState } from "vuex";
 import store from "/src/store/index";
 import Vuex from "vuex";
+import axios from 'axios'
 global.v = Vuex;
 
 export default {
@@ -108,40 +110,55 @@ export default {
 
   data() {
     return {
-      
       dayjs,
       tab: [],
       start_date: '',
-      end_date: '',
-      
-       
+      end_date: '', 
     };
-  },
-
-  created(){
-     
   },
 
   mounted() {
     this.$store.dispatch("loadScreens");
-    this.start_date = dayjs(this.screens.start_date).format("YYYY-MM-DD");
-    this.end_date = dayjs(this.screens.end_date).format("YYYY-MM-DD");
-    console.log(this.end_date) 
+    setTimeout(this.date, 200)
+
+   
   },
 
-  //methods: {
+  methods:{
 
-  //   CallDelete(id) {
-  //    console.log(id)
-  //this.$http
-  //.delete('festivals/' + id)
-  //.then(response => {
-  //  console.log(response);
-  //});
-  // }
-  // },
+    date(){
+      this.start_date = dayjs(this.screens.startDate).format("YYYY-MM-DD");
+      this.end_date = dayjs(this.screens.endDate).format("YYYY-MM-DD");
+      console.log(this.screens.endDate) 
+    },
 
-  computed: mapState(["screens"]),
+    modifFestivals(){
+      const path = window.location.pathname;
+      const split = path.substr(10)
+      axios({
+          url: "https://hangover.timotheedurand.fr/api/festivals/" + split,
+          method: "Put",
+          data:{
+              name: this.screens.name,
+              description: this.screens.description,
+              location: this.screens.location,
+              startDate: this.start_date,
+              endDate: this.end_date
+          },
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+        }).then(res => {console.log(res)
+          this.$store.dispatch("loadScreens");
+        })
+    }
+  },
+
+  computed:{ 
+    ...mapState(["screens"])
+
+  }
 };
 </script>
 
@@ -153,6 +170,22 @@ export default {
 .container {
   margin: auto;
 }
+
+th{
+  padding-bottom: 0!important;
+
+    &:nth-child(2){
+      text-align: right;
+      
+      a{
+        img{
+          margin-right: 1.5%;
+        }
+      }
+    } 
+}
+
+
 
 
 </style>
