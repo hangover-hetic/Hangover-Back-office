@@ -5,12 +5,20 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "npm run serve -- --port 3000"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/vue-fontawesome": "^2.0.6",
+    "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "dayjs": "^1.11.3",
+    "pretty-checkbox-vue": "^1.1.9",
     "register-service-worker": "^1.7.2",
     "vue": "^2.6.14",
+    "vue-axios": "^3.4.1",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
   },
@@ -23,10 +31,11 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "deepmerge": "^4.2.2",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
-    "sass": "^1.32.7",
-    "sass-loader": "^12.0.0",
+    "sass": "^1.32.13",
+    "sass-loader": "^12.6.0",
     "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {
