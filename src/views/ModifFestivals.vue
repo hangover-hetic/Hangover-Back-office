@@ -3,8 +3,29 @@
     <h1 class="h1-title">Modifier un festival</h1>
     <form @submit.prevent="modifFestivals">
       <div class="form">
-        <div class="box">
-          <i class="fa-solid fa-images custom-icon"></i>
+        <div class="box1" v-if="this.screens.gallery[0] !== undefined">
+          <div class="image">
+           <img :src="'https://hangover.timotheedurand.fr/' + this.contentUrl " alt="">
+          </div>
+          <div class="selectFile">
+            <input
+              type="file"
+              accept="image/*"
+              id="image"
+              ref="file"
+              @change="selectImage"
+            />
+          </div>
+        </div>
+        <div class="box1" v-else>
+          <input
+            class="imageNone"
+            type="file"
+            accept="image/*"
+            id="image"
+            ref="file"
+            @change="selectImage"
+          />
         </div>
         <div class="form__field">
           <div class="field__left">
@@ -15,16 +36,15 @@
                 id="name"
                 v-model="screens.name"
                 type="text"
-              >
+              />
 
-               <label for="lieuFestival">Lieu du festival</label>
-            <input
-              class="dotted"
-              id="lieuFestival"
-              v-model="screens.location"
-              type="text"
-            />
-            
+              <label for="lieuFestival">Lieu du festival</label>
+              <input
+                class="dotted"
+                id="lieuFestival"
+                v-model="screens.location"
+                type="text"
+              />
             </div>
             <div class="right__column">
               <label for="date">Date de début</label>
@@ -34,8 +54,8 @@
                 v-model="start_date"
                 type="date"
               />
-           
-            <label for="date">Date de fin</label>
+
+              <label for="date">Date de fin</label>
               <input
                 class="dotted"
                 id="date_end"
@@ -54,40 +74,12 @@
           id="description"
           v-model="screens.description"
           type="text"
-          
-         
         />
       </div>
       <div class="button_create">
         <button type="submit">Modifier</button>
       </div>
     </form>
-
-    <TheNavbar></TheNavbar>
-
-
-    <div>
-      <h1>Liste des écrans</h1>
-    </div>
-    <div class="menu">
-      <table>
-        <thead>
-          <tr>
-            <th align="left">Écrans</th>
-            <th align="left"><router-link to="/createfestivals"><img src="../assets/img/add.svg" alt="add"></router-link></th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(screen, index) in screens.screens" :key="screen.screens">
-              <td>
-                <label for="elements"> Écran numéro : {{ index + 1 }}</label>
-              </td>
-              <td><img src="../assets/img/edit.svg" /></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
     <TheNavbar></TheNavbar>
   </div>
 </template>
@@ -98,8 +90,9 @@ const dayjs = require("dayjs");
 import { mapState } from "vuex";
 import store from "/src/store/index";
 import Vuex from "vuex";
-import axios from 'axios'
+import axios from "axios";
 global.v = Vuex;
+import UploadService from "../assets/services/UploadFilesService";
 
 export default {
   components: {
@@ -112,53 +105,115 @@ export default {
     return {
       dayjs,
       tab: [],
-      start_date: '',
-      end_date: '', 
+      start_date: "",
+      end_date: "",
+      idImage: "",
+      contentUrl: '',
     };
   },
 
   mounted() {
     this.$store.dispatch("loadScreens");
-    setTimeout(this.date, 200)
+    this.$store.dispatch("loadFestivals");
+    setTimeout(this.addMediaImage,300);
+    setTimeout(this.date, 500);
 
-   
+    UploadService.getFiles().then((response) => {
+      this.imageInfos = response.data;
+    });
   },
 
-  methods:{
-
-    date(){
+  methods: {
+    date() {
       this.start_date = dayjs(this.screens.startDate).format("YYYY-MM-DD");
       this.end_date = dayjs(this.screens.endDate).format("YYYY-MM-DD");
-      console.log(this.screens.endDate) 
     },
 
-    modifFestivals(){
+    selectImage() {
+      this.currentImage = this.$refs.file.files.item(0);
+      this.previewImage = URL.createObjectURL(this.currentImage);
+    },
+
+    addMediaImage(){
+         axios
+            .get('https://hangover.timotheedurand.fr' + this.screens.gallery[0], {
+              headers:{
+                 Accept: "application/json",
+                "Content-Type": "application/json",
+              }
+            })
+            .then(res => {
+              this.contentUrl = res.data.contentUrl
+            })
+    },
+
+    modifFestivals() {
       const path = window.location.pathname;
-      const split = path.substr(10)
-      axios({
-          url: "https://hangover.timotheedurand.fr/api/festivals/" + split,
-          method: "Put",
-          data:{
-              name: this.screens.name,
-              description: this.screens.description,
-              location: this.screens.location,
-              startDate: this.start_date,
-              endDate: this.end_date
-          },
-          headers: {
+      const split = path.substr(10);
+
+      UploadService.upload(this.currentImage)
+        .then((response) => {
+          this.idImage = response.data.id;
+          
+
+          axios({
+            url: "https://hangover.timotheedurand.fr/api/festivals/" + split,
+            method: "Put",
+            data: {
+              gallery: ["api/media/" + this.idImage],
+            },
+
+            headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
             },
-        }).then(res => {console.log(res)
-          this.$store.dispatch("loadScreens");
+          }).then((res) => {
+            this.$store.dispatch("loadScreens");
+            this.response = res.data;
+            
+            
+          });
+
+          this.message = response.data.message;
+          return UploadService.getFiles();
         })
-    }
+        .then((images) => {
+          this.imageInfos = images.data;
+          console.log(this.previewImage);
+        })
+        .catch((err) => {
+          this.progress = 0;
+          this.message = "Could not upload the image! " + err;
+          this.currentImage = undefined;
+        });
+
+      axios({
+        url: "https://hangover.timotheedurand.fr/api/festivals/" + split,
+        method: "Put",
+        data: {
+          name: this.screens.name,
+          description: this.screens.description,
+          location: this.screens.location,
+          startDate: this.start_date,
+          endDate: this.end_date,
+          status: "PUBLISHED",
+        },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        console.log(res);
+        this.$store.dispatch("loadScreens");
+         setTimeout(this.addMediaImage,500);
+        
+      });
+    },
   },
 
-  computed:{ 
-    ...mapState(["screens"])
-
-  }
+  computed: {
+    ...mapState(["screens", "festivals"]),
+  },
 };
 </script>
 
@@ -166,26 +221,46 @@ export default {
 @import "../assets/style/liste.scss";
 @import "../assets/style/festivalInput.scss";
 
-
 .container {
   margin: auto;
 }
 
-th{
-  padding-bottom: 0!important;
+th {
+  padding-bottom: 0 !important;
 
-    &:nth-child(2){
-      text-align: right;
-      
-      a{
-        img{
-          margin-right: 1.5%;
-        }
+  &:nth-child(2) {
+    text-align: right;
+
+    a {
+      img {
+        margin-right: 1.5%;
       }
-    } 
+    }
+  }
 }
 
+.box1 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  input {
+    display: flex;
+    align-self: center;
+    
+  }
 
+  .image{
 
+    img{
+      height: 200px;
+      width: 170px;
+    }
+    
+  }
 
+  input.imageNone{
+    
+    padding: 75px 15px!important;
+  }
+}
 </style>
