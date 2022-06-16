@@ -4,14 +4,6 @@
     
     <form @submit.prevent="PostFestival">
       <div class="form">
-        <div class="box1" >
-         <input
-            type="file"
-            accept="image/*"
-            ref="file"
-            @change="selectImage"
-          />
-        </div>
         <div class="form__field">
           <div class="field__left">
             <div class="left__column">
@@ -70,7 +62,6 @@ import TheNavbar from "@/components/Navbar";
 const dayjs = require("dayjs");
 import axios from "axios";
 import UploadService from "../assets/services/UploadFilesService";
-
 //import { mapState } from "vuex";
 //import store from "/src/store/index";
 //import Vuex from "vuex";
