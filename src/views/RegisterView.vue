@@ -1,13 +1,10 @@
 <script>
-
-
-
        export default {
         data () {
             return {
             firstName: null,
             lastName: null,
-            Email: null,
+            email: null,
             password: null,
             phone: null,
             address: null,
@@ -15,8 +12,9 @@
             }
         },
         methods:{
-            submitForm () {
-                console.log(this.firstName)
+            submitForm (e) {
+                e.preventDefault()
+                console.log(this.firstName, this.lastName, this.email, this.password, this.phoneNumber, this.address, this.country)
 
             }
         }
@@ -27,12 +25,8 @@
 
 <template>
     <div class="login">
-        <form>
-           
-            <div 
-                class="form"
-                @submmit="submitForm"
-            > 
+        <form @submmit="submitForm">
+            <div class="form"> 
                 <h1>Register</h1>
                 <input
                     class="input-text"

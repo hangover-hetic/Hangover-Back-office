@@ -1,23 +1,39 @@
 <script>
 
+       export default {
+        data () {
+            return {
+                email: null,
+                password: null
+            }
+        },
+        methods:{
+            submitForm (e) {
+                e.preventDefault()
+                console.log(this.email)
+                console.log(this.password)
+            }
+        }
+    }
 </script>
 
 <template>
     <div class="login">
-        <form>
-           
+        <form @submit="submitForm">
             <div class="form"> 
                 <h1>Login</h1>
                 <input
                     class="form-1 input-text"
                     id="email"
                     type="text"
+                    v-model="email"
                     placeholder="Email"
                 />
                 <input
                     class="form-2 input-text"
                     id="password"
                     type="password"
+                    v-model="password"
                     placeholder="mot de passe"
                 />
                 <div>
