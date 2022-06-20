@@ -5,7 +5,7 @@
       <div class="form">
         <div class="box1" v-if="this.screens.gallery[0] !== undefined">
           <div class="image">
-           <img :src="'https://hangover.timotheedurand.fr/' + this.contentUrl " alt="">
+           <img :src="'https://hangover.timotheedurand.fr' + this.screens.gallery[0].contentUrl " alt="">
           </div>
           <div class="selectFile">
             <input
@@ -109,14 +109,18 @@ export default {
       end_date: "",
       idImage: "",
       contentUrl: '',
+      image: '',
+      suppImage: ''
     };
   },
 
   mounted() {
     this.$store.dispatch("loadScreens");
     this.$store.dispatch("loadFestivals");
-    setTimeout(this.addMediaImage,300);
     setTimeout(this.date, 500);
+
+    
+   
 
     UploadService.getFiles().then((response) => {
       this.imageInfos = response.data;
@@ -125,8 +129,8 @@ export default {
 
   methods: {
     date() {
-      this.start_date = dayjs(this.screens.startDate).format("YYYY-MM-DD");
-      this.end_date = dayjs(this.screens.endDate).format("YYYY-MM-DD");
+      this.start_date = dayjs(this.screens.start_date).format("YYYY-MM-DD");
+      this.end_date = dayjs(this.screens.end_date).format("YYYY-MM-DD");      
     },
 
     selectImage() {
@@ -134,26 +138,22 @@ export default {
       this.previewImage = URL.createObjectURL(this.currentImage);
     },
 
-    addMediaImage(){
-         axios
-            .get('https://hangover.timotheedurand.fr' + this.screens.gallery[0], {
-              headers:{
-                 Accept: "application/json",
-                "Content-Type": "application/json",
-              }
-            })
-            .then(res => {
-              this.contentUrl = res.data.contentUrl
-            })
-    },
 
     modifFestivals() {
       const path = window.location.pathname;
       const split = path.substr(10);
 
+      this.suppImage = this.screens.gallery[0].id;
+
+      axios 
+      .delete("https://hangover.timotheedurand.fr/api/media/" + this.suppImage)
+      .then(res => console.log(res))
+      
+
       UploadService.upload(this.currentImage)
         .then((response) => {
           this.idImage = response.data.id;
+          
           
 
           axios({
