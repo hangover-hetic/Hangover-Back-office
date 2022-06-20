@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios'
 
        export default {
         data () {
@@ -10,8 +11,9 @@
         methods:{
             submitForm (e) {
                 e.preventDefault()
-                console.log(this.email)
-                console.log(this.password)
+                axios
+                    .get("https://hangover.timotheedurand.fr/api/users")
+                    .then(response => (this.info = response, console.log(response)))
             }
         }
     }

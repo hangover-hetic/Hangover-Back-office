@@ -1,6 +1,7 @@
 <script>
+import axios  from 'axios'
 
-       export default {
+export default {
         data () {
             return {
                 firstName: null,
@@ -15,12 +16,27 @@
         methods:{
             submitForm (e) {
                 e.preventDefault()
-                console.log(this.firstName)
-                console.log(this.lastName)
-                console.log(this.email)
-                console.log(this.phone)
-                console.log(this.address)
-                console.log(this.country)
+                 axios({
+                    url: "https://hangover.timotheedurand.fr/api/users",
+                    method: "Post",
+                    data: {
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        email: this.email,
+                        password: this.password,
+                        phone: this.phone,
+                        address: this.address,
+                        country: this.country
+                    },
+
+                    headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    },
+                }).then((res) => {
+                    //this.$store.dispatch("loadFestivals");
+                    this.response = res.data;
+                });
             }
         }
     }
