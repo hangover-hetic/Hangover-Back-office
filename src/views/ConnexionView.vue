@@ -46,8 +46,6 @@
                     <input
                         class="button-registration"
                         id="registration"
-                        type="submit"
-                        value="Registration"
                     />
                 </div>
             </div>
