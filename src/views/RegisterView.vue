@@ -46,7 +46,7 @@ export default {
     <div class="login">
         <form @submit="submitForm">
             <div class="form"> 
-                <h1>Login</h1>
+                <h1>Register</h1>
                 <input
                     class="form-1 input-text"
                     id="firstName"
@@ -116,7 +116,7 @@ export default {
        flex-direction: column;
        position      : fixed;
        margin        : auto;
-       top           : 35%;
+       top           : 20%;
        left          : 43%;
 
     h1 {
