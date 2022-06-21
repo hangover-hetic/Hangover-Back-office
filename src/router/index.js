@@ -3,7 +3,10 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import FestivalView from '../views/ModifFestivals.vue'
 import CreateFestivals from '../views/CreateFestivals'
+import Connexion from '../views/ConnexionView'
+import Register from '../views/RegisterView'
 import Account from '../views/Account'
+
 
 Vue.use(VueRouter)
 
@@ -22,6 +25,17 @@ const routes = [
     path: '/createfestivals',
     name: 'createfestivals',
     component: CreateFestivals
+  },
+  {
+
+    path: '/connexion',
+    name: 'connexion',
+    component: Connexion
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
   },
   {
     path: '/Account',
