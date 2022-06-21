@@ -5,6 +5,8 @@ import FestivalView from '../views/ModifFestivals.vue'
 import CreateFestivals from '../views/CreateFestivals'
 import Connexion from '../views/ConnexionView'
 import Register from '../views/RegisterView'
+import Account from '../views/Account'
+
 
 Vue.use(VueRouter)
 
@@ -25,6 +27,7 @@ const routes = [
     component: CreateFestivals
   },
   {
+
     path: '/connexion',
     name: 'connexion',
     component: Connexion
@@ -33,6 +36,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: Register
+  },
+  {
+    path: '/Account',
+    name: 'Account',
+    component: Account
   },
   {
     path: '/about',

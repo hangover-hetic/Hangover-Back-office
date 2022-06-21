@@ -1,10 +1,16 @@
 <template>
   <div class="createfestivals">
     <h1 class="h1-title">Créer un festival</h1>
+    
     <form @submit.prevent="PostFestival">
       <div class="form">
-        <div class="box">
-          <i class="fa-solid fa-images custom-icon"></i>
+        <div class="box1" >
+         <input
+            type="file"
+            accept="image/*"
+            ref="file"
+            @change="selectImage"
+          />
         </div>
         <div class="form__field">
           <div class="field__left">
@@ -63,6 +69,8 @@
 import TheNavbar from "@/components/Navbar";
 const dayjs = require("dayjs");
 import axios from "axios";
+import UploadService from "../assets/services/UploadFilesService";
+
 //import { mapState } from "vuex";
 //import store from "/src/store/index";
 //import Vuex from "vuex";
@@ -84,13 +92,41 @@ export default {
       location: "",
       startDate: "",
       endDate: "",
+      currentImage: undefined,
+      previewImage: undefined,
+      imageInfos: [],
     };
   },
 
-  mounted() {},
+  mounted() {
+     UploadService.getFiles().then(response => {
+      this.imageInfos= response.data;
+    });
+  },
 
   methods: {
+    selectImage() {
+      this.currentImage = this.$refs.file.files.item(0);
+      this.previewImage = URL.createObjectURL(this.currentImage);  
+    },
+
     PostFestival() {
+
+      UploadService.upload(this.currentImage)
+        .then((response) => {
+          this.message = response.data.message;
+          return UploadService.getFiles();
+        })
+        .then((images) => {
+          this.imageInfos = images.data;
+          console.log(this.previewImage)
+        })
+        .catch((err) => {
+          this.progress = 0;
+          this.message = "Could not upload the image! " + err;
+          this.currentImage = undefined;
+        });
+
       axios({
         url: "https://hangover.timotheedurand.fr/api/festivals",
         method: "Post",
@@ -107,14 +143,21 @@ export default {
           "Content-Type": "application/json",
         },
       }).then((res) => {
-        //this.$store.dispatch("loadFestivals");
+        this.$store.dispatch("loadFestivals");
         this.response = res.data;
       });
     },
-  },
+
+    
+
+    
+}
+
+    
+  }
 
   //computed: mapState(["festivals"]),
-};
+
 </script>
 
 <style scoped lang="scss">
@@ -124,6 +167,21 @@ export default {
 
 .createfestivals {
   margin: auto;
+}
+.box1{
+    display: flex;
+    align-items: center;
+  input{
+    display: flex;
+    align-self: center;
+    padding: 75px 15px;
+    
+  }
+
+}
+
+button{
+  cursor: pointer
 }
 
 
