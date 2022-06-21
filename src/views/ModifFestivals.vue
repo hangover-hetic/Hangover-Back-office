@@ -90,7 +90,7 @@ const dayjs = require("dayjs");
 import { mapState } from "vuex";
 import store from "/src/store/index";
 import Vuex from "vuex";
-import axios from "axios";
+import {http} from '../assets/services/http-common'
 global.v = Vuex;
 import UploadService from "../assets/services/UploadFilesService";
 
@@ -119,6 +119,7 @@ export default {
     this.$store.dispatch("loadFestivals");
     setTimeout(this.date, 500);
 
+
     
    
 
@@ -143,11 +144,16 @@ export default {
       const path = window.location.pathname;
       const split = path.substr(10);
 
-      this.suppImage = this.screens.gallery[0].id;
+if(this.screens.gallery[0] !== undefined){
+      if (document.getElementById("image").files.length !== 0) {
+          this.suppImage = this.screens.gallery[0].id;
 
-      axios 
+      http 
       .delete("https://hangover.timotheedurand.fr/api/media/" + this.suppImage)
       .then(res => console.log(res))
+}
+}
+      
       
 
       UploadService.upload(this.currentImage)
@@ -156,7 +162,7 @@ export default {
           
           
 
-          axios({
+          http({
             url: "https://hangover.timotheedurand.fr/api/festivals/" + split,
             method: "Put",
             data: {
@@ -187,7 +193,7 @@ export default {
           this.currentImage = undefined;
         });
 
-      axios({
+      http({
         url: "https://hangover.timotheedurand.fr/api/festivals/" + split,
         method: "Put",
         data: {
