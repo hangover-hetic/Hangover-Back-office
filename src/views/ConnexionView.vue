@@ -11,9 +11,23 @@ import axios from 'axios'
         methods:{
             submitForm (e) {
                 e.preventDefault()
-                axios
-                    .get("https://hangover.timotheedurand.fr/api/users")
-                    .then(response => (this.info = response, console.log(response)))
+               axios({
+                    url: "https://hangover.timotheedurand.fr/api/authentification_token",
+                    method: "Post",
+                    data: {
+                        email: this.email,
+                        password: this.password,
+                    },
+
+                    headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    },
+                }).then((res) => {
+                    //this.$store.dispatch("loadFestivals");
+                    this.response = res.data;
+                    console.log(res)
+                });
             }
         }
     }
@@ -48,6 +62,8 @@ import axios from 'axios'
                     <input
                         class="button-registration"
                         id="registration"
+                        value="Register"
+                        type="button"
                     />
                 </div>
             </div>
