@@ -1,5 +1,5 @@
 <script>
-import axios from 'axios'
+import {http} from '../assets/services/http-common'
 
        export default {
         data () {
