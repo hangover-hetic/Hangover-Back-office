@@ -1,28 +1,25 @@
 <script>
 import {http} from '../assets/services/http-common'
 
+
        export default {
         data () {
             return {
-                email: null,
+                username: null,
                 password: null
             }
         },
         methods:{
             submitForm (e) {
                 e.preventDefault()
-               axios({
-                    url: "https://hangover.timotheedurand.fr/api/authentification_token",
+             http({
+                    url: "https://hangover.timotheedurand.fr/api/users",
                     method: "Post",
-                    data: {
-                        email: this.email,
+                    auth: {
+                        email: this.username,
                         password: this.password,
                     },
-
-                    headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    },
+                     
                 }).then((res) => {
                     //this.$store.dispatch("loadFestivals");
                     this.response = res.data;
@@ -42,7 +39,7 @@ import {http} from '../assets/services/http-common'
                     class="form-1 input-text"
                     id="email"
                     type="text"
-                    v-model="email"
+                    v-model="username"
                     placeholder="Email"
                 />
                 <input
