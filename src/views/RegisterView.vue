@@ -1,47 +1,3 @@
-<script>
-import axios  from 'axios'
-
-export default {
-        data () {
-            return {
-                firstName: null,
-                lastName: null,
-                email:null,
-                password:null,
-                phone:null,
-                address:null,
-                country:null,
-            }
-        },
-        methods:{
-            submitForm (e) {
-                e.preventDefault()
-                 axios({
-                    url: "https://hangover.timotheedurand.fr/api/users",
-                    method: "Post",
-                    data: {
-                        firstName: this.firstName,
-                        lastName: this.lastName,
-                        email: this.email,
-                        password: this.password,
-                        phone: this.phone,
-                        address: this.address,
-                        country: this.country
-                    },
-
-                    headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    },
-                }).then((res) => {
-                    //this.$store.dispatch("loadFestivals");
-                    this.response = res.data;
-                });
-            }
-        }
-    }
-</script>
-
 <template>
     <div class="login">
         <form @submit="submitForm">
@@ -108,6 +64,45 @@ export default {
         </form>
     </div>
 </template>
+
+<script>
+import {http} from '../assets/services/http-common'
+
+export default {
+        data () {
+            return {
+                firstName: null,
+                lastName: null,
+                email:null,
+                password:null,
+                phone:null,
+                address:null,
+                country:null,
+            }
+        },
+        methods:{
+            submitForm (e) {
+                e.preventDefault()
+                 http({
+                    url: "https://hangover.timotheedurand.fr/api/users",
+                    method: "Post",
+                    data: {
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        email: this.email,
+                        password: this.password,
+                        phone: this.phone,
+                        address: this.address,
+                        country: this.country
+                    },
+                }).then((res) => {
+                    //this.$store.dispatch("loadFestivals");
+                    this.response = res.data;
+                });
+            }
+        }
+    }
+</script>
 
 <style scoped lang="scss">
 

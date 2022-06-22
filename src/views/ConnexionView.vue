@@ -1,35 +1,3 @@
-<script>
-import {http} from '../assets/services/http-common'
-
-
-       export default {
-        data () {
-            return {
-                username: null,
-                password: null
-            }
-        },
-        methods:{
-            submitForm (e) {
-                e.preventDefault()
-             http({
-                    url: "https://hangover.timotheedurand.fr/api/users",
-                    method: "Post",
-                    auth: {
-                        email: this.username,
-                        password: this.password,
-                    },
-                     
-                }).then((res) => {
-                    //this.$store.dispatch("loadFestivals");
-                    this.response = res.data;
-                    console.log(res)
-                });
-            }
-        }
-    }
-</script>
-
 <template>
     <div class="login">
         <form @submit="submitForm">
@@ -67,6 +35,38 @@ import {http} from '../assets/services/http-common'
         </form>
     </div>
 </template>
+
+<script>
+import {http} from '../assets/services/http-common'
+
+
+       export default {
+        data () {
+            return {
+                username: null,
+                password: null
+            }
+        },
+        methods:{
+            submitForm (e) {
+                e.preventDefault()
+             http({
+                    url: "authentication_token",
+                    method: "Post",
+                    data: {
+                        username: this.username,
+                        password: this.password,
+                    },
+                     
+                }).then((res) => {
+                    //this.$store.dispatch("loadFestivals");
+                    this.response = res.data;
+                    console.log(res)
+                });
+            }
+        }
+    }
+</script>
 
 <style scoped lang="scss">
 
