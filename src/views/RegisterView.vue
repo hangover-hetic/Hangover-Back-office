@@ -106,6 +106,6 @@ export default {
 
 <style scoped lang="scss">
 @import "../assets/style/formulaire.scss";
-@import "../assets/style/fonts.scss";
+
  
 </style>

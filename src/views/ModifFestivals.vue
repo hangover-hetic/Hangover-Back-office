@@ -227,6 +227,7 @@ if(this.screens.gallery[0] !== undefined){
 @import "../assets/style/liste.scss";
 @import "../assets/style/festivalInput.scss";
 
+
 .container {
   margin: auto;
 }
