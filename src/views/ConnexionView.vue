@@ -69,31 +69,9 @@ import {http} from '../assets/services/http-common'
 </script>
 
 <style scoped lang="scss">
-
-   .form {
-       display       : flex;
-       flex-direction: column;
-       position      : fixed;
-       margin        : auto;
-       top           : 35%;
-       left          : 43%;
-
-    h1 {
-        color     : #fff;
-        text-align: center;                                                 
-    }
-
-    .input-text {
-        width        : 100%;
-        padding      : 10px 0;
-        font-size    : 16px;
-        color        : #fff;
-        margin-bottom: 30px;
-        border       : none;
-        border-bottom: 1px solid #fff;
-        outline      : none;
-        background   : transparent;
-    };
+@import "../assets/style/formulaire.scss";
+@import "../assets/style/fonts.scss";
+   
 
     .button-login {
         color       : rgb(255, 255, 255);
@@ -128,6 +106,6 @@ import {http} from '../assets/services/http-common'
                 box-shadow: none;
             }
         }
-    }
+    
  
 </style>

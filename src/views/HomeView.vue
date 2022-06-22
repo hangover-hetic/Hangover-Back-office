@@ -89,10 +89,7 @@ export default {
 <style scoped lang="scss">
 @import "../assets/style/liste.scss";
 
-* {
-  font-family: "Poppins", sans-serif;
-  color: #ffffff;
-}
+
 
 .home {
   margin: auto;
