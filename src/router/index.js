@@ -6,7 +6,6 @@ import CreateFestivals from '../views/CreateFestivals'
 import Login from '../views/ConnexionView'
 import Register from '../views/RegisterView'
 import Account from '../views/Account'
-import store from "/src/store/index";
 import Vuex from "vuex";
 global.v = Vuex;
 Vue.use(VueRouter)
@@ -25,11 +24,11 @@ const routes = [
     name: 'home',
     component: home,
     beforeEnter: (to, from, next) => {
-        if(store.state.admin == false){
-          next(false);
-          router.push('/createfestivals')
+        if(window.localStorage.getItem('rang') !== 'admin'){
+          router.push('/login')
         }else{
           next()
+          
         }
     }
   },
@@ -38,26 +37,26 @@ const routes = [
     name: 'festival',
     component: FestivalView,
     beforeEnter: (to, from, next) => {
-        if(store.state.admin == false){
-          next(false);
-          router.push('/')
-        }else{
-          next()
-        }
-    }
+      if(window.localStorage.getItem('rang') !== 'admin'){
+        router.push('/login')
+      }else{
+        next()
+        
+      }
+  }
   },
   {
     path: '/createfestivals',
     name: 'createfestivals',
     component: CreateFestivals,
     beforeEnter: (to, from, next) => {
-        if(store.state.admin == false){
-          next(false);
-          router.push('/')
-        }else{
-          next()
-        }
-    }
+      if(window.localStorage.getItem('rang') !== 'admin'){
+        router.push('/login')
+      }else{
+        next()
+        
+      }
+  }
   },
   {
     path: '/login',
@@ -74,13 +73,13 @@ const routes = [
     name: 'Account',
     component: Account,
     beforeEnter: (to, from, next) => {
-        if(store.state.admin == false){
-          next(false);
-          router.push('/')
-        }else{
-          next()
-        }
-    }
+      if(window.localStorage.getItem('rang') !== 'admin'){
+        router.push('/login')
+      }else{
+        next()
+        
+      }
+  }
   },
   {
     path: '/about',

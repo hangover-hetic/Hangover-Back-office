@@ -7,6 +7,7 @@ class UploadFilesService {
         headers: {
           "Content-Type": "multipart/form-data",
           'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         
       });

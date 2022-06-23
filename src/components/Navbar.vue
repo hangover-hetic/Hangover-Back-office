@@ -21,12 +21,28 @@ export default {
             <router-link to="/Account">
                <font-awesome-icon icon="fa-solid fa-circle-user" class="size"/>
             </router-link>
-            <a href="#">
+            <a href="#" v-on:click="signOut()">
                 <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="size-arrow-bottom"/>
             </a>
         </nav>
     </div>
 </template>
+
+<script>
+
+
+export default {
+    methods:{
+        signOut(){
+            localStorage.removeItem('rang');
+            localStorage.removeItem('token');
+            location.reload();
+        }
+    }
+}
+</script>
+
+
 
 <style scoped>
     body {

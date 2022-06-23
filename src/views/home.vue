@@ -41,7 +41,7 @@
 <script>
 // @ is an alias to /src
 import TheNavbar from "@/components/Navbar";
-import axios from 'axios'
+import {http} from '../assets/services/http-common'
 const dayjs = require("dayjs");
 import { mapState } from "vuex";
 import store from "/src/store/index";
@@ -75,8 +75,8 @@ export default {
   methods: {
 
    CallDelete(id) {
-      console.log(id)
-  axios
+      
+  http
   .delete('https://hangover.timotheedurand.fr/api/festivals/' + id)
   .then(response => {
     console.log(response);

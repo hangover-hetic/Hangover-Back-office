@@ -110,7 +110,8 @@ export default {
       idImage: "",
       contentUrl: '',
       image: '',
-      suppImage: ''
+      suppImage: '',
+      token: ''
     };
   },
 
@@ -118,8 +119,8 @@ export default {
     this.$store.dispatch("loadScreens");
     this.$store.dispatch("loadFestivals");
     setTimeout(this.date, 500);
-
-
+    this.token = localStorage.getItem('token')
+   
     
    
 
@@ -169,10 +170,7 @@ if(this.screens.gallery[0] !== undefined){
               gallery: ["api/media/" + this.idImage],
             },
 
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
+           
           }).then((res) => {
             this.$store.dispatch("loadScreens");
             this.response = res.data;
@@ -207,6 +205,8 @@ if(this.screens.gallery[0] !== undefined){
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + this.token
+          
         },
       }).then((res) => {
         console.log(res);

@@ -60,8 +60,7 @@
 <script>
 import TheNavbar from "@/components/Navbar";
 const dayjs = require("dayjs");
-import axios from "axios";
-import UploadService from "../assets/services/UploadFilesService";
+import {http} from '../assets/services/http-common'
 //import { mapState } from "vuex";
 //import store from "/src/store/index";
 //import Vuex from "vuex";
@@ -89,36 +88,14 @@ export default {
     };
   },
 
-  mounted() {
-     UploadService.getFiles().then(response => {
-      this.imageInfos= response.data;
-    });
-  },
+ 
 
   methods: {
-    selectImage() {
-      this.currentImage = this.$refs.file.files.item(0);
-      this.previewImage = URL.createObjectURL(this.currentImage);  
-    },
+   
 
     PostFestival() {
 
-      UploadService.upload(this.currentImage)
-        .then((response) => {
-          this.message = response.data.message;
-          return UploadService.getFiles();
-        })
-        .then((images) => {
-          this.imageInfos = images.data;
-          console.log(this.previewImage)
-        })
-        .catch((err) => {
-          this.progress = 0;
-          this.message = "Could not upload the image! " + err;
-          this.currentImage = undefined;
-        });
-
-      axios({
+      http({
         url: "https://hangover.timotheedurand.fr/api/festivals",
         method: "Post",
         data: {
@@ -129,10 +106,7 @@ export default {
           endDate: this.endDate,
         },
 
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+       
       }).then((res) => {
         this.$store.dispatch("loadFestivals");
         this.response = res.data;

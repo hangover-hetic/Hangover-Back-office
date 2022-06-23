@@ -47,10 +47,10 @@ global.v = Vuex;
        store: store,
 
        mounted(){
-
+   
+        
         if(localStorage.getItem('token') !== null){
-            this.$store.commit("setAuthentification", true)
-            this.$router.replace('/home')
+           this.$router.replace('/home')
        }
        },
 
@@ -83,25 +83,18 @@ global.v = Vuex;
             this.$store.dispatch("submitForm");
             localStorage.removeItem('token');
             setTimeout(this.setToken, 1000)   
-
-
     },
 
     setToken(){
          // it sets the cookie called `username`
        
        localStorage.setItem('token', this.token.data.token);
-       console.log(this.token.data.token)
        this.$store.dispatch("loadFestivals");
       
 
        if(localStorage.getItem('token') !== null){
-            this.$store.commit("setAuthentification", true)
-            this.$store.dispatch("loadFestivals");
-            this.$router.replace({name : 'home'})
-            
-       }else{
-        console.log('username or password is not correct')
+            window.localStorage.setItem("rang", "admin")
+            this.$router.replace('/home')
        }
        
      },
@@ -114,8 +107,6 @@ global.v = Vuex;
 
 <style scoped lang="scss">
 @import "../assets/style/formulaire.scss";
-
-   
 
     .button-login {
         color       : rgb(255, 255, 255);

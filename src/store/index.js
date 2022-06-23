@@ -10,31 +10,22 @@ export default new Vuex.Store({
     username: '',
     password: '',
     token: '',
-    admin: false
-   
   },
+
   getters: {
+
     festivals: state => {
       return state.festivals;
-  },
-
-  screens: state => {
-      return state.screens;
-  },
-
-  token: state => {
-    return state.token
-  }
-
-  },
-  mutations: {
-
-    //Authentification
-
-    setAuthentification(state, status){
-        state.admin = status
     },
 
+    screens: state => {
+        return state.screens;
+    },
+
+  },
+
+
+  mutations: {
 
     SET_Festivals(state, festivals) {
       state.festivals = festivals
@@ -42,22 +33,25 @@ export default new Vuex.Store({
 
   SET_Screens(state, screens) {
     state.screens = screens
-},
+  },
+
     UPDATE_USERNAME (state, value) { state.username = value },
     UPDATE_PASSWORD (state, value) { state.password = value },
-
     POST_LOGIN(state, token) {state.token = token}
+
   },
+
+
   actions: {
+
     loadFestivals ({ commit }) {
       http
           .get('festivals')
           .then(response => response.data)
           .then(festivals => {
-    
-              commit('SET_Festivals',festivals)
+          commit('SET_Festivals',festivals)
       })
-  },
+    },
 
   loadScreens({ commit }) {
 
@@ -69,13 +63,12 @@ export default new Vuex.Store({
         .get('festivals/' + split)
         .then(response => response.data)
         .then(screens => {
-  
-            commit('SET_Screens',screens)
+        commit('SET_Screens',screens)
     })
-}, 
+
+  }, 
 
     submitForm ( {commit}) {
-      
     http({
           url: "authentication_token",
           method: "Post",
@@ -85,14 +78,11 @@ export default new Vuex.Store({
           },
           
       }).then(token => {
-        console.log(token.data.token)
         commit('POST_LOGIN', token)
-      } )
-      
-        
+      } ) .catch(function () {
+        alert('username or passwor is not corret please retry')
+      });
     }
   
   },
-  modules: {
-  }
 })
