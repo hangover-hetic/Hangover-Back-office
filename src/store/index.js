@@ -51,12 +51,7 @@ export default new Vuex.Store({
   actions: {
     loadFestivals ({ commit }) {
       http
-          .get('festivals', {
-              headers: {
-                'Accept': 'application/json',
-                
-              }
-          })
+          .get('festivals')
           .then(response => response.data)
           .then(festivals => {
     
@@ -71,12 +66,7 @@ export default new Vuex.Store({
     
 
     http
-        .get('festivals/' + split, {
-            headers: {
-              'Accept': 'application/json',
-              
-            }
-        })
+        .get('festivals/' + split)
         .then(response => response.data)
         .then(screens => {
   

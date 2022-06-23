@@ -27,7 +27,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
         if(store.state.admin == false){
           next(false);
-          router.push('/')
+          router.push('/createfestivals')
         }else{
           next()
         }
