@@ -6,7 +6,11 @@
 
 
 <script>
+export default {
+  
 
+
+}
 
 
 </script>
@@ -25,3 +29,5 @@ html{
 
 
 </style>
+
+

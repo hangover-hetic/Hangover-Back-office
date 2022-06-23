@@ -37,33 +37,77 @@
 </template>
 
 <script>
-import {http} from '../assets/services/http-common'
+import { mapState } from "vuex";
+import store from "/src/store/index";
+import Vuex from "vuex";
+global.v = Vuex;
 
 
        export default {
-        data () {
-            return {
-                username: null,
-                password: null
-            }
+       store: store,
+
+       mounted(){
+
+        if(localStorage.getItem('token') !== null){
+            this.$store.commit("setAuthentification", true)
+            this.$router.replace('/home')
+       }
+       },
+
+             
+
+        computed:{
+            ...mapState(["token"]),
+
+            username:{
+                        get(){
+                            return this.$store.state.username;
+                        },
+                        set(value){
+                            this.$store.commit("UPDATE_USERNAME", value);
+                        }
+            },
+            password:{
+                        get(){
+                            return this.$store.state.password;
+                        },
+                        set(value){
+                            this.$store.commit("UPDATE_PASSWORD", value);
+                        }
+            },
         },
+
         methods:{
-            submitForm (e) {
-                e.preventDefault()
-             http({
-                    url: "authentication_token",
-                    method: "Post",
-                    data: {
-                        username: this.username,
-                        password: this.password,
-                    },
-                     
-                }).then((res) => {
-                    //this.$store.dispatch("loadFestivals");
-                    this.response = res.data;
-                    console.log(res)
-                });
-            }
+           submitForm(e) {
+            e.preventDefault()
+            this.$store.dispatch("submitForm");
+            localStorage.removeItem('token');
+            setTimeout(this.setToken, 1000)   
+
+
+    },
+
+    setToken(){
+         // it sets the cookie called `username`
+       
+       localStorage.setItem('token', this.token.data.token);
+       console.log(this.token.data.token)
+       this.$store.dispatch("loadFestivals");
+      
+
+       if(localStorage.getItem('token') !== null){
+            this.$store.commit("setAuthentification", true)
+            this.$store.dispatch("loadFestivals");
+            this.$router.replace({name : 'home'})
+            
+       }else{
+        console.log('username or password is not correct')
+       }
+       
+     },
+
+    
+
         }
     }
 </script>

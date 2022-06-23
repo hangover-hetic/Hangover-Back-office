@@ -64,8 +64,12 @@ export default {
     };
   },
 
+
+
   mounted() {
-    this.$store.dispatch("loadFestivals");
+
+   this.$store.dispatch("loadFestivals")
+
   },
 
   methods: {

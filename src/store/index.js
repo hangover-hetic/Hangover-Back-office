@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-
-
-Vue.use(VueAxios, axios)
+import {http} from '../assets/services/http-common'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     festivals: '',
     screens: '',
+    username: '',
+    password: '',
+    token: '',
+    admin: false
+   
   },
   getters: {
     festivals: state => {
@@ -19,23 +20,41 @@ export default new Vuex.Store({
 
   screens: state => {
       return state.screens;
+  },
+
+  token: state => {
+    return state.token
   }
+
   },
   mutations: {
+
+    //Authentification
+
+    setAuthentification(state, status){
+        state.admin = status
+    },
+
+
     SET_Festivals(state, festivals) {
       state.festivals = festivals
   },
 
   SET_Screens(state, screens) {
     state.screens = screens
-}
+},
+    UPDATE_USERNAME (state, value) { state.username = value },
+    UPDATE_PASSWORD (state, value) { state.password = value },
+
+    POST_LOGIN(state, token) {state.token = token}
   },
   actions: {
     loadFestivals ({ commit }) {
-      axios
-          .get('https://hangover.timotheedurand.fr/api/festivals', {
+      http
+          .get('festivals', {
               headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                
               }
           })
           .then(response => response.data)
@@ -51,10 +70,11 @@ export default new Vuex.Store({
     const split = path.substr(10)
     
 
-    axios
-        .get('https://hangover.timotheedurand.fr/api/festivals/' + split, {
+    http
+        .get('festivals/' + split, {
             headers: {
-              'Accept': 'application/json'
+              'Accept': 'application/json',
+              
             }
         })
         .then(response => response.data)
@@ -62,7 +82,25 @@ export default new Vuex.Store({
   
             commit('SET_Screens',screens)
     })
-}
+}, 
+
+    submitForm ( {commit}) {
+      
+    http({
+          url: "authentication_token",
+          method: "Post",
+          data: {
+              username: this.state.username,
+              password: this.state.password,
+          },
+          
+      }).then(token => {
+        console.log(token.data.token)
+        commit('POST_LOGIN', token)
+      } )
+      
+        
+    }
   
   },
   modules: {

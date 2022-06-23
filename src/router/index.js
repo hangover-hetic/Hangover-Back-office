@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import home from '../views/home.vue'
 import FestivalView from '../views/ModifFestivals.vue'
 import CreateFestivals from '../views/CreateFestivals'
 import Login from '../views/ConnexionView'
@@ -10,10 +10,25 @@ import Account from '../views/Account'
 Vue.use(VueRouter)
 
 const routes = [
+
+  
   {
     path: '/',
+    redirect: {
+      name: 'login'
+    }
+  },
+  {
+    path: '/home',
     name: 'home',
-    component: HomeView
+    component: home,
+    beforeEnter: (to, from, next) => {
+        if(store.state.admin == false){
+          next(false);
+        }else{
+          next()
+        }
+    }
   },
   {
     path: '/festival/:name',
@@ -23,7 +38,7 @@ const routes = [
   {
     path: '/createfestivals',
     name: 'createfestivals',
-    component: CreateFestivals
+    component: CreateFestivals,
   },
   {
     path: '/login',
