@@ -49,7 +49,7 @@ global.v = Vuex;
        mounted(){
    
         
-        if(localStorage.getItem('token') !== null){
+        if(localStorage.getItem('token') !== null || window.localStorage.getItem('rang') !== 'ROLE_USER'){
            this.$router.replace('/home')
        }
        },
@@ -92,11 +92,9 @@ global.v = Vuex;
        this.$store.dispatch("loadFestivals");
       
 
-       if(localStorage.getItem('token') !== null){
-            window.localStorage.setItem("rang", "admin")
+       if(localStorage.getItem('rang') !== null || window.localStorage.getItem('rang') !== 'ROLE_USER'){
             this.$router.replace('/home')
        }
-       
      },
 
     

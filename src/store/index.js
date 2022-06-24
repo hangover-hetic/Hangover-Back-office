@@ -78,6 +78,8 @@ export default new Vuex.Store({
           },
           
       }).then(token => {
+        console.log(token.data.roles[0])
+        localStorage.setItem('rang', token.data.roles[0])
         commit('POST_LOGIN', token)
       } ) .catch(function () {
         alert('username or passwor is not corret please retry')

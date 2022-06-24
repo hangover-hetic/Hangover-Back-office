@@ -120,6 +120,7 @@ export default {
     this.$store.dispatch("loadFestivals");
     setTimeout(this.date, 500);
     this.token = localStorage.getItem('token')
+
    
     
    
@@ -145,7 +146,7 @@ export default {
       const path = window.location.pathname;
       const split = path.substr(10);
 
-if(this.screens.gallery[0] !== undefined){
+      if(this.screens.gallery[0] !== undefined){
       if (document.getElementById("image").files.length !== 0) {
           this.suppImage = this.screens.gallery[0].id;
 
@@ -164,18 +165,21 @@ if(this.screens.gallery[0] !== undefined){
           
 
           http({
-            url: "https://hangover.timotheedurand.fr/api/festivals/" + split,
+            url: "festivals/" + split,
             method: "Put",
             data: {
               gallery: ["api/media/" + this.idImage],
-            },
+            }, 
+            headers: {
+          
+          'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
 
            
           }).then((res) => {
             this.$store.dispatch("loadScreens");
             this.response = res.data;
-            
-            
           });
 
           this.message = response.data.message;
@@ -192,7 +196,7 @@ if(this.screens.gallery[0] !== undefined){
         });
 
       http({
-        url: "https://hangover.timotheedurand.fr/api/festivals/" + split,
+        url: "festivals/" + split,
         method: "Put",
         data: {
           name: this.screens.name,
@@ -202,11 +206,10 @@ if(this.screens.gallery[0] !== undefined){
           endDate: this.end_date,
           status: "PUBLISHED",
         },
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'Authorization': 'Bearer ' + this.token
+         headers: {
           
+          'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
       }).then((res) => {
         console.log(res);
