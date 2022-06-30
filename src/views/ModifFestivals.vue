@@ -132,8 +132,8 @@ export default {
 
   methods: {
     date() {
-      this.start_date = dayjs(this.screens.start_date).format("YYYY-MM-DD");
-      this.end_date = dayjs(this.screens.end_date).format("YYYY-MM-DD");      
+      this.start_date = dayjs(this.screens.startDate).format("YYYY-MM-DD");
+      this.end_date = dayjs(this.screens.endDate).format("YYYY-MM-DD");      
     },
 
     selectImage() {

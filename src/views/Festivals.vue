@@ -8,7 +8,19 @@
           <th align="left">Date</th>
           <th align="left">Lieu</th>
           <th align="left"></th>
-          <th align="left"><router-link to="/createfestivals"><img src="../assets/img/add.svg" alt="add"></router-link></th>
+
+          <th align="left">
+            <router-link
+              :to="{
+                name: 'createfestivals',
+                params:{
+                  orga: '/api/organisation_teams/' + this.orga
+                }
+             
+              }"
+              ><img src="../assets/img/add.svg" alt="add"
+            /></router-link>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +32,7 @@
           <td>
             <label for="elements">{{ item.name }}</label>
           </td>
-          <td>{{ dayjs(item.start_date).format("DD / MM / YYYY") }}</td>
+          <td>{{ dayjs(item.startDate).format("DD / MM / YYYY") }}</td>
           <td>{{ item.location }}</td>
           <td>
             <img
@@ -41,7 +53,7 @@
 <script>
 // @ is an alias to /src
 import TheNavbar from "@/components/Navbar";
-import {http} from '../assets/services/http-common'
+import { http } from "../assets/services/http-common";
 const dayjs = require("dayjs");
 import { mapState } from "vuex";
 import store from "/src/store/index";
@@ -61,39 +73,41 @@ export default {
       //checkbox: true,
       dayjs,
       tab: [],
+      orga: '',
     };
   },
 
-
-
   mounted() {
+    this.$store.dispatch("loadFestivals");
+    this.$store.dispatch("loadOrganisations")
 
-   this.$store.dispatch("loadFestivals")
-
+    const pathFestivals = window.location.pathname;
+    this.orga = pathFestivals.substr(11)
+    console.log(this.orga)
+    localStorage.setItem('orga', '/api/organisation_teams/' + this.orga)
   },
 
   methods: {
+    CallDelete(id) {
+      http
+        .delete("https://hangover.timotheedurand.fr/api/festivals/" + id)
+        .then((response) => {
+          console.log(response);
+  
+           this.$store.dispatch("loadFestivals");
+        });
+    },
+  },
 
-   CallDelete(id) {
-      
-  http
-  .delete('https://hangover.timotheedurand.fr/api/festivals/' + id)
-  .then(response => {
-    console.log(response);
-     this.$store.dispatch("loadFestivals");
-  });
-   }
-   },
-
-  computed: mapState(["festivals"]),
+  computed:{
+    ...mapState(["festivals", "organisations"])
+  } ,
 };
 </script>
 
 
 <style scoped lang="scss">
 @import "../assets/style/liste.scss";
-
-
 
 .home {
   margin: auto;

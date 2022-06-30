@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    organisations: '',
     festivals: '',
     screens: '',
     username: '',
@@ -15,7 +16,7 @@ export default new Vuex.Store({
   getters: {
 
     festivals: state => {
-      return state.festivals;
+      return state.festivals.data;
     },
 
     screens: state => {
@@ -26,6 +27,10 @@ export default new Vuex.Store({
 
 
   mutations: {
+
+    SET_ORGANISATIONS(state, organisations) {
+      state.organisations = organisations
+  },
 
     SET_Festivals(state, festivals) {
       state.festivals = festivals
@@ -44,13 +49,38 @@ export default new Vuex.Store({
 
   actions: {
 
-    loadFestivals ({ commit }) {
+    loadOrganisations ({ commit }) {
+
+      if(localStorage.getItem('rang') === "ROLE_ADMIN"){
       http
-          .get('festivals')
+          .get('organisation_teams')
+          .then(response => response.data)
+          .then(organisations => {
+          commit('SET_ORGANISATIONS',organisations)
+      })
+    }else{
+      http
+      .get('organisation_teams/user')
+      .then(response => response.data)
+      .then(organisations => {
+      commit('SET_ORGANISATIONS',organisations)
+  })
+    }
+    },
+
+    loadFestivals ({ commit }) {
+      const pathFestivals = window.location.pathname;
+    const splitFestivals = pathFestivals.substr(11)
+
+      http
+          .get('organisation_teams/' + splitFestivals + '/festivals')
           .then(response => response.data)
           .then(festivals => {
-          commit('SET_Festivals',festivals)
-      })
+            console.log(festivals)
+                commit('SET_Festivals',festivals)
+              })
+        
+      
     },
 
   loadScreens({ commit }) {

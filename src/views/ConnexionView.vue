@@ -50,7 +50,7 @@ global.v = Vuex;
    
         
         if(localStorage.getItem('token') !== null || window.localStorage.getItem('rang') !== 'ROLE_USER'){
-           this.$router.replace('/home')
+           this.$router.replace('/organisationTeam')
        }
        },
 
@@ -93,7 +93,7 @@ global.v = Vuex;
       
 
        if(localStorage.getItem('rang') !== null || window.localStorage.getItem('rang') !== 'ROLE_USER'){
-            this.$router.replace('/home')
+            this.$router.replace('/organisationTeam')
        }
      },
 

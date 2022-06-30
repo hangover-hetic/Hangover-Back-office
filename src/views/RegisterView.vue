@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import {http} from '../assets/services/http-common'
+import axios from 'axios';
 
 export default {
         data () {
@@ -83,7 +83,7 @@ export default {
         methods:{
             submitForm (e) {
                 e.preventDefault()
-                 http({
+                 axios({
                     url: "https://hangover.timotheedurand.fr/api/users",
                     method: "Post",
                     data: {

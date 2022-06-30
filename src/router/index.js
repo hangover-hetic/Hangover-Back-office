@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import home from '../views/home.vue'
+import festivals from '../views/Festivals.vue'
 import FestivalView from '../views/ModifFestivals.vue'
 import CreateFestivals from '../views/CreateFestivals'
 import Login from '../views/ConnexionView'
 import Register from '../views/RegisterView'
 import Account from '../views/Account'
+import OrganisationTeam from '../views/organisationTeam'
+import CreateOrganisation from '../views/CreateOrganisation'
 import Vuex from "vuex";
 global.v = Vuex;
 Vue.use(VueRouter)
@@ -20,9 +22,33 @@ const routes = [
     }
   },
   {
-    path: '/home',
-    name: 'home',
-    component: home,
+    path: '/organisationTeam',
+    name: 'OrganisationTeam',
+    component: OrganisationTeam,
+    beforeEnter: (to, from, next) => {
+        if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER'){
+          next()
+        }else{
+          router.push('/login')
+        }
+    }
+  },
+  {
+    path: '/CreateOrganisation',
+    name: 'CreateOrganisation',
+    component: CreateOrganisation,
+    beforeEnter: (to, from, next) => {
+        if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER'){
+          next()
+        }else{
+          router.push('/login')
+        }
+    }
+  },
+  {
+    path: '/festivals/:name',
+    name: 'festivals',
+    component: festivals,
     beforeEnter: (to, from, next) => {
         if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER'){
           next()
