@@ -37,15 +37,11 @@ jobs:
       - name: Build vue app
         run: npm run build
 
-      - name: Install SSH Key 🔐
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          known_hosts: 'placeholder'
-
-      - name: Adding Known Hosts 📄
-        run: ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_IP }} >> ~/.ssh/known_hosts
-
-      - name: Deploy to portfolio2022.timotheedurand.fr 😄
-        run: rsync --archive --delete --stats -e 'ssh -p ${{ secrets.SSH_PORT }}' ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/root/Back-office
-
+      - name: 🔑 Install SSH Key
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          
+      - name: 🚀 Deploy
+        run: rsync --archive --delete --stats -e 'ssh -p ${{ secrets.SSH_PORT }}' './dist/' ${{ secrets.SSH_HOST }}:${{ secrets.SSH_REMOTE_PATH }}
