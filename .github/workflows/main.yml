@@ -44,5 +44,5 @@ jobs:
           echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts 
           
       - name: 🚀 Deploy
-        run: rsync -avz -e '-p  ${{ secrets.SSH_PORT }}' './dist/' ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_REMOTE_PATH }}
+        run: rsync -avz --rsh='ssh -p${{ secrets.SSH_PORT }}' './dist/' ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_REMOTE_PATH }}
         #run: ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} ls 
