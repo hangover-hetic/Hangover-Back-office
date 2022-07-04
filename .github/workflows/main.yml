@@ -35,7 +35,7 @@ jobs:
         run: npm ci
       
       - name: Build vue app
-        run: npm run build
+        #run: npm run build
 
       - name: 🔑 Install SSH Key
         run: |
