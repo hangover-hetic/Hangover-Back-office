@@ -37,6 +37,8 @@ jobs:
       - name: Build vue app
         run: npm run build
         
+      - uses: GuillaumeFalourd/setup-rsync@v1
+        
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.2
         with:
