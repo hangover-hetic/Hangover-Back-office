@@ -42,6 +42,7 @@ jobs:
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          cat ~/.ssh/id_rsa 
           
       - name: 🚀 Deploy
         run: rsync --archive --delete --stats -e 'ssh -p ${{ secrets.SSH_PORT }} -i  ~/.ssh/id_rsa' './dist/' ${{ secrets.SSH_HOST }}:${{ secrets.SSH_REMOTE_PATH }}
