@@ -36,13 +36,6 @@ jobs:
       
       - name: Build vue app
         run: npm run build
-        
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          if_key_exists: ignore
-          key: ${{ secrets.SSH_KEY }} 
-          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
 
       - name: Install SSH Key 🔐
         uses: shimataro/ssh-key-action@v2
