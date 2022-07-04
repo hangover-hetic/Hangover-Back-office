@@ -36,15 +36,15 @@ jobs:
       
       - name: Build vue app
         run: npm run build
-
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
+        
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@5.2
         with:
-          key: ${{ secrets.SSH_KEY }} 
-          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
-      
-      - name: Adding Known Hosts
-        run: ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.HOST }}  >> ~/.ssh/known_hosts
-      
-      - name: Deploy with rsync
-        run: rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.HOST }}:/root/Back-office
+          switches: -avzr --delete
+          path: ./dist/
+          remote_path: ${{ secrets.SSH_REMOTE_PATH }}
+          remote_host: ${{ secrets.HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.SSH_KEY }} 
+          remote_port: ${{ secrets.SSH_PORT }} 
+
