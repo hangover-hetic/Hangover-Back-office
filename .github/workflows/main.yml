@@ -47,5 +47,5 @@ jobs:
         run: ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_IP }} >> ~/.ssh/known_hosts
 
       - name: Deploy to portfolio2022.timotheedurand.fr 😄
-        run: rsync --archive --delete --stats -e 'ssh -p ${{ secrets.SSH_PORT }}' ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/root/Back-office
+        run: rsync --archive --delete --stats -e 'ssh -p ${{ secrets.SSH_PORT }}' ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/root/Back-office
 
