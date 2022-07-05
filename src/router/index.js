@@ -26,7 +26,7 @@ const routes = [
     name: 'OrganisationTeam',
     component: OrganisationTeam,
     beforeEnter: (to, from, next) => {
-        if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER'){
+        if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
           next()
         }else{
           router.push('/login')
@@ -38,8 +38,8 @@ const routes = [
     name: 'CreateOrganisation',
     component: CreateOrganisation,
     beforeEnter: (to, from, next) => {
-        if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER'){
-          next()
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
+        next()
         }else{
           router.push('/login')
         }
@@ -50,8 +50,8 @@ const routes = [
     name: 'festivals',
     component: festivals,
     beforeEnter: (to, from, next) => {
-        if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER'){
-          next()
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
+        next()
         }else{
           router.push('/login')
         }
@@ -62,7 +62,7 @@ const routes = [
     name: 'festival',
     component: FestivalView,
     beforeEnter: (to, from, next) => {
-      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER'){
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
         next()
       }else{
         router.push('/login')
@@ -74,7 +74,7 @@ const routes = [
     name: 'createfestivals',
     component: CreateFestivals,
     beforeEnter: (to, from, next) => {
-      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER'){
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
         next()
       }else{
         router.push('/login')
@@ -96,7 +96,7 @@ const routes = [
     name: 'Account',
     component: Account,
     beforeEnter: (to, from, next) => {
-      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER'){
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
         next()
       }else{
         router.push('/login')

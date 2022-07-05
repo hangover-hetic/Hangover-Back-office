@@ -28,7 +28,7 @@
               v-on:click="CallDelete(item.id)"
             />
           </td>
-          <router-link :to="{ name: 'festivals', params: { name: item.id } }"
+          <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name} }"
             ><td><img src="../assets/img/edit.svg" /></td
           ></router-link>
         </tr>

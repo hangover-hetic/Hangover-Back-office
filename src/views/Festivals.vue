@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1 class="h1-title">Festivals</h1>
+    <h1 class="h1-title">{{NameOrga.name}}</h1>
     <table>
       <thead>
         <tr>
@@ -80,6 +80,7 @@ export default {
   mounted() {
     this.$store.dispatch("loadFestivals");
     this.$store.dispatch("loadOrganisations")
+    this.$store.dispatch("loadNameOrga")
 
     const pathFestivals = window.location.pathname;
     this.orga = pathFestivals.substr(11)
@@ -100,7 +101,7 @@ export default {
   },
 
   computed:{
-    ...mapState(["festivals", "organisations"])
+    ...mapState(["festivals", "organisations", "NameOrga"])
   } ,
 };
 </script>

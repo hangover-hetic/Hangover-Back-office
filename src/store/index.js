@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     organisations: '',
+    NameOrga: '',
     festivals: '',
     screens: '',
     username: '',
@@ -31,6 +32,10 @@ export default new Vuex.Store({
     SET_ORGANISATIONS(state, organisations) {
       state.organisations = organisations
   },
+
+  SET_NameOrga(state, NameOrga) {
+    state.NameOrga = NameOrga
+},
 
     SET_Festivals(state, festivals) {
       state.festivals = festivals
@@ -78,6 +83,21 @@ export default new Vuex.Store({
           .then(festivals => {
             console.log(festivals)
                 commit('SET_Festivals',festivals)
+              })
+        
+      
+    },
+
+    loadNameOrga ({ commit }) {
+      const pathNameOrga = window.location.pathname;
+    const splitNameOrga = pathNameOrga.substr(11)
+
+      http
+          .get('organisation_teams/' + splitNameOrga)
+          .then(response => response.data)
+          .then(NameOrga => {
+            console.log(NameOrga)
+                commit('SET_NameOrga',NameOrga)
               })
         
       

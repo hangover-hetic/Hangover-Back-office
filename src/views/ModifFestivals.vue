@@ -3,9 +3,10 @@
     <h1 class="h1-title">Modifier un festival</h1>
     <form @submit.prevent="modifFestivals">
       <div class="form">
-        <div class="box1" v-if="this.screens.gallery[0] !== undefined">
+        <div class="box1" v-if="this.screens.cover !== null">
           <div class="image">
-           <img :src="'https://hangover.timotheedurand.fr' + this.screens.gallery[0].contentUrl " alt="">
+           
+           <img :src="'https://hangover.timotheedurand.fr' + this.screens.cover.contentUrl " alt="">
           </div>
           <div class="selectFile">
             <input
@@ -168,7 +169,7 @@ export default {
             url: "festivals/" + split,
             method: "Put",
             data: {
-              gallery: ["api/media/" + this.idImage],
+              cover: "api/media/" + this.idImage,
             }, 
             headers: {
           
