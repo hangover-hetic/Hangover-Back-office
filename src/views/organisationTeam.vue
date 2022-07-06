@@ -8,6 +8,7 @@
           <th>Nombre de festivals</th>
           <th></th>
           <th align="left"></th>
+          <th align="left"></th>
           <th align="left"><router-link to="/CreateOrganisation"><img src="../assets/img/add.svg" alt="add"></router-link></th>
         </tr>
       </thead>
@@ -28,12 +29,21 @@
               v-on:click="CallDelete(item.id)"
             />
           </td>
+           <td><img v-on:click="addOrganisators()" src="../assets/img/add-organisators.svg" /></td>
           <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name} }"
-            ><td><img src="../assets/img/edit.svg" /></td
-          ></router-link>
+            ><td><img src="../assets/img/edit.svg" /></td></router-link>
+            
         </tr>
       </tbody>
     </table>
+
+    <div class="addOrganisators" id="addOrganisators">
+      <h3>Ajouter un organisateur</h3>
+
+      <input type="email"/>
+      <input type="submit" value="Ajouter un organisateur"/>
+
+    </div>
     <TheNavbar></TheNavbar>
     </div>
 </template>
@@ -65,6 +75,11 @@ export default {
           console.log(response);
             this.$store.dispatch("loadOrganisations")
         });
+    },
+
+    addOrganisators(){
+     const organisator = document.getElementById('addOrganisators')
+     organisator.classList.toggle('show')
     }
   },
 
@@ -87,5 +102,42 @@ export default {
             }
         }
     }
+}
+
+.addOrganisators{
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 300px;
+  border-radius: 15px;
+  background-color: #464646;
+  position: absolute;
+  justify-content: center;
+}
+
+.show{
+  display: flex!important;
+  flex-direction: column;
+
+  h3{
+    margin: 0 25px; 
+  }
+  
+  
+  input{
+    margin: 5px 25px;
+    color: #464646;
+    &:nth-child(2){
+        width: 350px;
+        margin-top: 10px;
+      }
+
+    &:nth-child(3){
+        width: 250px;
+        
+    }
+  }
 }
 </style>

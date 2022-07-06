@@ -98,6 +98,7 @@ export default {
                 }).then((res) => {
                     //this.$store.dispatch("loadFestivals");
                     this.response = res.data;
+                    this.$router.push('/')
                 });
             }
         }

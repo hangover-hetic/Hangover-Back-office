@@ -8,6 +8,7 @@ import Register from '../views/RegisterView'
 import Account from '../views/Account'
 import OrganisationTeam from '../views/organisationTeam'
 import CreateOrganisation from '../views/CreateOrganisation'
+import SingersPage from '../views/singers'
 import Vuex from "vuex";
 global.v = Vuex;
 Vue.use(VueRouter)
@@ -95,6 +96,18 @@ const routes = [
     path: '/Account',
     name: 'Account',
     component: Account,
+    beforeEnter: (to, from, next) => {
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
+        next()
+      }else{
+        router.push('/login')
+      }
+  }
+  },
+  {
+    path: '/singers/:name',
+    name: 'singers',
+    component: SingersPage,
     beforeEnter: (to, from, next) => {
       if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
         next()

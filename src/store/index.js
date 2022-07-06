@@ -58,7 +58,11 @@ export default new Vuex.Store({
 
       if(localStorage.getItem('rang') === "ROLE_ADMIN"){
       http
-          .get('organisation_teams')
+          .get('organisation_teams', {
+            header:{
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+          })
           .then(response => response.data)
           .then(organisations => {
           commit('SET_ORGANISATIONS',organisations)
@@ -75,7 +79,7 @@ export default new Vuex.Store({
 
     loadFestivals ({ commit }) {
       const pathFestivals = window.location.pathname;
-    const splitFestivals = pathFestivals.substr(11)
+      const splitFestivals = pathFestivals.substr(11)
 
       http
           .get('organisation_teams/' + splitFestivals + '/festivals')

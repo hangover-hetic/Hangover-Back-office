@@ -1,27 +1,26 @@
 <template>
     <div class="account">
         
-        <form submit.prevent="UpdateAccount">
+        <form @submit.prevent="UpdateAccount">
             <div class="user">
                 <div class="user__info">
 
                     <div class="rowOne">
-                     <label for="LastName">Nom</label>
-                     <input class="dotted" id="LastName" v-model="LastName" type="text" />
 
-                     <label for="FirstName">Prénom</label>
-                     <input class="dotted" id="FirstName" v-model="FirstName" type="text" />
+                        <label for="LastName">Nom</label>
+                        <input class="dotted" id="LastName" v-model="LastName" type="text" />
+                        <label for="FirstName">Prénom</label>
+                        <input class="dotted" id="FirstName" v-model="FirstName" type="text" />
+
                      </div>
                      <div class="rowOne">
-                     <label for="Email">Email</label>
-                     <input class="dotted" id="Email" v-model="Email" type="email" />
 
-                     <label for="Password">Password</label>
-                     <input class="dotted" id="Password" v-model="Password" type="password" />
-                     </div>
-<div class="rowOne">
-                     <label for="Birthday">Date de naissance</label>
-                     <input class="dotted" id="Birthday" v-model="Birthday" type="date" />
+                        <label for="Email">Email</label>
+                        <input class="dotted" id="Email" v-model="Email" type="email" />
+
+                        <label for="Password">Password</label>
+                        <input class="dotted" id="Password" v-model="Password" type="password" />
+
                      </div>
                 </div>
 

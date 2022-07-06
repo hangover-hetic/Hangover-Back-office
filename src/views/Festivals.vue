@@ -77,11 +77,13 @@ export default {
     };
   },
 
-  mounted() {
+  created(){
     this.$store.dispatch("loadFestivals");
     this.$store.dispatch("loadOrganisations")
     this.$store.dispatch("loadNameOrga")
+  },
 
+  mounted() {
     const pathFestivals = window.location.pathname;
     this.orga = pathFestivals.substr(11)
     console.log(this.orga)
@@ -89,6 +91,9 @@ export default {
   },
 
   methods: {
+
+    
+
     CallDelete(id) {
       http
         .delete("https://hangover.timotheedurand.fr/api/festivals/" + id)

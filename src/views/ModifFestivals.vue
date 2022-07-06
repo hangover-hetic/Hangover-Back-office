@@ -81,6 +81,47 @@
         <button type="submit">Modifier</button>
       </div>
     </form>
+
+     <form @submit.prevent="addSingers">
+     <h2>Chanteurs</h2>
+     <div class="form">
+        <div class="box1 flex" v-if="screens.singers.length !== 0">
+          <div class="singers" v-for="item in screens.singers" :key="item.singers">
+            <div class="image">
+              <label>{{item.name}}</label>
+              <img :src="'https://hangover.timotheedurand.fr' + item.image.contentUrl " alt="">
+            </div>
+          </div>
+        </div>
+
+        <div class="box1 hide" id="newSinger">
+          <label for="Username">Nom du chanteur</label>
+          <input
+                class="dotted"
+                id="Username"
+                v-model="username"
+                type="text"
+          />
+          <label for="image1">Image du chanteur</label>
+          <input
+            class="imageNone"
+            type="file"
+            accept="image/*"
+            id="image1"
+            ref="file1"
+            @change="selectImage"
+          />
+           <div class="button_create">
+            <button type="submit">Ajouter des chanteurs</button>
+         </div>
+        </div>
+        <div class="button_create" v-on:click="AddNewSinger">
+            <button>Ajouter un nouveau chanteur</button>
+         </div>
+        
+     </div>
+     
+     </form>
     <TheNavbar></TheNavbar>
   </div>
 </template>
@@ -112,7 +153,8 @@ export default {
       contentUrl: '',
       image: '',
       suppImage: '',
-      token: ''
+      token: '',
+      username: ''
     };
   },
 
@@ -121,10 +163,7 @@ export default {
     this.$store.dispatch("loadFestivals");
     setTimeout(this.date, 500);
     this.token = localStorage.getItem('token')
-
-   
     
-   
 
     UploadService.getFiles().then((response) => {
       this.imageInfos = response.data;
@@ -132,14 +171,25 @@ export default {
   },
 
   methods: {
+
+    AddNewSinger(){
+      const newSinger = document.getElementById("newSinger")
+      newSinger.classList.toggle('show')
+    },
+
     date() {
       this.start_date = dayjs(this.screens.startDate).format("YYYY-MM-DD");
-      this.end_date = dayjs(this.screens.endDate).format("YYYY-MM-DD");      
+      this.end_date = dayjs(this.screens.endDate).format("YYYY-MM-DD");    
+      console.log(this.screens)  
     },
 
     selectImage() {
       this.currentImage = this.$refs.file.files.item(0);
+      this.currentSingers = this.$refs.file1.files.item(0);
       this.previewImage = URL.createObjectURL(this.currentImage);
+      this.previewSingers = URL.createObjectURL(this.currentSingers);
+
+      
     },
 
 
@@ -162,8 +212,6 @@ export default {
       UploadService.upload(this.currentImage)
         .then((response) => {
           this.idImage = response.data.id;
-          
-          
 
           http({
             url: "festivals/" + split,
@@ -219,6 +267,48 @@ export default {
         
       });
     },
+
+    addSingers(){
+        const path = window.location.pathname;
+        const split = path.substr(10);
+
+         UploadService.upload(this.currentSingers)
+        .then((response) => {
+          this.idImage = response.data.id;
+
+          http({
+            url: "singers",
+            method: "Post",
+            data: {
+              name: this.username,
+              image: "api/media/" + this.idImage,
+              festival: '/api/festivals/' + split
+            }, 
+            headers: {
+          
+          'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+
+           
+          }).then((res) => {
+            this.$store.dispatch("loadScreens");
+            this.response = res.data;
+          });
+
+          this.message = response.data.message;
+          return UploadService.getFiles();
+        })
+        .then((images) => {
+          this.imageInfos = images.data;
+          console.log(this.previewSingers);
+        })
+        .catch((err) => {
+          this.progress = 0;
+          this.message = "Could not upload the image! " + err;
+          this.currentSingers = undefined;
+        });
+    },
   },
 
   computed: {
@@ -236,6 +326,14 @@ export default {
   margin: auto;
 }
 
+.hide{
+  display: none!important;
+}
+
+.show{
+  display: block!important;
+}
+
 th {
   padding-bottom: 0 !important;
 
@@ -250,10 +348,24 @@ th {
   }
 }
 
+.flex{
+  display: flex;
+  flex-direction: row!important;
+  flex-wrap: wrap;
+  
+
+  .singers{
+  
+   
+   
+  }
+}
+
 .box1 {
   display: flex;
   align-items: center;
   flex-direction: column;
+
   input {
     display: flex;
     align-self: center;
@@ -262,6 +374,9 @@ th {
 
   .image{
 
+    display: flex;
+    flex-direction: column;
+    
     img{
       height: 200px;
       width: 170px;
@@ -274,4 +389,6 @@ th {
     padding: 75px 15px!important;
   }
 }
+
+
 </style>
