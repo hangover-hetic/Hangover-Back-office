@@ -8,7 +8,10 @@ export const http = axios.create({
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
-    'Authorization': 'Bearer ' + localStorage.getItem('token')
     
   },
 })
+
+if(localStorage.getItem('token')){
+  http.defaults.headers['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+}

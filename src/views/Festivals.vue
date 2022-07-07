@@ -107,7 +107,7 @@ export default {
 
   computed:{
     ...mapState(["festivals", "organisations", "NameOrga"])
-  } ,
+  },
 };
 </script>
 

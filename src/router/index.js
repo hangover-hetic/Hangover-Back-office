@@ -5,11 +5,14 @@ import FestivalView from '../views/ModifFestivals.vue'
 import CreateFestivals from '../views/CreateFestivals'
 import Login from '../views/ConnexionView'
 import Register from '../views/RegisterView'
-import Account from '../views/Account'
 import OrganisationTeam from '../views/organisationTeam'
 import CreateOrganisation from '../views/CreateOrganisation'
 import SingersPage from '../views/singers'
+import User from '../views/user'
+import UserEdit from '../views/userEdit'
 import Vuex from "vuex";
+
+
 global.v = Vuex;
 Vue.use(VueRouter)
 
@@ -93,9 +96,10 @@ const routes = [
     component: Register
   },
   {
-    path: '/Account',
+    path: '/Account/:name',
     name: 'Account',
-    component: Account,
+
+    component: UserEdit,
     beforeEnter: (to, from, next) => {
       if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
         next()
@@ -104,6 +108,33 @@ const routes = [
       }
   }
   },
+
+  {
+    path: '/users',
+    name: 'users',
+    component: User,
+    beforeEnter: (to, from, next) => {
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN'){
+        next()
+      }else{
+        router.push('/login')
+      }
+  }
+  },
+
+  {
+    path: '/user/:name',
+    name: 'user',
+    component: UserEdit,
+    beforeEnter: (to, from, next) => {
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
+        next()
+      }else{
+        router.push('/login')
+      }
+  }
+  },
+
   {
     path: '/singers/:name',
     name: 'singers',

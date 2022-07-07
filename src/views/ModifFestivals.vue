@@ -88,6 +88,11 @@
         <div class="box1 flex" v-if="screens.singers.length !== 0">
           <div class="singers" v-for="item in screens.singers" :key="item.singers">
             <div class="image">
+              <img
+              src="../assets/img/delete.svg"
+              v-on:click="CallDelete(item.id)"
+              style="width: 50px; height: 50px;position: relative; left: 110px; top: 70px;"
+            />
               <label>{{item.name}}</label>
               <img :src="'https://hangover.timotheedurand.fr' + item.image.contentUrl " alt="">
             </div>
@@ -309,7 +314,18 @@ export default {
           this.currentSingers = undefined;
         });
     },
+
+    CallDelete(id) {
+      http
+        .delete("https://hangover.timotheedurand.fr/api/singers/" + id)
+        .then((response) => {
+          console.log(response);
+          this.$store.dispatch("loadScreens");
+          this.$store.dispatch("loadFestivals");
+        });
+    },
   },
+
 
   computed: {
     ...mapState(["screens", "festivals"]),
@@ -325,6 +341,9 @@ export default {
 .container {
   margin: auto;
 }
+.button_create > button{
+  width: 144px;
+}
 
 .hide{
   display: none!important;
@@ -335,7 +354,7 @@ export default {
 }
 
 th {
-  padding-bottom: 0 !important;
+  padding-bottom: 0!important;
 
   &:nth-child(2) {
     text-align: right;
@@ -352,13 +371,6 @@ th {
   display: flex;
   flex-direction: row!important;
   flex-wrap: wrap;
-  
-
-  .singers{
-  
-   
-   
-  }
 }
 
 .box1 {

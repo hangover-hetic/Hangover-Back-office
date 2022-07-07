@@ -15,10 +15,10 @@ export default {
             <a href="#">
                 <font-awesome-icon icon="fa-solid fa-display" class="size"/>
             </a>
-            <a href="#">
+            <router-link to="/users" v-if="role">
                <font-awesome-icon icon="fa-solid fa-user-group" class="size"/>
-            </a>
-            <router-link to="/Account">
+            </router-link>
+            <router-link :to="{path : '/account/' + idUser}" >
                <font-awesome-icon icon="fa-solid fa-circle-user" class="size"/>
             </router-link>
             <a href="#" v-on:click="signOut()">
@@ -32,6 +32,25 @@ export default {
 
 
 export default {
+
+    data(){
+        return{
+            role: false,
+            idUser: ''
+        }
+    },
+
+    mounted(){
+        if(window.localStorage.getItem('rang') === 'ROLE_ADMIN'){
+            this.role = true
+        }else{
+            this.role = false
+        }
+
+        this.idUser = localStorage.getItem('idUser')
+        
+    },
+
     methods:{
         signOut(){
             localStorage.removeItem('rang');

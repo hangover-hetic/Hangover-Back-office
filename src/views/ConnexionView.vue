@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import {http} from '../assets/services/http-common'
 import { mapState } from "vuex";
 import store from "/src/store/index";
 import Vuex from "vuex";
@@ -84,11 +85,12 @@ global.v = Vuex;
          // it sets the cookie called `username`
        
        localStorage.setItem('token', this.token.data.token);
+       http.defaults.headers['Authorization'] = 'Bearer ' + this.token.data.token
        this.$store.dispatch("loadFestivals");
       
 
-       if(localStorage.getItem('rang') !== null || window.localStorage.getItem('rang') !== 'ROLE_USER'){
-            this.$router.replace('/organisationTeam')
+       if(localStorage.getItem('rang') !== null || window.localStorage.getItem('rang') !== 'ROLE_USER' && localStorage.getItem('token')){
+            this.$router.push({path:'organisationTeam', params:{ token : this.token.data.token }})
        }
      },
 

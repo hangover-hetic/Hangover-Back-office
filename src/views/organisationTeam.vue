@@ -29,7 +29,7 @@
               v-on:click="CallDelete(item.id)"
             />
           </td>
-           <td><img v-on:click="addOrganisators()" src="../assets/img/add-organisators.svg" /></td>
+           <td><img v-on:click="addOrganisators(item.id)" src="../assets/img/add-organisators.svg" /></td>
           <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name} }"
             ><td><img src="../assets/img/edit.svg" /></td></router-link>
             
@@ -39,17 +39,17 @@
 
     <div class="addOrganisators" id="addOrganisators">
       <h3>Ajouter un organisateur</h3>
-
-      <input type="email"/>
-      <input type="submit" value="Ajouter un organisateur"/>
-
+      <form @submit.prevent="CallAddUser">
+        <input type="email" v-model="email"/>
+        <input type="submit" value="Ajouter un organisateur"/>
+      </form>
     </div>
     <TheNavbar></TheNavbar>
     </div>
 </template>
 
 <script>
-import { http } from "@/assets/services/http-common";
+import http from '../router/index'
 import TheNavbar from "@/components/Navbar";
 import { mapState } from "vuex";
 import store from "/src/store/index";
@@ -63,11 +63,20 @@ export default {
     TheNavbar,
   },
 
+  data(){
+    return{
+      email: '',
+      idOrga: '',
+
+    }
+  },
+
   mounted(){
     this.$store.dispatch("loadOrganisations")
   },
 
   methods:{
+
     CallDelete(id) {
       http
         .delete("organisation_teams/" + id)
@@ -77,9 +86,29 @@ export default {
         });
     },
 
-    addOrganisators(){
+    addOrganisators(id){
      const organisator = document.getElementById('addOrganisators')
      organisator.classList.toggle('show')
+     console.log(id)
+     this.idOrga = id
+    },
+
+    CallAddUser(){
+       http
+      .get('users?email=' + this.email)
+      .then(res => {
+      const relatedUser = res.data[0].id;
+
+      http
+      .post('organisators', {
+          relatedUser : "/api/users/" + relatedUser,
+          organisationTeam: "/api/organisation_teams/" + this.idOrga
+      })
+      .then(res => {
+        res.data
+        this.$store.dispatch("loadOrganisations")
+      })
+    })
     }
   },
 
