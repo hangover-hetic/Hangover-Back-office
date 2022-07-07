@@ -119,7 +119,7 @@ export default new Vuex.Store({
 
     loadNameOrga ({ commit }) {
       const pathNameOrga = window.location.pathname;
-      const splitNameOrga = pathNameOrga.substr(11)
+      const splitNameOrga = pathNameOrga.substr(-1)
 
       http
           .get('organisation_teams/' + splitNameOrga)

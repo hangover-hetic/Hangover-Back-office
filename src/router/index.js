@@ -10,6 +10,7 @@ import CreateOrganisation from '../views/CreateOrganisation'
 import SingersPage from '../views/singers'
 import User from '../views/user'
 import UserEdit from '../views/userEdit'
+import organisators from '../views/organisators'
 import Vuex from "vuex";
 
 
@@ -139,6 +140,18 @@ const routes = [
     path: '/singers/:name',
     name: 'singers',
     component: SingersPage,
+    beforeEnter: (to, from, next) => {
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
+        next()
+      }else{
+        router.push('/login')
+      }
+  }
+  },
+  {
+    path: '/organisators/:name',
+    name: 'organisators',
+    component: organisators,
     beforeEnter: (to, from, next) => {
       if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
         next()

@@ -32,7 +32,8 @@
            <td><img v-on:click="addOrganisators(item.id)" src="../assets/img/add-organisators.svg" /></td>
           <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name} }"
             ><td><img src="../assets/img/edit.svg" /></td></router-link>
-            
+            <router-link :to="{ name: 'organisators', params: { name: item.id} }"
+            ><td><img src="../assets/img/peoplegroupe.svg" /></td></router-link>
         </tr>
       </tbody>
     </table>
@@ -168,5 +169,9 @@ export default {
         
     }
   }
+}
+
+.size{
+  font-size: 1.7rem;
 }
 </style>
