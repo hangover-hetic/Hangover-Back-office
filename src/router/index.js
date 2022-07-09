@@ -11,6 +11,8 @@ import SingersPage from '../views/singers'
 import User from '../views/user'
 import UserEdit from '../views/userEdit'
 import organisators from '../views/organisators'
+import licences from '../views/licence/licences'
+import licence from '../views/licence/licence'
 import Vuex from "vuex";
 
 
@@ -103,6 +105,32 @@ const routes = [
     component: UserEdit,
     beforeEnter: (to, from, next) => {
       if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
+        next()
+      }else{
+        router.push('/login')
+      }
+  }
+  },
+
+  {
+    path: '/licences',
+    name: 'licences',
+    component: licences,
+    beforeEnter: (to, from, next) => {
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN'){
+        next()
+      }else{
+        router.push('/login')
+      }
+  }
+  },
+
+  {
+    path: '/licence',
+    name: 'licence',
+    component: licence,
+    beforeEnter: (to, from, next) => {
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN'){
         next()
       }else{
         router.push('/login')

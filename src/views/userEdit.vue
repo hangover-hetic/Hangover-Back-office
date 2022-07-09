@@ -66,7 +66,8 @@ global.v = Vuex;
 
          mounted() {
             const path = window.location.pathname;
-            this.split = path.substr(5)
+            const str = path.split('/');
+            this.split = str[str.length-1]
             this.$store.dispatch("getUser")
         },
 
@@ -75,7 +76,7 @@ global.v = Vuex;
           editUser(){
             if(localStorage.getItem('rang', 'ROLE_ADMIN')){
                 http
-                .put('users' + this.split, {
+                .put('users/' + this.split, {
                     firstName: this.user.firstName,
                     lastName: this.user.lastName,
                     email: this.user.email,
@@ -85,7 +86,7 @@ global.v = Vuex;
                 })
             }else{
                  http
-                .put('users' + this.split, {
+                .put('users/' + this.split, {
                     firstName: this.user.firstName,
                     lastName: this.user.lastName,
                     email: this.user.email,

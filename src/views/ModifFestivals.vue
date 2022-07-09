@@ -282,7 +282,7 @@ export default {
           this.idImage = response.data.id;
 
           http({
-            url: "singers",
+            url: "shows",
             method: "Post",
             data: {
               name: this.username,
@@ -317,7 +317,7 @@ export default {
 
     CallDelete(id) {
       http
-        .delete("https://hangover.timotheedurand.fr/api/singers/" + id)
+        .delete("shows/" + id)
         .then((response) => {
           console.log(response);
           this.$store.dispatch("loadScreens");

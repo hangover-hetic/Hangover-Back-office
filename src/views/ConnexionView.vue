@@ -43,6 +43,7 @@ global.v = Vuex;
        store: store,
 
        mounted(){
+           localStorage.setItem('rang', 'ou')
    
         
         if(localStorage.getItem('token') !== null || window.localStorage.getItem('rang') !== 'ROLE_USER'){
@@ -83,7 +84,7 @@ global.v = Vuex;
 
     setToken(){
          // it sets the cookie called `username`
-       
+        
        localStorage.setItem('token', this.token.data.token);
        http.defaults.headers['Authorization'] = 'Bearer ' + this.token.data.token
        this.$store.dispatch("loadFestivals");

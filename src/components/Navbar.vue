@@ -9,7 +9,7 @@ export default {
     <div class="navbar">
         <nav>
             <div id="logo" />
-            <router-link to="/">
+            <router-link to="/organisationTeam">
                 <font-awesome-icon icon="fa-solid fa-building" class="size"/>
             </router-link>
             <a href="#">
@@ -20,6 +20,9 @@ export default {
             </router-link>
             <router-link :to="{path : '/account/' + idUser}" >
                <font-awesome-icon icon="fa-solid fa-circle-user" class="size"/>
+            </router-link>
+            <router-link :to="{path : '/licences'}" v-if="role">
+               <font-awesome-icon icon="fa-solid fa-file-contract" class="size"/>
             </router-link>
             <a href="#" v-on:click="signOut()">
                 <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="size-arrow-bottom"/>

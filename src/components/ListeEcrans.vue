@@ -1,132 +1,103 @@
 <template>
-    <div class="menu">
-        <table>
-            <tbody>
-                <tr class="categories">
-                    <div class="categories__partOne">
-                        <td>
-                              <input type="checkbox" name="festivals" style="background-color: #000000"/>
-                              <label for="festivals">Sélectionner tous les éléments</label>
-                              <img src="../assets/img/icon_material-sort.svg" />
-                        </td>
-                        <td>Date<img src="../assets/img/icon_material-sort.svg" /></td>
-                        <td>Lieu<img src="../assets/img/icon_material-sort.svg" /></td>
-                    </div>
-                    <div class="categories__partTwo">
-                        <td><button>Supprimer</button></td>
-                    </div>
-                </tr>
-                <tr class="categories bibaboup" v-for="item in festivals" :key="item.festivals">
-                    <div class="categories__partOne">
-                        <td> <input type="checkbox" class="elements" name="elements"
-                                style="background-color: #000000"><label for="elements">{{ item.name }}</label></td>
-                        <td>{{ dayjs(item.start_date).format('DD/MM/YYYY') }}</td>
-                        <td>{{ item.location }}</td>
-                    </div> 
-                </tr>
-            </tbody>
-        </table>
+    <div class="users">
+        <h1 class="h1-title">Utilisateurs</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Nom de l'oganisation</th>
+          <th align="left">Acheté</th>
+          <th align="left">Date de début</th>
+          <th align="left">Date de fin</th>
+          <th align="left"></th>
+
+          <th align="left">
+           <img src="../assets/img/add.svg" alt="add"
+            />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="categories bibaboup"
+          v-for="item in {arr}"
+          :key="item"
+        >
+          <td><label>{{item.organisationTeam}}</label></td>  
+          <td>
+            <label for="elements">{{ item.isBuyed ? 'oui' : 'non' }}</label>
+          </td>
+          <td><label for="elements">{{ dayjs(item.startDate).format("DD / MM / YYYY") }}</label></td>
+          <td>{{ dayjs(item.endDate).format("DD / MM / YYYY") }}</td>
+          <td>
+            <img
+              src="../assets/img/delete.svg"
+              v-on:click="CallDelete(item.id)"
+            />
+          </td>
+         <router-link :to="{ name: 'user', params: { name: item.id } }"
+            ><td><img src="../assets/img/edit.svg" /></td
+          ></router-link>
+        </tr>
+      </tbody>
+    </table>
+    <TheNavbar></TheNavbar>
     </div>
 </template>
 
 <script>
-const dayjs = require('dayjs')
+const dayjs = require("dayjs");
+import {http} from '../assets/services/http-common'
+import TheNavbar from "@/components/Navbar";
+import { mapState } from "vuex";
+import store from "/src/store/index";
+import Vuex from "vuex";
+global.v = Vuex;
 
-export default {
-    name: 'ListeEcrans',
+    export default {
+        name: 'ListeEcransVue',
+        
+        components: {
+            TheNavbar,
+        },
 
-    data() {
-        return {
-            festivals: '',
-            checkbox: true,
-            dayjs,
-            
-        }
-    },
+        props:{
+            firstname: Array
+        },
 
-    mounted() {
-        this.callNameFestivals  ();
-    },
+        data(){
+            return{
+                dayjs,
+            }
+        },
 
-    methods: {
+        store: store,
+
+         mounted() {
+            this.$store.dispatch("getLicence");            
+        },
+
+        methods:{
+            CallDelete(id) {
+                http
+                .delete("licences/" + id)
+                .then((response) => {
+                    response.data    
+                    this.$store.dispatch("getLicence");
+                });
+            },
+        },
 
 
-        callNameFestivals() {
-            this.$http
-                .get('festivals?page=1', {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(res => {
-                    this.festivals = res.data
-                }
-                )
-        }
+        computed: {
+            ...mapState(["licences"]),
+        },
     }
-}
-
 </script>
 
 <style scoped lang="scss">
-* {
-    font-family: 'Poppins', sans-serif;
+@import "../assets/style/liste.scss";
 
-}
-
-table {
-    width: 70%;
-    tbody {
-
-        .bibaboup {
-
-            .categories__partOne {
-                td:first-child {
-                    min-width: 286px;
-                }
-
-                td {
-                    input {
-                        accent-color: #202020
-                    }
-                }
-
-                td:nth-child(3) {
-                    margin-left: 17px;
-                }
-            }
-        }
-
-        .categories {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid white;
-            height: 2.5vw;
-
-            .categories__partOne {
-                display: flex;
-                justify-content: left;
-                gap: 10%;
-                width: 100%;
-                align-items: center;
-
-                td {
-                    color: #FFFFFF;
-
-                    img {
-                        margin-left: 5px;
-                    }
-
-                }
-            }
-
-            .categories__partTwo {
-                display: flex;
-                align-items: center;
-                color: #FFFFFF;
-
-            }
-        }
-    }
+th{
+    text-align: left;
 }
 </style>

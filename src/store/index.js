@@ -15,6 +15,7 @@ export default new Vuex.Store({
     token: '',
     users: '',
     user: '',
+    licences: '',
   },
 
   getters: {
@@ -33,6 +34,10 @@ export default new Vuex.Store({
 
     user: state =>{
       return state.user
+    },
+
+    licences: state =>{
+      return state.licences
     }
 
   },
@@ -64,6 +69,10 @@ export default new Vuex.Store({
     state.user = user
   },
 
+  SET_Licences(state, licences) {
+    state.licences = licences
+  },
+
     UPDATE_USERNAME (state, value) { state.username = value },
     UPDATE_PASSWORD (state, value) { state.password = value },
     POST_LOGIN(state, token) {state.token = token}
@@ -74,8 +83,6 @@ export default new Vuex.Store({
   actions: {
 
     loadOrganisations ({ commit }) {
-
-   
 
       if(localStorage.getItem('rang') === "ROLE_ADMIN"){
       http
@@ -118,8 +125,9 @@ export default new Vuex.Store({
     },
 
     loadNameOrga ({ commit }) {
-      const pathNameOrga = window.location.pathname;
-      const splitNameOrga = pathNameOrga.substr(-1)
+      const path = window.location.pathname;
+      const str = path.split('/');
+      const splitNameOrga = str[str.length-1]
 
       http
           .get('organisation_teams/' + splitNameOrga)
@@ -153,7 +161,6 @@ export default new Vuex.Store({
           },
           
           }).then(token => {
-              console.log(token.data)
               localStorage.setItem('rang', token.data.roles[0])
               localStorage.setItem('idUser', token.data.user.id)
               commit('POST_LOGIN', token)
@@ -164,7 +171,9 @@ export default new Vuex.Store({
 
     getUser( {commit} ){
       const path = window.location.pathname;
-      const split = path.substr(-1)
+      const str = path.split('/');
+      const split = str[str.length-1]
+      console.log(split)
 
       http
           .get('users/' + split)
@@ -180,7 +189,22 @@ export default new Vuex.Store({
                   window.location.href = "/";
                 }
           })
+    },
+
+    getLicence( {commit} ){
+
+      http
+          .get('licences')
+          .then(licences => {
+                this.licences = licences.data
+                console.log(this.licences)
+                commit('SET_Licences', licences.data)
+              }).catch(error=>{
+               console.log(error)
+          })
     }
         
   },
+
+  
 })
