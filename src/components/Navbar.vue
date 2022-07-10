@@ -12,9 +12,6 @@ export default {
             <router-link to="/organisationTeam">
                 <font-awesome-icon icon="fa-solid fa-building" class="size"/>
             </router-link>
-            <a href="#">
-                <font-awesome-icon icon="fa-solid fa-display" class="size"/>
-            </a>
             <router-link to="/users" v-if="role">
                <font-awesome-icon icon="fa-solid fa-user-group" class="size"/>
             </router-link>
@@ -23,6 +20,9 @@ export default {
             </router-link>
             <router-link :to="{path : '/licences'}" v-if="role">
                <font-awesome-icon icon="fa-solid fa-file-contract" class="size"/>
+            </router-link>
+             <router-link :to="{path : '/styleSingers'}" v-if="role">
+               <font-awesome-icon icon="fa-solid fa-music" class="size"/>
             </router-link>
             <a href="#" v-on:click="signOut()">
                 <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="size-arrow-bottom"/>

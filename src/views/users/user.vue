@@ -4,14 +4,13 @@
     <table>
       <thead>
         <tr>
-          <th>Nom de l'oganisation</th>
-          <th align="left">Acheté</th>
-          <th align="left">Date de début</th>
-          <th align="left">Date de fin</th>
+          <th align="left">Prénom</th>
+          <th align="left">Nom</th>
+          <th align="left">Email</th>
           <th align="left"></th>
 
           <th align="left">
-           <img src="../assets/img/add.svg" alt="add"
+           <img src="../../assets/img/add.svg" alt="add"
             />
           </th>
         </tr>
@@ -19,23 +18,22 @@
       <tbody>
         <tr
           class="categories bibaboup"
-          v-for="item in {arr}"
-          :key="item"
+          v-for="item in users"
+          :key="item.users"
         >
-          <td><label>{{item.organisationTeam}}</label></td>  
           <td>
-            <label for="elements">{{ item.isBuyed ? 'oui' : 'non' }}</label>
+            <label for="elements">{{ item.firstName }}</label>
           </td>
-          <td><label for="elements">{{ dayjs(item.startDate).format("DD / MM / YYYY") }}</label></td>
-          <td>{{ dayjs(item.endDate).format("DD / MM / YYYY") }}</td>
+          <td><label for="elements">{{ item.lastName }}</label></td>
+          <td>{{ item.email }}</td>
           <td>
             <img
-              src="../assets/img/delete.svg"
+              src="../../assets/img/delete.svg"
               v-on:click="CallDelete(item.id)"
             />
           </td>
          <router-link :to="{ name: 'user', params: { name: item.id } }"
-            ><td><img src="../assets/img/edit.svg" /></td
+            ><td><img src="../../assets/img/edit.svg" /></td
           ></router-link>
         </tr>
       </tbody>
@@ -45,8 +43,7 @@
 </template>
 
 <script>
-const dayjs = require("dayjs");
-import {http} from '../assets/services/http-common'
+import {http} from '../../assets/services/http-common'
 import TheNavbar from "@/components/Navbar";
 import { mapState } from "vuex";
 import store from "/src/store/index";
@@ -54,50 +51,36 @@ import Vuex from "vuex";
 global.v = Vuex;
 
     export default {
-        name: 'ListeEcransVue',
+        name: 'UserPage',
         
         components: {
             TheNavbar,
         },
 
-        props:{
-            firstname: Array
-        },
-
-        data(){
-            return{
-                dayjs,
-            }
-        },
-
         store: store,
 
          mounted() {
-            this.$store.dispatch("getLicence");            
+            this.$store.dispatch("loadUsers");
         },
 
         methods:{
             CallDelete(id) {
                 http
-                .delete("licences/" + id)
+                .delete("users/" + id)
                 .then((response) => {
                     response.data    
-                    this.$store.dispatch("getLicence");
+                    this.$store.dispatch("loadUsers");
                 });
             },
         },
 
 
         computed: {
-            ...mapState(["licences"]),
+            ...mapState(["users"]),
         },
     }
 </script>
 
 <style scoped lang="scss">
-@import "../assets/style/liste.scss";
-
-th{
-    text-align: left;
-}
+@import "../../assets/style/liste.scss";
 </style>

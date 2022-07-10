@@ -16,6 +16,7 @@ export default new Vuex.Store({
     users: '',
     user: '',
     licences: '',
+    styles: ''
   },
 
   getters: {
@@ -38,7 +39,11 @@ export default new Vuex.Store({
 
     licences: state =>{
       return state.licences
-    }
+    },
+
+    styles: state =>{
+      return state.styles
+    },
 
   },
 
@@ -71,6 +76,10 @@ export default new Vuex.Store({
 
   SET_Licences(state, licences) {
     state.licences = licences
+  },
+
+  SET_Styles(state, styles) {
+    state.styles = styles
   },
 
     UPDATE_USERNAME (state, value) { state.username = value },
@@ -202,9 +211,24 @@ export default new Vuex.Store({
               }).catch(error=>{
                console.log(error)
           })
-    }
+    },
         
-  },
+  
+
+  getStyles( {commit} ){
+
+    http
+        .get('styles')
+        .then(styles => {
+              this.styles = styles.data
+              commit('SET_Styles', styles.data)
+            }).catch(error=>{
+             console.log(error)
+        })
+  }
+
+      
+},
 
   
 })

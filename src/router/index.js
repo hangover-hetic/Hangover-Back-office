@@ -1,27 +1,35 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import festivals from '../views/Festivals.vue'
-import FestivalView from '../views/ModifFestivals.vue'
-import CreateFestivals from '../views/CreateFestivals'
+
+import festivals from '../views/festivals/Festivals.vue'
+import FestivalView from '../views/festivals/ModifFestivals.vue'
+import CreateFestivals from '../views/festivals/CreateFestivals'
+
+
 import Login from '../views/ConnexionView'
 import Register from '../views/RegisterView'
-import OrganisationTeam from '../views/organisationTeam'
-import CreateOrganisation from '../views/CreateOrganisation'
-import SingersPage from '../views/singers'
-import User from '../views/user'
-import UserEdit from '../views/userEdit'
-import organisators from '../views/organisators'
-import licences from '../views/licence/licences'
-import licence from '../views/licence/licence'
+
+import OrganisationTeam from '../views/organisations/organisationTeam'
+import CreateOrganisation from '../views/organisations/CreateOrganisation'
+import organisators from '../views/organisations/organisators'
+
+import User from '../views/users/user'
+import UserEdit from '../views/users/userEdit'
+
+import licences from '../views/licences/licences'
+
+import styleSingers from '../views/styleSingers/styleSingers'
+
+import alertModal from '../plugins/alert'
 import Vuex from "vuex";
 
-
 global.v = Vuex;
+
 Vue.use(VueRouter)
+Vue.use(alertModal)
 
 const routes = [
 
-  
   {
     path: '/',
     redirect: {
@@ -126,19 +134,6 @@ const routes = [
   },
 
   {
-    path: '/licence',
-    name: 'licence',
-    component: licence,
-    beforeEnter: (to, from, next) => {
-      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN'){
-        next()
-      }else{
-        router.push('/login')
-      }
-  }
-  },
-
-  {
     path: '/users',
     name: 'users',
     component: User,
@@ -163,19 +158,6 @@ const routes = [
       }
   }
   },
-
-  {
-    path: '/singers/:name',
-    name: 'singers',
-    component: SingersPage,
-    beforeEnter: (to, from, next) => {
-      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN' || window.localStorage.getItem('rang') === 'ROLE_USER' || window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'){
-        next()
-      }else{
-        router.push('/login')
-      }
-  }
-  },
   {
     path: '/organisators/:name',
     name: 'organisators',
@@ -188,14 +170,19 @@ const routes = [
       }
   }
   },
+
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/styleSingers',
+    name: 'styleSingers',
+    component: styleSingers,
+    beforeEnter: (to, from, next) => {
+      if(window.localStorage.getItem('rang') === 'ROLE_ADMIN'){
+        next()
+      }else{
+        router.push('/login')
+      }
   }
+  },
 ]
 
 const router = new VueRouter({

@@ -1,18 +1,52 @@
 <template>
-  <div class="createorganisation">
-    <h1 class="h1-title">Créer une organisation teams</h1>
+  <div class="createfestivals">
+    <h1 class="h1-title">Créer un festival</h1>
     
-    <form @submit.prevent="PostOrganisation">
+    <form @submit.prevent="PostFestival">
       <div class="form">
         <div class="form__field">
           <div class="field__left">
             <div class="left__column">
               <label for="name">Nom du festival</label>
               <input class="dotted" id="name" v-model="name" type="text" />
+
+              <label for="lieuFestival">Lieu du festival</label>
+              <input
+                class="dotted"
+                id="lieuFestival"
+                v-model="location"
+                type="text"
+              />
             </div>
-        
+            <div class="right__column">
+              <label for="date">Date de début</label>
+              <input
+                class="dotted"
+                id="date_start"
+                v-model="startDate"
+                type="date"
+              />
+
+              <label for="date">Date de fin</label>
+              <input
+                class="dotted"
+                id="date_end"
+                v-model="endDate"
+                type="date"
+              />
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="form__description">
+        <label for="description">Description</label>
+        <textarea
+          class="dotted"
+          id="description"
+          v-model="description"
+          type="text"
+        />
       </div>
       <div class="button_create">
         <button type="submit">Créer</button>
@@ -26,7 +60,7 @@
 <script>
 import TheNavbar from "@/components/Navbar";
 const dayjs = require("dayjs");
-import {http} from '../assets/services/http-common'
+import {http} from '../../assets/services/http-common'
 //import { mapState } from "vuex";
 //import store from "/src/store/index";
 //import Vuex from "vuex";
@@ -63,13 +97,18 @@ export default {
   methods: {
    
 
-    PostOrganisation() {
+    PostFestival() {
 
       http({
-        url: "organisation_teams",
+        url: "https://hangover.timotheedurand.fr/api/festivals",
         method: "Post",
         data: {
+          organisationTeam : localStorage.getItem('orga'),
           name: this.name,
+          description: this.description,
+          location: this.location,
+          startDate: this.startDate,
+          endDate: this.endDate,
         },
 
        
@@ -92,8 +131,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/style/liste.scss";
-@import "../assets/style/festivalInput.scss";
+@import "../../assets/style/liste.scss";
+@import "../../assets/style/festivalInput.scss";
 
 
 .createfestivals {

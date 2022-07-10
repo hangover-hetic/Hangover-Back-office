@@ -18,7 +18,7 @@
                 }
              
               }"
-              ><img src="../assets/img/add.svg" alt="add"
+              ><img src="../../assets/img/add.svg" alt="add"
             /></router-link>
           </th>
         </tr>
@@ -36,12 +36,12 @@
           <td>{{ item.location }}</td>
           <td>
             <img
-              src="../assets/img/delete.svg"
+              src="../../assets/img/delete.svg"
               v-on:click="CallDelete(item.id)"
             />
           </td>
           <router-link :to="{ name: 'festival', params: { name: item.id } }"
-            ><td><img src="../assets/img/edit.svg" /></td
+            ><td><img src="../../assets/img/edit.svg" /></td
           ></router-link>
         </tr>
       </tbody>
@@ -53,7 +53,7 @@
 <script>
 // @ is an alias to /src
 import TheNavbar from "@/components/Navbar";
-import { http } from "../assets/services/http-common";
+import { http } from "../../assets/services/http-common";
 const dayjs = require("dayjs");
 import { mapState } from "vuex";
 import store from "/src/store/index";
@@ -113,7 +113,7 @@ export default {
 
 
 <style scoped lang="scss">
-@import "../assets/style/liste.scss";
+@import "../../assets/style/liste.scss";
 
 .home {
   margin: auto;

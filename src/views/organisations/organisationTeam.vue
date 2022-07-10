@@ -6,10 +6,8 @@
         <tr>
           <th align="left">Nom</th>
           <th>Nombre de festivals</th>
-          <th></th>
-          <th align="left"></th>
-          <th align="left"></th>
-          <th align="left"><router-link to="/CreateOrganisation"><img src="../assets/img/add.svg" alt="add"></router-link></th>
+
+          <th align="right"><router-link to="/CreateOrganisation"><img src="../../assets/img/add.svg" alt="add"></router-link></th>
         </tr>
       </thead>
       <tbody>
@@ -22,18 +20,22 @@
             <label for="elements">{{ item.name }}</label>
           </td>
            <td>{{item.festivals.length}}</td>
-          <td></td>
-          <td>
+         
+          
+          <td class="icons">
             <img
-              src="../assets/img/delete.svg"
+              src="../../assets/img/delete.svg"
               v-on:click="CallDelete(item.id)"
             />
-          </td>
-           <td><img v-on:click="addOrganisators(item.id)" src="../assets/img/add-organisators.svg" /></td>
-          <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name} }"
-            ><td><img src="../assets/img/edit.svg" /></td></router-link>
+            <img v-on:click="addOrganisators(item.id)" src="../../assets/img/add-organisators.svg" />
+            <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name} }"
+            ><img src="../../assets/img/edit.svg" /></router-link>
             <router-link :to="{ name: 'organisators', params: { name: item.id} }"
-            ><td><img src="../assets/img/peoplegroupe.svg" /></td></router-link>
+            ><img src="../../assets/img/peoplegroupe.svg" /></router-link>
+          </td>
+          
+          
+            
         </tr>
       </tbody>
     </table>
@@ -50,7 +52,7 @@
 </template>
 
 <script>
-import http from '../router/index'
+import http from '../../router/index'
 import TheNavbar from "@/components/Navbar";
 import { mapState } from "vuex";
 import store from "/src/store/index";
@@ -118,7 +120,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../assets/style/liste.scss";
+@import "../../assets/style/liste.scss";
 
 .organisationTeam{
     margin: auto;
@@ -132,6 +134,15 @@ export default {
             }
         }
     }
+}
+
+td.icons{
+  display: flex;
+  justify-content: right;
+  gap: 15px;
+  img{
+    margin: 0;
+  }
 }
 
 .addOrganisators{

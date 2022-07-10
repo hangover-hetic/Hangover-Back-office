@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import {http} from '../assets/services/http-common'
+import {http} from '../../assets/services/http-common'
 import TheNavbar from "@/components/Navbar";
 import { mapState } from "vuex";
 import store from "/src/store/index";
@@ -107,7 +107,7 @@ global.v = Vuex;
 </script>
 
 <style scoped lang="scss">
-@import '../assets/style/festivalInput.scss';
+@import '../../assets/style/festivalInput.scss';
 
 .user{
     display: flex;

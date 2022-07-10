@@ -9,7 +9,7 @@
           <th align="left">Date de début</th>
           <th align="left">Date de fin</th>
           <th align="left"></th>
-
+          <th align="left"></th>
           <th align="left">
             <img src="../../assets/img/add.svg" alt="add" />
           </th>
@@ -17,28 +17,28 @@
       </thead>
       <tbody>
         <tr class="categories bibaboup" v-for="item in licences" :key="item.licences">
-          <td><label>{{ item.organisationTeam }}</label></td>
+          <td><label>{{ item.organisationTeam.name }}</label></td>
           <td>
             <label for="elements">{{ item.isBuyed ? 'oui' : 'non' }}</label>
           </td>
           <td><label for="elements">{{ dayjs(item.startDate).format("DD / MM / YYYY") }}</label></td>
-          <td>{{ dayjs(item.endDate).format("DD / MM / YYYY") }}</td>
+          <td>{{ dayjs(item.endDate).format("DD / MM / YYYY") }}</td><td></td>
           <td>
             <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
           </td>
           <router-link :to="{ name: 'user', params: { name: item.id } }">
-            <td><img src="../../assets/img/edit.svg" /></td>
+          <td>  <img src="../../assets/img/edit.svg" /></td>
           </router-link>
         </tr>
       </tbody>
     </table>
     <TheNavbar></TheNavbar>
-    <successVue :success="success" class=""></successVue>
+    <alertVue ref="alert"/>
   </div>
 </template>
 
 <script>
-import successVue from '@/components/success.vue';
+import alertVue from '@/components/alert.vue';
 const dayjs = require("dayjs");
 import { http } from '../../assets/services/http-common'
 import TheNavbar from "@/components/Navbar";
@@ -52,13 +52,14 @@ export default {
 
   components: {
     TheNavbar,
-    successVue
+    alertVue
   },
 
   data() {
     return {
       dayjs,
-      success: 'Paul'
+      msg: '',
+      img: 'success'
     }
   },
 
@@ -66,24 +67,46 @@ export default {
 
   mounted() {
     this.$store.dispatch("getLicence");
+   
   },
 
   methods: {
     CallDelete(id) {
       http
         .delete("licences/" + id)
-        .then((response) => {
-          response.data
+        .then(() => {
           this.$store.dispatch("getLicence");
-
-          const success = document.querySelector('.success')
-          success.classList.add('show')
-
-          setTimeout(() => {
-            success.classList.remove('show')
-          }, 5000)
+          this.showModal()
+          this.$refs.alert.Alert()
+          
+        }).catch(error=>{
+            this.img = 'error'
+            if(error.response.status === 404){
+              this.msg = 'la licence n\'existe pas'
+            }else if(error.response.status === 401){
+              this.msg = 'vous n\'êtes pas autorisé à supprimer cette licence'
+            }else{
+              this.msg = 'une erreur est survenu : ' + error.message
+            }
+            this.$refs.alert.Alert()
         });
     },
+
+    showModal() {
+      // we must pass object params with all the information
+      const params = {
+        img: "Test!",
+        msg: "test test test",
+        // we are passing callback method for our confirm button
+        onConfirm: () => {
+          return this.alertFunc();
+        }
+      };
+      // now we can call function that will reveal our modal
+      this.$modal.show(params)
+    },
+
+          
   },
 
 
@@ -96,9 +119,7 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/style/liste.scss";
 
-.show {
-  display: block !important
-}
+
 
 th {
   text-align: left;

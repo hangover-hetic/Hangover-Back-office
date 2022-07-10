@@ -13,7 +13,13 @@ class UploadFilesService {
       });
     }
     getFiles() {
-      return axios.get("https://hangover.timotheedurand.fr/api/festivals");
+      return axios.get("https://hangover.timotheedurand.fr/api/festivals", 
+      {
+        headers : {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+        
+      });
     }
   }
   export default new UploadFilesService();

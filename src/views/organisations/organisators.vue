@@ -10,7 +10,7 @@
           <th align="left">Administrateur</th>
 
           <th align="left">
-           <img src="../assets/img/add.svg" alt="add"
+           <img src="../../assets/img/add.svg" alt="add"
             />
           </th>
         </tr>
@@ -29,7 +29,7 @@
           <td>{{ item.isAdministrator ? 'oui' : 'non' }}</td>
           <td>
             <img
-              src="../assets/img/delete.svg"
+              src="../../assets/img/delete.svg"
               v-on:click="CallDelete( item.relatedUser.id)"
             />
           </td>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {http} from '../assets/services/http-common'
+import {http} from '../../assets/services/http-common'
 import TheNavbar from "@/components/Navbar";
 import { mapState } from "vuex";
 import store from "/src/store/index";
@@ -86,5 +86,5 @@ global.v = Vuex;
 </script>
 
 <style scoped lang="scss">
-@import "../assets/style/liste.scss";
+@import "../../assets/style/liste.scss";
 </style>
