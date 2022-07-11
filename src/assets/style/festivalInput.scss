@@ -1,95 +1,95 @@
-  .h1-title {
+.h1-title {
     font-size: 50px;
     color: #fff;
-  }
+}
 
 textarea,
 input {
-  width: 100%;
-  background-color: #202020;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: 2px dashed rgb(147, 147, 147);
-  border-radius: 4px;
-  cursor: pointer;
+    width: 100%;
+    background-color: #202020;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: 2px dashed rgb(147, 147, 147);
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 textarea {
-  height: 100px;
+    height: 100px;
 }
 
 label {
-  color: #fff;
+    color: #fff;
 }
 
 button {
-  border-width: 1px;
-  border-color: #fff;
-  color: #fff;
-  background-color: #202020;
-  width: 100px;
-  height: 50px;
+    border-width: 1px;
+    border-color: #fff;
+    color: #fff;
+    background-color: #202020;
+    width: 100px;
+    height: 50px;
 }
 
 .button_create {
-  display: flex;
-  justify-content: right;
-  width: 72%;
+    display: flex;
+    justify-content: right;
+    width: 72%;
 
-  button {
-    cursor: pointer;
-  }
+    button {
+        cursor: pointer;
+    }
 }
 
 .form {
-  display: flex;
-  gap: 5%;
-  width: 70%;
-  margin-bottom: 5%;
-
-  .form__field {
     display: flex;
-    flex-direction: column;
-    gap: 10%;
-    width: 100%;
+    gap: 5%;
+    width: 70%;
+    margin-bottom: 5%;
 
-    .field__left {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      gap: 10%;
-
-      .right__column,
-      .left__column {
+    .form__field {
         display: flex;
         flex-direction: column;
-        width: 50%;
-      }
-    }
+        gap: 10%;
+        width: 100%;
 
-    .field__right {
-      width: 100%;
+        .field__left {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 10%;
+
+            .right__column,
+            .left__column {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+            }
+        }
+
+        .field__right {
+            width: 100%;
+        }
     }
-  }
 }
 
 .form__description {
-  width: 70%;
+    width: 70%;
 }
 
 .box {
-  color: rgb(54, 53, 53);
-  border: 2px dashed;
-  height: 200px;
-  width: 200px;
-  cursor: pointer;
+    color: rgb(54, 53, 53);
+    border: 2px dashed;
+    height: 200px;
+    width: 200px;
+    cursor: pointer;
 }
 
 .custom-icon {
-  width: 13rem;
-  display: table-cell;
-  font-size: 3rem;
-  padding: 4.5rem 0;
-  text-align: center;
+    width: 13rem;
+    display: table-cell;
+    font-size: 3rem;
+    padding: 4.5rem 0;
+    text-align: center;
 }

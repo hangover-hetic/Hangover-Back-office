@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "npm run serve -- --port 3000"
+    "start": "npm run serve -- --port 3000",
+    "format": "npx prettier --write ./src"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -15,6 +16,7 @@
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.3",
+    "event-source-polyfill": "^1.0.26",
     "pretty-checkbox-vue": "^1.1.9",
     "register-service-worker": "^1.7.2",
     "vue": "^2.6.14",
@@ -34,7 +36,10 @@
     "@vue/cli-service": "~5.0.0",
     "deepmerge": "^4.2.2",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^8.0.3",
+    "prettier": "^2.7.1",
     "sass": "^1.32.13",
     "sass-loader": "^12.6.0",
     "vue-template-compiler": "^2.6.14"
