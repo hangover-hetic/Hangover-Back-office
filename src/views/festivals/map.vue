@@ -1,7 +1,11 @@
 <template>
 
     <div class="map">
+<<<<<<< HEAD
         <h1 class="h1-title">Carte</h1>
+=======
+        <h1>Carte</h1>
+>>>>>>> adrien
         <div class="searchbar">
             <form @submit.prevent="searchCity">
                 <input type="text" v-model="localisation" placeholder="Rue, ville du festival">
@@ -10,6 +14,7 @@
                 {{ loc.longitude }}
             </form>
         </div>
+<<<<<<< HEAD
         <div class="carte">
             <label>
                 <gmap-autocomplete @place_changed="initMarker"></gmap-autocomplete>
@@ -29,6 +34,11 @@
     </div>
 
 
+=======
+        <TheNavbar></TheNavbar>
+    </div>
+
+>>>>>>> adrien
 </template>
 
 <script>
@@ -45,6 +55,7 @@ export default {
     data() {
         return {
             localisation: '',
+<<<<<<< HEAD
             loc: '',
             center: {
                 lat: '',
@@ -60,12 +71,19 @@ export default {
         this.locateGeoLocation();
     },
 
+=======
+            loc: ''
+        }
+    },
+
+>>>>>>> adrien
     methods: {
         searchCity() {
             axios
                 .get('http://api.positionstack.com/v1/forward?access_key=0d29376a9dd42c92d6070823c2866fea&query=' + this.localisation)
                 .then((loc) => {
                     this.loc = loc.data.data[0]
+<<<<<<< HEAD
                     this.center.lat = this.loc.latitude;
                     this.center.lng = this.loc
                 })
@@ -95,6 +113,9 @@ export default {
                     lng: res.coords.longitude
                 };
             });
+=======
+                })
+>>>>>>> adrien
         }
     }
 
@@ -104,8 +125,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+<<<<<<< HEAD
 @import '../../assets/style/fonts.scss';
 
+=======
+>>>>>>> adrien
 .searchbar {
     width: 800px;
     margin: 0 50% 0 40%;
