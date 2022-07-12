@@ -57,7 +57,7 @@ export default {
 
     methods: {
         CallDelete(id) {
-            http.delete('styles/' + id).then((response) => {
+            http.delete('styles/' + id).then(() => {
                 this.$store.dispatch('getStyles')
             })
         },

@@ -6,6 +6,8 @@ import FestivalView from '../views/festivals/ModifFestivals.vue'
 import chanteur from '../views/festivals/Singers.vue'
 import moderation from '../views/festivals/feed.vue'
 import CreateFestivals from '../views/festivals/CreateFestivals'
+import carte from '../views/festivals/map'
+import screens from '../views/festivals/screens'
 
 import Login from '../views/ConnexionView'
 import Register from '../views/RegisterView'
@@ -121,6 +123,40 @@ const routes = [
         path: '/moderation/:id',
         name: 'moderation',
         component: moderation,
+        beforeEnter: (to, from, next) => {
+            if (
+                window.localStorage.getItem('rang') === 'ROLE_ADMIN' ||
+                window.localStorage.getItem('rang') === 'ROLE_USER' ||
+                window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'
+            ) {
+                next()
+            } else {
+                router.push('/login')
+            }
+        },
+    },
+
+    {
+        path: '/screens/:name',
+        name: 'screens',
+        component: screens,
+        beforeEnter: (to, from, next) => {
+            if (
+                window.localStorage.getItem('rang') === 'ROLE_ADMIN' ||
+                window.localStorage.getItem('rang') === 'ROLE_USER' ||
+                window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'
+            ) {
+                next()
+            } else {
+                router.push('/login')
+            }
+        },
+    },
+
+    {
+        path: '/carte/:id',
+        name: 'carte',
+        component: carte,
         beforeEnter: (to, from, next) => {
             if (
                 window.localStorage.getItem('rang') === 'ROLE_ADMIN' ||

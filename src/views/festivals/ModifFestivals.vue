@@ -9,11 +9,8 @@
 
                 <div class="logo__festival selectFile__logo" v-else>
                     <input type="file" accept="image/*" id="icon" ref="logo" @change="selectImage" />
-                    <img
-                        :src="'https://hangover.timotheedurand.fr' + this.screens.logo.contentUrl"
-                        alt=""
-                        v-on:click="addIcon()"
-                    />
+                    <img :src="'https://hangover.timotheedurand.fr' + this.screens.logo.contentUrl" alt=""
+                        v-on:click="addIcon()" />
                 </div>
 
                 <div class="title">
@@ -24,25 +21,16 @@
             <div class="form">
                 <div class="box1" v-if="this.screens.cover !== null">
                     <div class="image__festivals">
-                        <img
-                            v-if="this.screens.cover.contentUrl !== undefined"
-                            :src="'https://hangover.timotheedurand.fr' + this.screens.cover.contentUrl"
-                            alt=""
-                            v-on:click="addImage()"
-                        />
+                        <img v-if="this.screens.cover.contentUrl !== undefined"
+                            :src="'https://hangover.timotheedurand.fr' + this.screens.cover.contentUrl" alt=""
+                            v-on:click="addImage()" />
                         <input type="file" accept="image/*" id="image" ref="file" @change="selectImage" />
                     </div>
                 </div>
 
                 <div class="box1" v-else>
-                    <input
-                        class="imageNone"
-                        type="file"
-                        accept="image/*"
-                        id="imageNotFound"
-                        ref="file"
-                        @change="selectImage"
-                    />
+                    <input class="imageNone" type="file" accept="image/*" id="imageNotFound" ref="file"
+                        @change="selectImage" />
                 </div>
 
                 <div class="form__field">
@@ -72,14 +60,10 @@
                             </select>
                         </div>
 
-                        <div class="screens">
-                            <div class="create__screen">
-                                <button type="button" v-on:click="addScreens()">Créer un écran</button>
-
-                                <div class="tokenScreens" v-for="item in tokenScreens" :key="item.tokenScreens">
-                                    <label>{{ item.token }}</label>
-                                </div>
-                            </div>
+                        <div class="addScreen">
+                            <router-link :to="{ name: 'screens', params: { name: this.split } }" type="button">Créer des
+                                nouveaux écrans
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -94,9 +78,13 @@
                 <button type="submit">Modifier</button>
             </div>
             <div class="button_create">
-                <router-link :to="{ name: 'moderation', params: { id: this.split } }" type="button"
-                    >Modifier</router-link
-                >
+                <router-link :to="{ name: 'moderation', params: { id: this.split } }" type="button">Moderation
+                </router-link>
+            </div>
+            <div class="button_create">
+                <router-link :to="{ name: 'carte', params: { id: this.split } }" type="button">Map
+
+                </router-link>
             </div>
         </form>
 
@@ -105,15 +93,12 @@
             <div class="box1 flex">
                 <div class="singers" v-for="item in screens.shows" :key="item.shows">
                     <div class="image" v-if="item.image !== null">
-                        <img
-                            src="../../assets/img/delete.svg"
-                            v-on:click="CallDelete(item.id)"
-                            style="width: 25px; height: 25px; position: relative; left: 130px; top: 60px"
-                        />
+                        <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)"
+                            style="width: 25px; height: 25px; position: relative; left: 130px; top: 60px" />
                         <label>{{ item.name }}</label>
-                        <router-link :to="{ name: 'chanteur', params: { id: item.id } }"
-                            ><img :src="'https://hangover.timotheedurand.fr' + item.image.contentUrl" alt=""
-                        /></router-link>
+                        <router-link :to="{ name: 'chanteur', params: { id: item.id } }"><img
+                                :src="'https://hangover.timotheedurand.fr' + item.image.contentUrl" alt="" />
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -138,14 +123,8 @@
                         </select>
 
                         <label for="image1">Image du chanteur</label>
-                        <input
-                            class="imageNone"
-                            type="file"
-                            accept="image/*"
-                            id="image1"
-                            ref="file1"
-                            @change="selectImage"
-                        />
+                        <input class="imageNone" type="file" accept="image/*" id="image1" ref="file1"
+                            @change="selectImage" />
 
                         <div class="button_create">
                             <button type="submit">Ajouter des chanteurs</button>
@@ -264,7 +243,7 @@ export default {
                         this.message = response.data.message
                         return UploadService.getFiles()
                     })
-                    .catch(() => {})
+                    .catch(() => { })
             }
 
             this.file = document.getElementById('icon')
@@ -290,7 +269,7 @@ export default {
                         this.message = response.data.message
                         return UploadService.getFiles()
                     })
-                    .catch(() => {})
+                    .catch(() => { })
             }
 
             http({
@@ -338,7 +317,7 @@ export default {
                     this.message = response.data.message
                     return UploadService.getFiles()
                 })
-                .catch(() => {})
+                .catch(() => { })
         },
 
         CallDelete(id) {
@@ -379,6 +358,7 @@ export default {
     align-content: flex-start;
     gap: 5%;
 }
+
 .container {
     margin: auto;
 
@@ -386,9 +366,11 @@ export default {
         display: flex;
         align-items: center;
         gap: 15px;
+
         .selectFile__logo {
             display: flex;
             align-items: center;
+
             input {
                 width: 0.1px;
                 height: 0.1px;
@@ -401,6 +383,7 @@ export default {
                 height: 50px;
             }
         }
+
         .logo__festival {
             img {
                 cursor: pointer;
@@ -411,7 +394,8 @@ export default {
         }
     }
 }
-.button_create > button {
+
+.button_create>button {
     width: 144px;
 }
 
@@ -490,6 +474,7 @@ select {
             padding: 0;
             border: 0px;
         }
+
         img {
             height: 300px;
             cursor: pointer;
