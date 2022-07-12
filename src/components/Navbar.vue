@@ -10,7 +10,7 @@ export default {
             <div id="logo">
                 <img src="../assets/img/hangover-logo.png" alt="">
             </div>
-            <router-link to="/organisationTeam">
+            <router-link to="/organisationTeam" class="is-active">
                 <font-awesome-icon icon="fa-solid fa-building" class="size" />
             </router-link>
             <router-link to="/users" v-if="role">
@@ -114,6 +114,10 @@ nav a .fa {
     font-size: 1.4rem;
     padding: 1.1rem 0;
     text-align: center;
+}
+
+a.is-active {
+    background-color: rgb(99, 99, 99);
 }
 
 a:hover {

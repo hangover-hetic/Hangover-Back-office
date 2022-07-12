@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="button_create">
-                <button type="submit">Modifier</button>
+                <button class="button-border" type="submit">Modifier</button>
             </div>
         </form>
 
@@ -81,6 +81,15 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/style/liste.scss';
 @import '../../assets/style/festivalInput.scss';
+
+.createorganisation {
+    width: 93%;
+
+    .form {
+        width: 96.5%;
+        margin-bottom: 32px;
+    }
+}
 
 .createfestivals {
     margin: auto;

@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="button_create">
-                <button type="submit">Créer</button>
+                <button class="button-border" type="submit">Créer</button>
             </div>
         </form>
         <alertVue :msg="msg" :img="img" ref="alert" />
@@ -95,6 +95,14 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/style/liste.scss';
 @import '../../assets/style/festivalInput.scss';
+
+.createorganisation {
+    width: 93%;
+
+    .form {
+        margin-bottom: 32px;
+    }
+}
 
 .createfestivals {
     margin: auto;

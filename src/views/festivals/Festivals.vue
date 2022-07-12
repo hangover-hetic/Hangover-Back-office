@@ -31,12 +31,15 @@
                     </td>
                     <td>{{ dayjs(item.startDate).format('DD / MM / YYYY') }}</td>
                     <td>{{ item.location }}</td>
-                    <td class="icon">
+
+                    <td></td>
+
+                    <td class="icons">
                         <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
+                        <router-link :to="{ name: 'festival', params: { name: item.id } }">
+                            <img class="edit-icon" src="../../assets/img/edit.svg" />
+                        </router-link>
                     </td>
-                    <router-link :to="{ name: 'festival', params: { name: item.id } }"
-                        ><td class="icon"><img class="edit-icon" src="../../assets/img/edit.svg" /></td
-                    ></router-link>
                 </tr>
             </tbody>
         </table>

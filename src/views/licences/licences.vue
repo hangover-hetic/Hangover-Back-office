@@ -4,7 +4,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Nom de l'oganisation</th>
+                    <th>Nom de l'organisation</th>
                     <th align="left">Acheté</th>
                     <th align="left">Date de début</th>
                     <th align="left">Date de fin</th>
@@ -25,12 +25,13 @@
                     </td>
                     <td>{{ dayjs(item.endDate).format('DD / MM / YYYY') }}</td>
                     <td></td>
-                    <td>
+
+                    <td class="icons">
                         <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
+                        <router-link :to="{ name: 'licence', params: { name: item.id } }">
+                            <img class="edit-icon" src="../../assets/img/edit.svg" />
+                        </router-link>
                     </td>
-                    <router-link :to="{ name: 'licence', params: { name: item.id } }">
-                        <td><img src="../../assets/img/edit.svg" /></td>
-                    </router-link>
                 </tr>
             </tbody>
         </table>

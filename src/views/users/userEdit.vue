@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <input type="submit" value="Modifier" />
+            <input class="input-border modify-btn" type="submit" value="Modifier" />
         </form>
 
         <TheNavbar></TheNavbar>
@@ -164,6 +164,11 @@ export default {
 
 <style scoped lang="scss">
 @import '../../assets/style/festivalInput.scss';
+@import '../../assets/style/fonts.scss';
+
+.userEdit {
+    width: 93%;
+}
 
 .user {
     display: flex;

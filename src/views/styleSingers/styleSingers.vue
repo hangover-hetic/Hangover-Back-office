@@ -1,11 +1,15 @@
 <template>
     <div class="organisationTeam">
-        <h1 class="h1-title">OrganisationTeam</h1>
+        <h1 class="h1-title">Genres musicaux</h1>
         <table>
             <thead>
                 <tr>
-                    <th align="left">Nom du style de musique</th>
-                    <th align="right"><img src="../../assets/img/add.svg" alt="add" v-on:click="addStyles()" /></th>
+                    <th align="left">Nom du genre musical</th>
+                    <th align="right">
+                        <div class="add-icon">
+                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" v-on:click="addStyles()" />
+                        </div>
+                    </th>
                 </tr>
             </thead>
             <tbody>

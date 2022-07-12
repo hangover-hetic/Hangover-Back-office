@@ -9,8 +9,10 @@
                     <th align="left">Email</th>
                     <th align="left">Administrateur</th>
 
-                    <th align="left">
-                        <img src="../../assets/img/add.svg" alt="add" />
+                    <th align="right">
+                        <div class="add-icon">
+                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" />
+                        </div>
                     </th>
                 </tr>
             </thead>
@@ -24,7 +26,7 @@
                     </td>
                     <td>{{ item.relatedUser.email }}</td>
                     <td>{{ item.isAdministrator ? 'oui' : 'non' }}</td>
-                    <td>
+                    <td class="icons">
                         <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.relatedUser.id)" />
                     </td>
                 </tr>

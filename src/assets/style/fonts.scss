@@ -10,3 +10,30 @@
     background-clip: text;
     color: transparent;
 }
+
+.input-border {
+    font-size: 1rem;
+    padding: 9px 8px;
+    border-image-source: linear-gradient(to right, #FEAC5E, #C779D0, #4BC0C8);
+    border-width: 2pt;
+    border-image-slice: 1;
+    border-right: outset;
+
+    &.modify-btn {
+        width: 104px;
+        margin-top: 32px;
+    }
+}
+
+.button-border {
+    font-size: 1rem;
+    padding: 6px 0;
+    border-image-source: linear-gradient(to right, #FEAC5E, #C779D0, #4BC0C8);
+    border-width: 2px !important;
+    border-image-slice: 1;
+
+    &.singer-btn {
+        width: 210px !important;
+    }
+}
+

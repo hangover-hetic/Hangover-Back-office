@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="addScreen">
-                            <router-link :to="{ name: 'screens', params: { name: this.split } }" type="button">Créer des
+                            <router-link :to="{ name: 'screens', params: { name: this.split } }" class="button-border" type="button">Créer des
                                 nouveaux écrans
                             </router-link>
                         </div>
@@ -75,7 +75,7 @@
             </div>
 
             <div class="button_create">
-                <button type="submit">Modifier</button>
+                <button class="button-border" type="submit">Modifier</button>
             </div>
             <div class="button_create">
                 <router-link :to="{ name: 'moderation', params: { id: this.split } }" type="button">Moderation
@@ -88,14 +88,14 @@
             </div>
         </form>
 
-        <h2>Chanteurs</h2>
+        <h2>Artistes</h2>
         <div class="singers">
             <div class="box1 flex">
                 <div class="singers" v-for="item in screens.shows" :key="item.shows">
                     <div class="image" v-if="item.image !== null">
                         <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)"
-                            style="width: 25px; height: 25px; position: relative; left: 130px; top: 60px" />
-                        <label>{{ item.name }}</label>
+                            style="width: 20px; height: 20px; position: relative; top: 60px; left: 138px;" />
+                        <label style="margin-bottom: 12px;">{{ item.name }}</label>
                         <router-link :to="{ name: 'chanteur', params: { id: item.id } }"><img
                                 :src="'https://hangover.timotheedurand.fr' + item.image.contentUrl" alt="" />
                         </router-link>
@@ -106,7 +106,7 @@
             <form @submit.prevent="addSingers">
                 <div class="form">
                     <div class="box1 create__singers" id="newSinger">
-                        <label for="Username">Nom du chanteur</label>
+                        <label for="Username">Nom de l'artiste</label>
                         <input class="dotted" id="Username" v-model="username" type="text" />
 
                         <label for="date">Date de début</label>
@@ -115,19 +115,19 @@
                         <label for="date">Date de fin</label>
                         <input class="dotted" id="date_end" v-model="end_date" type="datetime-local" />
 
-                        <label for="selectStyles">Styles de musique :</label>
+                        <label for="selectStyles">Genre musical :</label>
                         <select id="selectStyles" v-model="label" class="dotted">
                             <option v-for="item in styles" :key="item.styles" class="dotted">
                                 {{ item.id + ' : ' + item.label }}
                             </option>
                         </select>
 
-                        <label for="image1">Image du chanteur</label>
+                        <label for="image1">Image de l'artiste</label>
                         <input class="imageNone" type="file" accept="image/*" id="image1" ref="file1"
                             @change="selectImage" />
 
                         <div class="button_create">
-                            <button type="submit">Ajouter des chanteurs</button>
+                            <button class="button-border singer-btn" type="submit">Ajouter l'artiste</button>
                         </div>
                     </div>
                 </div>
@@ -359,8 +359,16 @@ export default {
     gap: 5%;
 }
 
+.form {
+    width: 100%;
+}
+
 .container {
-    margin: auto;
+    width: 93%;
+
+    h2 {
+        color: #fff;
+    }
 
     .logo {
         display: flex;
@@ -426,8 +434,8 @@ select {
     background-color: #202020;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
-    border: 2px dashed #939393;
+    margin: 8px 0 20px 0;
+    border: 2px solid rgb(94, 94, 94);
     border-radius: 4px;
     cursor: pointer;
 
