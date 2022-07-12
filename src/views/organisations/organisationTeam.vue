@@ -9,8 +9,11 @@
 
                     <th align="right">
                         <router-link to="/CreateOrganisation"
-                            ><img src="../../assets/img/add.svg" alt="add"
-                        /></router-link>
+                            >
+                            <div class="add-icon">
+                                <img class="add-icon" src="../../assets/img/add.svg" alt="add" />
+                            </div>
+                            </router-link>
                     </th>
                 </tr>
             </thead>
@@ -22,7 +25,7 @@
                     <td>{{ item.festivals.length }}</td>
 
                     <td class="icons">
-                        <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
+                        <img class="delete-icon" src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
                         <img v-on:click="addOrganisators(item.id)" src="../../assets/img/add-organisators.svg" />
                         <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name } }"
                             ><img src="../../assets/img/edit.svg"
@@ -147,6 +150,7 @@ export default {
 
 <style scoped lang="scss">
 @import '../../assets/style/liste.scss';
+@import '../../assets/style/fonts.scss';
 
 .organisationTeam {
     margin: auto;
@@ -162,12 +166,39 @@ export default {
     }
 }
 
+.add-icon {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: linear-gradient(to right, #FEAC5E, #C779D0, #4BC0C8);
+    border-radius: 50%;
+
+    img {
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+
 td.icons {
     display: flex;
+    align-items: center;
     justify-content: right;
     gap: 15px;
+
     img {
         margin: 0;
+        width: 1.2rem;
+    }
+
+    .delete-icon {
+        width: 1.1rem;
+    }
+
+    img:nth-child(2) {
+        width: 1.65rem;
     }
 }
 

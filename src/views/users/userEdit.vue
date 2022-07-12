@@ -1,5 +1,6 @@
 <template>
     <div class="userEdit">
+        <h1 class="h1-title">Mon compte</h1>
         <form @submit.prevent="editUser">
             <div class="user">
                 <div class="user__info">

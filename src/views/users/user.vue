@@ -9,8 +9,10 @@
                     <th align="left">Email</th>
                     <th align="left"></th>
 
-                    <th align="left">
-                        <img src="../../assets/img/add.svg" alt="add" />
+                    <th align="right">
+                        <div class="add-icon">
+                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" />
+                        </div>
                     </th>
                 </tr>
             </thead>
@@ -23,11 +25,11 @@
                         <label for="elements">{{ item.lastName }}</label>
                     </td>
                     <td>{{ item.email }}</td>
-                    <td>
+                    <td class="icon">
                         <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
                     </td>
                     <router-link :to="{ name: 'user', params: { name: item.id } }"
-                        ><td><img src="../../assets/img/edit.svg" /></td
+                        ><td class="icon"><img class="edit-icon" src="../../assets/img/edit.svg" /></td
                     ></router-link>
                 </tr>
             </tbody>

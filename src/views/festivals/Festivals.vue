@@ -9,7 +9,7 @@
                     <th align="left">Lieu</th>
                     <th align="left"></th>
 
-                    <th align="left">
+                    <th align="right">
                         <router-link
                             :to="{
                                 name: 'createfestivals',
@@ -17,8 +17,10 @@
                                     orga: '/api/organisation_teams/' + this.orga,
                                 },
                             }"
-                            ><img src="../../assets/img/add.svg" alt="add"
-                        /></router-link>
+                            ><div class="add-icon">
+                                <img class="add-icon" src="../../assets/img/add.svg" alt="add" />
+                            </div>
+                        </router-link>
                     </th>
                 </tr>
             </thead>
@@ -29,11 +31,11 @@
                     </td>
                     <td>{{ dayjs(item.startDate).format('DD / MM / YYYY') }}</td>
                     <td>{{ item.location }}</td>
-                    <td>
+                    <td class="icon">
                         <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
                     </td>
                     <router-link :to="{ name: 'festival', params: { name: item.id } }"
-                        ><td><img src="../../assets/img/edit.svg" /></td
+                        ><td class="icon"><img class="edit-icon" src="../../assets/img/edit.svg" /></td
                     ></router-link>
                 </tr>
             </tbody>
@@ -101,4 +103,5 @@ export default {
 .home {
     margin: auto;
 }
+
 </style>

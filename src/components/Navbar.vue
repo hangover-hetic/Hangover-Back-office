@@ -7,7 +7,9 @@ export default {
 <template>
     <div class="navbar">
         <nav>
-            <div id="logo" />
+            <div id="logo">
+                <img src="../assets/img/hangover-logo.png" alt="">
+            </div>
             <router-link to="/organisationTeam">
                 <font-awesome-icon icon="fa-solid fa-building" class="size" />
             </router-link>
@@ -75,15 +77,20 @@ nav {
     padding: 0, 5em;
     z-index: 1;
     height: 100vh;
-    background: #555;
+    background: rgb(66, 66, 66);
     overflow: hidden;
 }
 
 nav #logo {
-    background: #ff6600;
+    background-color: #4BC0C8;
     height: 4rem;
     line-height: 4rem;
-    padding-left: 0.7rem;
+    padding-left: 0.4rem;
+}
+
+nav #logo > img {
+    height: 4rem;
+    line-height: 4rem;
 }
 
 nav a {
@@ -91,6 +98,8 @@ nav a {
     text-decoration: none;
     display: table;
     width: 70px;
+    background: rgb(66, 66, 66);
+    transition: 0.3s background-color ease-in-out;
 }
 nav a .fa {
     width: 10rem;
@@ -102,24 +111,28 @@ nav a .fa {
 .size {
     width: 4rem;
     display: table-cell;
-    font-size: 2rem;
-    padding: 1rem 0;
+    font-size: 1.4rem;
+    padding: 1.1rem 0;
     text-align: center;
 }
 
 a:hover {
-    background-color: rgb(145, 143, 143);
+    background-color: rgb(99, 99, 99);
+    transition: 0.3s background-color ease-in-out;
 }
 .size-arrow-bottom {
-    width: 4rem;
+    width: 70px;
     display: table-cell;
-    font-size: 2rem;
-    padding: 1rem 0;
+    font-size: 1.4rem;
+    padding: 1.1rem 0;
     text-align: center;
     position: fixed;
     bottom: 0;
+    background: rgb(66, 66, 66);
+    transition: 0.3s background-color ease-in-out;
 }
 .size-arrow-bottom:hover {
-    background-color: rgb(145, 143, 143);
+    background-color: rgb(99, 99, 99);
+    transition: 0.3s background-color ease-in-out;
 }
 </style>
