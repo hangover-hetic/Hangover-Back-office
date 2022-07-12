@@ -92,6 +92,7 @@ td.icons {
     display: flex;
     justify-content: right;
     gap: 15px;
+
     img {
         margin: 0;
     }
@@ -121,6 +122,7 @@ td.icons {
     input {
         margin: 5px 25px;
         color: #464646;
+
         &:nth-child(2) {
             width: 350px;
             margin-top: 10px;

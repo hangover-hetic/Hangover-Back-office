@@ -1,7 +1,7 @@
 <template>
 
     <div class="map">
-        <h1>Carte</h1>
+        <h1 class="h1-title">Carte</h1>
         <div class="searchbar">
             <form @submit.prevent="searchCity">
                 <input type="text" v-model="localisation" placeholder="Rue, ville du festival">
@@ -10,8 +10,24 @@
                 {{ loc.longitude }}
             </form>
         </div>
+        <div class="carte">
+            <label>
+                <gmap-autocomplete @place_changed="initMarker"></gmap-autocomplete>
+                <button @click="addLocationMarker">Add</button>
+            </label>
+            <br />
+
+
+            <br>
+            <gmap-map :zoom="14" :center="center" style="width:100%;  height: 600px;" @place_changed="initMarker"
+                @click="addLocationMarker">
+                <gmap-marker :key="index" v-for="(m, index) in locationMarkers" :position="m.position"
+                    @click="center = m.position"></gmap-marker>
+            </gmap-map>
+        </div>
         <TheNavbar></TheNavbar>
     </div>
+
 
 </template>
 
@@ -29,8 +45,19 @@ export default {
     data() {
         return {
             localisation: '',
-            loc: ''
+            loc: '',
+            center: {
+                lat: '',
+                lng: ''
+            },
+            locationMarkers: [],
+            locPlaces: [],
+            existingPlace: null
         }
+    },
+
+    mounted() {
+        this.locateGeoLocation();
     },
 
     methods: {
@@ -39,7 +66,35 @@ export default {
                 .get('http://api.positionstack.com/v1/forward?access_key=0d29376a9dd42c92d6070823c2866fea&query=' + this.localisation)
                 .then((loc) => {
                     this.loc = loc.data.data[0]
+                    this.center.lat = this.loc.latitude;
+                    this.center.lng = this.loc
                 })
+        },
+
+        initMarker(loc) {
+            this.existingPlace = loc;
+            console.log(loc)
+        },
+
+        addLocationMarker() {
+            if (this.existingPlace) {
+                const marker = {
+                    lat: this.existingPlace.geometry.location.lat(),
+                    lng: this.existingPlace.geometry.location.lng()
+                };
+                this.locationMarkers.push({ position: marker });
+                this.locPlaces.push(this.existingPlace);
+                this.center = marker;
+                this.existingPlace = null;
+            }
+        },
+        locateGeoLocation: function () {
+            navigator.geolocation.getCurrentPosition(res => {
+                this.center = {
+                    lat: res.coords.latitude,
+                    lng: res.coords.longitude
+                };
+            });
         }
     }
 
@@ -49,6 +104,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '../../assets/style/fonts.scss';
+
 .searchbar {
     width: 800px;
     margin: 0 50% 0 40%;
