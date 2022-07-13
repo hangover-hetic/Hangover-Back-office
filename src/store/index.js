@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { http } from '../assets/services/http-common'
 
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -175,7 +176,9 @@ export default new Vuex.Store({
                 },
             })
                 .then((token) => {
-                    console.log(token)
+
+                    console.log(token.data.id)
+
                     localStorage.setItem('mercureToken', token.data.mercureToken)
                     localStorage.setItem('rang', token.data.roles[0])
                     localStorage.setItem('idUser', token.data.user.id)
@@ -212,7 +215,7 @@ export default new Vuex.Store({
                     this.licences = licences.data
                     commit('SET_Licences', licences.data)
                 })
-                .catch(() => {})
+                .catch(() => { })
         },
 
         getSingleLicence({ commit }) {
@@ -225,7 +228,7 @@ export default new Vuex.Store({
                     this.licence = licence.data
                     commit('SET_Licence', licence.data)
                 })
-                .catch(() => {})
+                .catch(() => { })
         },
 
         getStyles({ commit }) {
@@ -234,7 +237,7 @@ export default new Vuex.Store({
                     this.styles = styles.data
                     commit('SET_Styles', styles.data)
                 })
-                .catch(() => {})
+                .catch(() => { })
         },
     },
 })
