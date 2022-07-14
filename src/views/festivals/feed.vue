@@ -5,10 +5,14 @@
             <div class="user">
                 <div class="informations">
                     <div class="image__profil">
-                        <router-link :to="{ name: 'user', params: { name: item.relatedUser.id } }"
-                            v-if="item.relatedUser.profilePicture !== null"><img :src="
-                                'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
-                            " /></router-link>
+                        <router-link
+                            :to="{ name: 'user', params: { name: item.relatedUser.id } }"
+                            v-if="item.relatedUser.profilePicture !== null"
+                            ><img
+                                :src="
+                                    'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
+                                "
+                        /></router-link>
                     </div>
                     <div class="name">
                         <p>{{ item.relatedUser.firstName + ' ' + item.relatedUser.lastName }}</p>
@@ -45,10 +49,14 @@
             <div class="user">
                 <div class="informations">
                     <div class="image__profil">
-                        <router-link :to="{ name: 'user', params: { name: item.relatedUser.id } }"
-                            v-if="item.relatedUser.profilePicture !== null"><img :src="
-                                'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
-                            " /></router-link>
+                        <router-link
+                            :to="{ name: 'user', params: { name: item.relatedUser.id } }"
+                            v-if="item.relatedUser.profilePicture !== null"
+                            ><img
+                                :src="
+                                    'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
+                                "
+                        /></router-link>
                     </div>
                     <div class="name">
                         <p>{{ item.relatedUser.firstName + ' ' + item.relatedUser.lastName }}</p>

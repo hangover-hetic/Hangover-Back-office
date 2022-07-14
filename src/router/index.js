@@ -9,7 +9,6 @@ import CreateFestivals from '../views/festivals/CreateFestivals'
 import carte from '../views/festivals/map'
 import screens from '../views/festivals/screens'
 
-
 import Login from '../views/ConnexionView'
 import Register from '../views/RegisterView'
 
@@ -170,7 +169,6 @@ const routes = [
             }
         },
     },
-
 
     {
         path: '/createfestivals',

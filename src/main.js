@@ -3,15 +3,14 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import * as VueGoogleMaps from "vue2-google-maps" // Import package
-
+import * as VueGoogleMaps from 'vue2-google-maps' // Import package
 
 Vue.use(VueGoogleMaps, {
     load: {
-        key: "AIzaSyDzRv2FwUI4B4QawLW8q4Jp3Klu4y92foc",
-        libraries: "places"
-    }
-});
+        key: 'AIzaSyDzRv2FwUI4B4QawLW8q4Jp3Klu4y92foc',
+        libraries: 'places',
+    },
+})
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
