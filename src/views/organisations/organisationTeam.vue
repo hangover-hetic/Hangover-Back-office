@@ -8,12 +8,11 @@
                     <th>Nombre de festivals</th>
 
                     <th align="right">
-                        <router-link to="/CreateOrganisation"
-                            >
+                        <router-link to="/CreateOrganisation">
                             <div class="add-icon">
                                 <img class="add-icon" src="../../assets/img/add.svg" alt="add" />
                             </div>
-                            </router-link>
+                        </router-link>
                     </th>
                 </tr>
             </thead>
@@ -171,7 +170,7 @@ export default {
     display: inline-flex;
     flex-shrink: 0;
     overflow: hidden;
-    background: linear-gradient(to right, #FEAC5E, #C779D0, #4BC0C8);
+    background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
     border-radius: 50%;
 
     img {

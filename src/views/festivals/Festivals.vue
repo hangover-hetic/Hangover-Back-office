@@ -103,5 +103,4 @@ export default {
 .home {
     margin: auto;
 }
-
 </style>

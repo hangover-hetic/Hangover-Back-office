@@ -175,7 +175,8 @@ export default new Vuex.Store({
                 },
             })
                 .then((token) => {
-                    console.log(token)
+                    console.log(token.data.id)
+
                     localStorage.setItem('mercureToken', token.data.mercureToken)
                     localStorage.setItem('rang', token.data.roles[0])
                     localStorage.setItem('idUser', token.data.user.id)

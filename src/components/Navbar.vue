@@ -8,7 +8,7 @@ export default {
     <div class="navbar">
         <nav>
             <div id="logo">
-                <img src="../assets/img/hangover-logo.png" alt="">
+                <img src="../assets/img/hangover-logo.png" alt="" />
             </div>
             <router-link to="/organisationTeam">
                 <font-awesome-icon icon="fa-solid fa-building" class="size" />
@@ -82,7 +82,7 @@ nav {
 }
 
 nav #logo {
-    background-color: #4BC0C8;
+    background-color: #4bc0c8;
     height: 4rem;
     line-height: 4rem;
     padding-left: 0.4rem;

@@ -5,7 +5,9 @@
             <div class="user">
                 <div class="informations">
                     <div class="image__profil">
-                        <router-link :to="{ name: 'user', params: { name: item.relatedUser.id } }"
+                        <router-link
+                            :to="{ name: 'user', params: { name: item.relatedUser.id } }"
+                            v-if="item.relatedUser.profilePicture !== null"
                             ><img
                                 :src="
                                     'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
@@ -47,7 +49,9 @@
             <div class="user">
                 <div class="informations">
                     <div class="image__profil">
-                        <router-link :to="{ name: 'user', params: { name: item.relatedUser.id } }"
+                        <router-link
+                            :to="{ name: 'user', params: { name: item.relatedUser.id } }"
+                            v-if="item.relatedUser.profilePicture !== null"
                             ><img
                                 :src="
                                     'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
@@ -125,6 +129,7 @@ export default {
         oldPosts() {
             http.get('festivals/' + this.split + '/posts/moderation').then((posts) => {
                 this.posts = posts.data
+                console.log(this.posts)
             })
         },
 
@@ -140,7 +145,9 @@ export default {
 
             eventSource.onmessage = (e) => {
                 this.post = JSON.parse(e.data)
+                console.log(this.post)
                 this.arr.push(this.post)
+                console.log(this.arr)
             }
         },
 
@@ -165,6 +172,7 @@ export default {
 .posts {
     margin: 30px;
 }
+
 .user {
     width: 600px;
     margin: 0 50% 0 40%;

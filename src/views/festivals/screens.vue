@@ -1,5 +1,4 @@
 <template>
-
     <div class="screens">
         <h1>Liste des écrans</h1>
         <table>
@@ -8,8 +7,12 @@
                     <th align="left">Token</th>
                     <th align="left">Lien</th>
                     <th align="right">
-                        <img id="addScreens" src="../../assets/img/add.svg" alt="addScreens"
-                            v-on:click="addScreens()" />
+                        <img
+                            id="addScreens"
+                            src="../../assets/img/add.svg"
+                            alt="addScreens"
+                            v-on:click="addScreens()"
+                        />
                     </th>
                 </tr>
             </thead>
@@ -18,8 +21,10 @@
                     <td>
                         <label for="elements">{{ item.token }}</label>
                     </td>
-                    <td><a
-                            :href="'http://2c90-185-226-32-21.ngrok.io/?token=' + item.token">http://2c90-185-226-32-21.ngrok.io/?token={{ item.token }}</a>
+                    <td>
+                        <a :href="'http://2c90-185-226-32-21.ngrok.io/?token=' + item.token"
+                            >http://2c90-185-226-32-21.ngrok.io/?token={{ item.token }}</a
+                        >
                     </td>
                     <td>
                         <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
@@ -28,13 +33,9 @@
             </tbody>
         </table>
 
-
-
         <TheNavbar></TheNavbar>
     </div>
-
 </template>
-
 
 <script>
 import { http } from '../../assets/services/http-common'
@@ -44,13 +45,13 @@ export default {
     name: 'screensPage',
 
     components: {
-        TheNavbar
+        TheNavbar,
     },
 
     data() {
         return {
             tokenScreens: '',
-            split: ''
+            split: '',
         }
     },
 
@@ -82,8 +83,7 @@ export default {
                 this.listScreens()
             })
         },
-
-    }
+    },
 }
 </script>
 

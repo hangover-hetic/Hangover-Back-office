@@ -5,7 +5,7 @@
     display: inline-flex;
     flex-shrink: 0;
     overflow: hidden;
-    background: linear-gradient(to right, #FEAC5E, #C779D0, #4BC0C8);
+    background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
     border-radius: 50%;
 
     img {
@@ -15,8 +15,6 @@
         border-radius: 50%;
     }
 }
-
-
 
 tr {
     th,
@@ -30,16 +28,16 @@ tr {
         align-items: center;
         justify-content: right;
         gap: 15px;
-    
+
         img {
             margin: 0;
             width: 1.2rem;
         }
-    
+
         .delete-icon {
             width: 1.1rem;
         }
-    
+
         img:nth-child(2) {
             width: 1.65rem;
         }
