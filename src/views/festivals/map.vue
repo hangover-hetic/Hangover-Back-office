@@ -1,10 +1,7 @@
 <template>
     <div class='map-page'>
         <h1 class='h1-title'>Carte</h1>
-
         <div class='map-container'>
-
-
             <gmap-map
                 class='map'
                 :center='center'
@@ -24,7 +21,8 @@
                     :marker='m.position'
                     @click.native='edit(index)'
                 >
-                    <img :src='m.icon' style='height: 30px;'>
+                    <img :src='types[m.icon]' style='height: 30px;' />
+                    <p style='margin: 0;'>{{ m.name }}</p>
                 </gmap-custom-marker>
 
                 <gmap-polygon
@@ -34,6 +32,7 @@
                     :editable='true'
                     @paths_changed='onZoneEdit'
                     @rightclick='handleClickForDelete'
+                    @center_changed='updateCenter'
                     :options='polygon.polygonOptions'
                     ref='polygon'
                 ></gmap-polygon>
@@ -53,24 +52,24 @@
                     <button @click='removePath'>Supprimer</button>
                 </div>
                 <h3>Points d'intérêts</h3>
+                <label for='mode'>Modification : </label>
+                <input type='checkbox' v-model='modificationMode' id='mode' />
                 <form @submit.prevent='editName'>
                     <label for='name'>Label :</label>
                     <input type='text' v-model='name' placeholder='Scène 1' id='name' />
-                    <label>Type :</label>
-                    <div
-                        class='icon'
-                        :class='{"selected" : type === typeSelected}'
-                        v-for='type in Object.keys(types)'
-                        :key='type'
-                        @click='setMarkerType(type)'
-                    >
-                        <img :src='types[type]' class='marker-icon' />
-                        <p>{{ type }}</p>
-                    </div>
-
-
                     <button type='submit' v-if='indexId'>Modifier</button>
                 </form>
+                <label>Type :</label>
+                <div
+                    class='icon'
+                    :class='{"selected" : type === typeSelected}'
+                    v-for='type in Object.keys(types)'
+                    :key='type'
+                    @click='setMarkerType(type)'
+                >
+                    <img :src='types[type]' class='marker-icon' />
+                    <p>{{ type }}</p>
+                </div>
 
                 <button @click='postMap'>Enregister la carte</button>
             </div>
@@ -87,6 +86,7 @@ import GmapCustomMarker from 'vue2-gmap-custom-marker'
 import TrashIcon from '@/assets/img/trash-can.png'
 import SceneIcon from '@/assets/img/fashion.png'
 import mapConfig from '@/assets/mapConfig.json'
+import Vue from 'vue'
 
 
 export default {
@@ -132,7 +132,8 @@ export default {
                     clickable: false
                 }
             },
-            indexIdOld: []
+            indexIdOld: [],
+            modificationMode: false
         }
     },
 
@@ -151,15 +152,15 @@ export default {
                     this.localisation
                 )
                 .then((loc) => {
-                    this.loc = loc.data.data[0]
-
-                    this.center.lat = this.loc.latitude
-                    this.center.lng = this.loc.longitude
-                    console.log(this.center)
+                    const { latitude, longitude } = loc.data.data[0]
+                    this.reportedMapCenter = { lat : latitude, lng : longitude }
+                    this.center = { lat : latitude, lng : longitude }
+                    console.log(this.reportedMapCenter, this.center)
                 })
         },
 
         addMarker(event) {
+            if (this.modificationMode) return
             const marker = {
                 lat: event.latLng.lat(),
                 lng: event.latLng.lng()
@@ -170,7 +171,7 @@ export default {
                 id: i,
                 name: this.name,
                 position: marker,
-                icon: this.icon
+                icon: this.typeSelected
             })
             this.$refs.map.panTo(marker)
 
@@ -201,6 +202,10 @@ export default {
                     zone: this.zone,
                     zoom: this.zoom
                 }
+            }).then(() => {
+                Vue.$toast.success("La carte est bien mise à jour!")
+            }).catch(e => {
+                Vue.$toast.error("Un problème est survenu : " + e)
             })
         },
 
