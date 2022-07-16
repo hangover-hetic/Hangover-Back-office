@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import festivals from '../views/festivals/Festivals.vue'
+import FestivalsShows from "../views/festivals/FestivalShows.vue"
 import FestivalView from '../views/festivals/ModifFestivals.vue'
-import chanteur from '../views/festivals/Singers.vue'
+import ModifSinger from '../views/festivals/ModifShow.vue'
 import moderation from '../views/festivals/feed.vue'
 import CreateFestivals from '../views/festivals/CreateFestivals'
 import carte from '../views/festivals/map'
@@ -86,6 +87,22 @@ const routes = [
         },
     },
     {
+        path: '/festivals/:id/shows',
+        name: 'festivalShows',
+        component: FestivalsShows,
+        beforeEnter: (to, from, next) => {
+            if (
+                window.localStorage.getItem('rang') === 'ROLE_ADMIN' ||
+                window.localStorage.getItem('rang') === 'ROLE_USER' ||
+                window.localStorage.getItem('rang') === 'ROLE_ORGANISATOR'
+            ) {
+                next()
+            } else {
+                router.push('/login')
+            }
+        },
+    },
+    {
         path: '/festival/:name',
         name: 'festival',
         component: FestivalView,
@@ -105,7 +122,7 @@ const routes = [
     {
         path: '/chanteur/:id',
         name: 'chanteur',
-        component: chanteur,
+        component: ModifSinger,
         beforeEnter: (to, from, next) => {
             if (
                 window.localStorage.getItem('rang') === 'ROLE_ADMIN' ||

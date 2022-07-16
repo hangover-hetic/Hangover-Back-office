@@ -1,6 +1,6 @@
 <template>
     <div class="feed">
-        <h1>Modération du feed</h1>
+        <h1 class='h1-title'>Modération du feed</h1>
         <div class="posts" v-for="item in posts" :key="item.posts">
             <div class="user">
                 <div class="informations">
@@ -171,6 +171,7 @@ export default {
 <style scoped lang="scss">
 .posts {
     margin: 30px;
+    color : white;
 }
 
 .user {

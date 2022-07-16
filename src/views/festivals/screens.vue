@@ -1,6 +1,6 @@
 <template>
     <div class="screens">
-        <h1>Liste des écrans</h1>
+        <h1 class="h1-title">Ecrans - {{tokenScreens[0].festival.name}} </h1>
         <table>
             <thead>
                 <tr>
@@ -92,5 +92,9 @@ export default {
 
 #addScreens {
     cursor: pointer;
+}
+
+a {
+    color: white;
 }
 </style>

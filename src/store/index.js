@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { http } from '../assets/services/http-common'
+import {http} from '../assets/services/http-common'
 
 Vue.use(Vuex)
 
@@ -19,6 +19,7 @@ export default new Vuex.Store({
         styles: '',
         licence: '',
         split: '',
+        currentFestival: null,
     },
 
     getters: {
@@ -70,6 +71,10 @@ export default new Vuex.Store({
             state.festivals = festivals
         },
 
+        SET_FESTIVAL(state, festival) {
+            state.currentFestival = festival
+        },
+
         SET_Screens(state, screens) {
             state.screens = screens
         },
@@ -106,7 +111,7 @@ export default new Vuex.Store({
     },
 
     actions: {
-        loadOrganisations({ commit }) {
+        loadOrganisations({commit}) {
             if (localStorage.getItem('rang') === 'ROLE_ADMIN') {
                 http.get('organisation_teams')
                     .then((response) => response.data)
@@ -122,7 +127,7 @@ export default new Vuex.Store({
             }
         },
 
-        loadFestivals({ commit }) {
+        loadFestivals({commit}) {
             const path = window.location.pathname
             const str = path.split('/')
             const split = str[str.length - 1]
@@ -134,7 +139,15 @@ export default new Vuex.Store({
                 })
         },
 
-        loadUsers({ commit }) {
+        loadFestival({commit}, festivalId) {
+           return http.get('festivals/' + festivalId)
+                .then((response) => response.data)
+                .then((festival) => {
+                    commit('SET_FESTIVAL', festival)
+                })
+        },
+
+        loadUsers({commit}) {
             http.get('users')
                 .then((response) => response.data)
                 .then((users) => {
@@ -142,7 +155,7 @@ export default new Vuex.Store({
                 })
         },
 
-        loadNameOrga({ commit }) {
+        loadNameOrga({commit}) {
             const path = window.location.pathname
             const str = path.split('/')
             const splitNameOrga = str[str.length - 1]
@@ -154,7 +167,7 @@ export default new Vuex.Store({
                 })
         },
 
-        loadScreens({ commit }) {
+        loadScreens({commit}) {
             const path = window.location.pathname
             const split = path.substr(10)
 
@@ -165,7 +178,7 @@ export default new Vuex.Store({
                 })
         },
 
-        submitForm({ commit }) {
+        submitForm({commit}) {
             http({
                 url: 'authentication_token',
                 method: 'Post',
@@ -187,7 +200,7 @@ export default new Vuex.Store({
                 })
         },
 
-        getUser({ commit }) {
+        getUser({commit}) {
             const path = window.location.pathname
             const str = path.split('/')
             const split = str[str.length - 1]
@@ -207,16 +220,17 @@ export default new Vuex.Store({
                 })
         },
 
-        getLicence({ commit }) {
+        getLicence({commit}) {
             http.get('licences')
                 .then((licences) => {
                     this.licences = licences.data
                     commit('SET_Licences', licences.data)
                 })
-                .catch(() => {})
+                .catch(() => {
+                })
         },
 
-        getSingleLicence({ commit }) {
+        getSingleLicence({commit}) {
             const path = window.location.pathname
             const str = path.split('/')
             const split = str[str.length - 1]
@@ -226,16 +240,18 @@ export default new Vuex.Store({
                     this.licence = licence.data
                     commit('SET_Licence', licence.data)
                 })
-                .catch(() => {})
+                .catch(() => {
+                })
         },
 
-        getStyles({ commit }) {
-            http.get('styles')
+        getStyles({commit}) {
+          return  http.get('styles')
                 .then((styles) => {
                     this.styles = styles.data
                     commit('SET_Styles', styles.data)
                 })
-                .catch(() => {})
+                .catch(() => {
+                })
         },
     },
 })

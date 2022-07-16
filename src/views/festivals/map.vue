@@ -83,8 +83,9 @@ import { http } from '@/assets/services/http-common'
 import axios from 'axios'
 import TheNavbar from '@/components/Navbar'
 import GmapCustomMarker from 'vue2-gmap-custom-marker'
-import TrashIcon from '@/assets/img/trash-can.png'
-import SceneIcon from '@/assets/img/fashion.png'
+import TrashIcon from '@/assets/img/icons/trash.png'
+import SceneIcon from '@/assets/img/icons/scene.png'
+import HelpIcon from '@/assets/img/icons/help.png'
 import mapConfig from '@/assets/mapConfig.json'
 import Vue from 'vue'
 
@@ -106,7 +107,8 @@ export default {
             markers: [],
             types: {
                 scene: SceneIcon,
-                poubelle: TrashIcon
+                poubelle: TrashIcon,
+                help : HelpIcon,
             },
             typeSelected: 'scene',
             icon: SceneIcon,
