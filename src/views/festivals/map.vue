@@ -19,7 +19,7 @@
                     :key='index'
                     v-for='(m, index) in markers'
                     :marker='m.position'
-                    @click.native='edit(index)'
+                    @click.native='onClickMarker(index)'
                 >
                     <img :src='types[m.icon]' style='height: 30px;' />
                     <p style='margin: 0;'>{{ m.name }}</p>
@@ -54,6 +54,8 @@
                 <h3>Points d'intérêts</h3>
                 <label for='mode'>Modification : </label>
                 <input type='checkbox' v-model='modificationMode' id='mode' />
+                <label for='mode'>Suppression : </label>
+                <input type='checkbox' v-model='deleteMode' id='mode' />
                 <form @submit.prevent='editName'>
                     <label for='name'>Label :</label>
                     <input type='text' v-model='name' placeholder='Scène 1' id='name' />
@@ -135,7 +137,8 @@ export default {
                 }
             },
             indexIdOld: [],
-            modificationMode: false
+            modificationMode: false,
+            deleteMode : false,
         }
     },
 
@@ -162,27 +165,33 @@ export default {
         },
 
         addMarker(event) {
-            if (this.modificationMode) return
-            const marker = {
+            if(this.modificationMode || this.deleteMode) return
+            this.createMarker({
                 lat: event.latLng.lat(),
                 lng: event.latLng.lng()
-            }
-
-            const i = this.count++
-            this.markers.push({
-                id: i,
-                name: this.name,
-                position: marker,
-                icon: this.typeSelected
             })
-            this.$refs.map.panTo(marker)
+
 
             //this.center = marker;
         },
 
-        edit(index) {
+        createMarker({lat, lng}) {
+            this.markers.push({
+                id: this.markers.length,
+                name: this.name,
+                position: {lat, lng},
+                icon: this.typeSelected
+            })
+            this.$refs.map.panTo({lat, lng})
+        },
+
+        onClickMarker(index) {
             if (!this.markers[index]) {
                 console.error(`Le marker ${this.indexId} n'existe pas`)
+                return
+            }
+            if(this.deleteMode) {
+                this.markers.splice(index, 1)
                 return
             }
             this.name = this.markers[index].name

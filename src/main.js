@@ -4,9 +4,11 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import * as VueGoogleMaps from 'vue2-google-maps' // Import package
-
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
+import VueMeta from 'vue-meta'
+
+Vue.use(VueMeta)
 
 Vue.use(VueToast)
 Vue.use(VueGoogleMaps, {
@@ -15,6 +17,7 @@ Vue.use(VueGoogleMaps, {
         libraries: 'places',
     },
 })
+
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -41,8 +44,11 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
+
 new Vue({
     router,
     store,
     render: (h) => h(App),
 }).$mount('#app')
+
+
