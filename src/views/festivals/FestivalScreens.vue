@@ -22,7 +22,7 @@
                         <label for="elements">{{ item.token }}</label>
                     </td>
                     <td>
-                        <a :href="'http://2c90-185-226-32-21.ngrok.io/?token=' + item.token"
+                        <a :href="'http://screen.hangover.timotheedurand.fr/?token=' + item.token"
                             >http://2c90-185-226-32-21.ngrok.io/?token={{ item.token }}</a
                         >
                     </td>
