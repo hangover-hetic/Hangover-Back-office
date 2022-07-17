@@ -1,6 +1,6 @@
 <template>
     <div class="organisationTeam">
-        <h1 class="h1-title">OrganisationTeam</h1>
+        <h1 class="h1-title">Organisations</h1>
         <table>
             <thead>
                 <tr>

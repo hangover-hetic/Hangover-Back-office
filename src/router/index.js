@@ -1,29 +1,29 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import festivals from '../views/festivals/Festivals.vue'
-import FestivalsShows from "../views/festivals/FestivalShows.vue"
-import FestivalView from '../views/festivals/ModifFestivals.vue'
-import ModifSinger from '../views/festivals/ModifShow.vue'
-import moderation from '../views/festivals/feed.vue'
+import festivals from '../views/festivals/ListFestivals.vue'
+import FestivalsShows from '../views/festivals/FestivalShows.vue'
+import FestivalView from '../views/festivals/FestivalEdit.vue'
+import ModifSinger from '../views/festivals/FestivalShowEdit.vue'
+import moderation from '../views/festivals/FestivalFeed.vue'
 import CreateFestivals from '../views/festivals/CreateFestivals'
-import carte from '../views/festivals/map'
-import screens from '../views/festivals/screens'
+import carte from '../views/festivals/FestivalMap'
+import screens from '../views/festivals/FestivalScreens'
 
 import Login from '../views/ConnexionView'
 import Register from '../views/RegisterView'
 
-import OrganisationTeam from '../views/organisations/organisationTeam'
+import OrganisationTeam from '../views/organisations/ListOrganisations'
 import CreateOrganisation from '../views/organisations/CreateOrganisation'
-import organisators from '../views/organisations/organisators'
+import organisators from '../views/organisations/ManageOrganisators'
 
-import User from '../views/users/user'
-import UserEdit from '../views/users/userEdit'
+import User from '../views/users/ListUsers'
+import UserEdit from '../views/users/EditUserAdmin'
 
-import licences from '../views/licences/licences'
-import licence from '../views/licences/licence'
+import licences from '../views/licences/ListLicences'
+import licence from '../views/licences/LicenceEdit'
 
-import styleSingers from '../views/styleSingers/styleSingers'
+import styleSingers from '../views/styles/ListStyles'
 
 import Vuex from 'vuex'
 
@@ -304,7 +304,7 @@ const routes = [
     },
 
     {
-        path: '/styleSingers',
+        path: '/styles',
         name: 'styleSingers',
         component: styleSingers,
         beforeEnter: (to, from, next) => {

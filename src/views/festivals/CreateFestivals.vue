@@ -86,6 +86,7 @@ export default {
             }).then((res) => {
                 this.$store.dispatch('loadFestivals')
                 this.response = res.data
+                this.$toast.success("Votre festival est bien crée !")
             })
         },
     },

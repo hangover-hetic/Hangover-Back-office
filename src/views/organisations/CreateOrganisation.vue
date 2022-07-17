@@ -1,13 +1,13 @@
 <template>
     <div class="createorganisation">
-        <h1 class="h1-title">Créer une organisation teams</h1>
+        <h1 class="h1-title">Créer une organisation</h1>
 
         <form @submit.prevent="PostOrganisation">
             <div class="form">
                 <div class="form__field">
                     <div class="field__left">
                         <div class="left__column">
-                            <label for="name">Nom du festival</label>
+                            <label for="name">Nom de l'organisation</label>
                             <input class="dotted" id="name" v-model="name" type="text" />
                         </div>
                     </div>

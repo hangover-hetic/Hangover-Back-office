@@ -22,7 +22,7 @@ export default {
             <router-link :to="{ path: '/licences' }" v-if="role">
                 <font-awesome-icon icon="fa-solid fa-file-contract" class="size" />
             </router-link>
-            <router-link :to="{ path: '/styleSingers' }" v-if="role">
+            <router-link :to="{ path: '/styles' }" v-if="role">
                 <font-awesome-icon icon="fa-solid fa-music" class="size" />
             </router-link>
             <a href="#" v-on:click="signOut()">

@@ -1,11 +1,16 @@
 <template>
     <div class="organisationTeam">
-        <h1 class="h1-title">OrganisationTeam</h1>
+        <h1 class="h1-title">Styles</h1>
         <table>
             <thead>
                 <tr>
                     <th align="left">Nom du style de musique</th>
-                    <th align="right"><img src="../../assets/img/add.svg" alt="add" v-on:click="addStyles()" /></th>
+                    <th align="right">
+                        <div class="add-icon">
+                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" v-on:click="addStyles()"/>
+                        </div>
+                    </th>
+
                 </tr>
             </thead>
             <tbody>
@@ -14,15 +19,15 @@
                         <label for="elements">{{ item.label }}</label>
                     </td>
                     <td class="icons">
-                        <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" alt="delete" />
+                        <img src="../../assets/img/delete.svg" v-on:click="deleteStyle(item.id)" alt="delete" />
                     </td>
                 </tr>
             </tbody>
         </table>
 
         <div class="addStyles hide" id="addStyles">
-            <h3>Ajouter un organisateur</h3>
-            <form @submit.prevent="CallAddUser">
+            <h3>Créer un style</h3>
+            <form @submit.prevent="createStyle">
                 <input type="text" v-model="style" />
                 <input type="submit" value="Ajouter un style" />
             </form>
@@ -40,6 +45,7 @@ import Vuex from 'vuex'
 global.v = Vuex
 
 export default {
+    name : "StylesList",
     store: store,
     components: {
         TheNavbar,
@@ -56,7 +62,7 @@ export default {
     },
 
     methods: {
-        CallDelete(id) {
+        deleteStyle(id) {
             http.delete('styles/' + id).then(() => {
                 this.$store.dispatch('getStyles')
             })
@@ -67,7 +73,7 @@ export default {
             Styles.classList.toggle('show')
         },
 
-        CallAddUser() {
+        createStyle() {
             http.post('styles', {
                 label: this.style,
             }).then((res) => {

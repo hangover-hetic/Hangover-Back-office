@@ -10,9 +10,9 @@
                     <th align="left"></th>
 
                     <th align="right">
-                        <div class="add-icon">
-                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" />
-                        </div>
+<!--                        <div class="add-icon">-->
+<!--                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" />-->
+<!--                        </div>-->
                     </th>
                 </tr>
             </thead>
