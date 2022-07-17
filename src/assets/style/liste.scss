@@ -1,46 +1,85 @@
 @import '~pretty-checkbox/src/pretty-checkbox.scss';
 
+.add-icon {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+    border-radius: 50%;
 
-tr {
-
-    th,
-    td {
-        font-family: 'Poppins', sans-serif;
-        color: #FFFFFF;
+    img {
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+        border-radius: 50%;
     }
 }
 
+tr {
+    th,
+    td {
+        font-family: 'Poppins', sans-serif;
+        color: #ffffff;
+    }
+
+    td.icons {
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        gap: 15px;
+
+        img {
+            margin: 0;
+            width: 1.2rem;
+        }
+
+        .delete-icon {
+            width: 1.1rem;
+        }
+
+        img:nth-child(2) {
+            width: 1.65rem;
+        }
+    }
+
+    .icon {
+        img {
+            width: 1.1rem;
+        }
+
+        .edit-icon {
+            width: 1.3rem;
+            margin-top: 2px;
+        }
+    }
+}
 
 table {
     width: 90%;
     border-collapse: collapse;
 
     tbody {
-
         tr {
             display: table-row;
             border-top: 2px solid #707070;
 
-
             td {
-                padding: 15px 0;
+                padding: 18px 0;
 
-               img{
-                   display: flex;
-                   align-self: center;
-                   margin: auto;
-                   margin-right: 15px;
+                img {
+                    display: flex;
+                    align-self: center;
+                    margin: auto;
+                    margin-right: 15px;
 
-                   &:hover{
-                       cursor: pointer
-                   }
-               }
-
-
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }
-    
 
     thead {
         tr {
@@ -48,21 +87,15 @@ table {
                 width: 18%;
                 padding-bottom: 15px;
 
-                &:nth-child(5){
-                    
-                     width: 3%!important;
-                   
-                    
-                    img{
+                &:nth-child(5) {
+                    width: 3% !important;
+
+                    img {
                         display: flex;
                         align-self: center;
                     }
                 }
-
-                
             }
-            
-
         }
     }
 }
