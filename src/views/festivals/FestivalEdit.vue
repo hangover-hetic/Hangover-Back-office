@@ -56,12 +56,6 @@
 
                             <label for="lieuFestival">Lien du festival</label>
                             <input class="dotted" id="lieuFestival" v-model="screens.link" type="url" />
-
-                            <label for="couleur">Couleur des écrans</label>
-                            <div class="input-color">
-                                <div class="color-preview" :style="{ 'background-color': screens.screenColor }" />
-                                <input class="dotted" id="couleur" v-model="screens.screenColor" type="color" />
-                            </div>
                         </div>
 
                         <div class="right__column">
@@ -257,7 +251,6 @@ export default {
                     endDate: this.end_date,
                     status: this.screens.status,
                     link: this.screens.link,
-                    screenColor: this.screens.screenColor,
                 },
             })
                 .then(() => {
