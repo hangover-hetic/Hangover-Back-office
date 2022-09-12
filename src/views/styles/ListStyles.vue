@@ -1,7 +1,7 @@
 <template>
     <div class="organisationTeam">
         <h1 class="h1-title">Styles</h1>
-        <table>
+        <table id="blur">
             <thead>
                 <tr>
                     <th align="left">Nom du style de musique</th>
@@ -10,7 +10,6 @@
                             <img class="add-icon" src="../../assets/img/add.svg" alt="add" v-on:click="addStyles()" />
                         </div>
                     </th>
-
                 </tr>
             </thead>
             <tbody>
@@ -25,11 +24,14 @@
             </tbody>
         </table>
 
-        <div class="addStyles hide" id="addStyles">
-            <h3>Créer un style</h3>
+        <div class="addStyles" id="addStyles">
+            <div class="cross" @click="addStyles()">
+                <AkarIconsCross />
+            </div>
+            <h3>Ajouter un organisateur</h3>
             <form @submit.prevent="createStyle">
-                <input type="text" v-model="style" />
-                <input type="submit" value="Ajouter un style" />
+                <input placeholder="Rap" v-model="style" />
+                <input type="submit" value="Ajouter un style de musique" @click="addStyles()" />
             </form>
         </div>
         <TheNavbar styles="rgb(99, 99, 99)"></TheNavbar>
@@ -43,13 +45,15 @@ import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
 import Vue from 'vue'
+import AkarIconsCross from '../../assets/img/AkarIconsCross.vue'
 global.v = Vuex
 
 export default {
-    name: "StylesList",
+    name: 'StylesList',
     store: store,
     components: {
         TheNavbar,
+        AkarIconsCross,
     },
 
     data() {
@@ -67,26 +71,29 @@ export default {
             http.delete('styles/' + id)
                 .then(() => {
                     this.$store.dispatch('getStyles')
-                    Vue.$toast.success("Style de musique supprimé")
+                    Vue.$toast.success('Style de musique supprimé')
                 })
                 .catch((e) => {
-                    Vue.$toast.error("Erreur lors de la suppression du style de musique : " + e)
+                    Vue.$toast.error('Erreur lors de la suppression du style de musique : ' + e)
                 })
         },
 
         addStyles() {
             const Styles = document.getElementById('addStyles')
+            const blur = document.getElementById('blur')
+            blur.classList.toggle('blured')
             Styles.classList.toggle('show')
         },
 
         createStyle() {
             http.post('styles', {
                 label: this.style,
-            }).then((res) => {
-                res.data
-                this.$store.dispatch('getStyles')
-                Vue.$toast.success("Style de musique ajouté")
             })
+                .then((res) => {
+                    res.data
+                    this.$store.dispatch('getStyles')
+                    Vue.$toast.success('Style de musique ajouté')
+                })
                 .catch((e) => {
                     Vue.$toast.error("Erreur lors de l'ajout du style de musique : " + e)
                 })
@@ -99,6 +106,10 @@ export default {
 
 <style scoped lang="scss">
 @import '../../assets/style/liste.scss';
+
+.blured {
+    filter: blur(4px);
+}
 
 .organisationTeam {
     margin: auto;
@@ -122,9 +133,37 @@ td.icons {
     width: 500px;
     height: 300px;
     border-radius: 15px;
-    background-color: #464646;
+    border: 1px solid #fff;
+    background-color: transparent;
     position: absolute;
     justify-content: center;
+    text-align: center;
+    color: #fff;
+
+    .cross {
+        cursor: pointer;
+    }
+
+    svg {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 2rem;
+    }
+
+    input {
+        padding: 15px 25px;
+        background-color: transparent;
+        color: #fff !important;
+        border: 1px solid #fff;
+        cursor: pointer;
+    }
+
+    input:nth-child(1) {
+        margin: 25px;
+        padding: 10px 15px;
+        width: 250px;
+    }
 }
 
 .show {

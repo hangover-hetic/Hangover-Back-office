@@ -39,7 +39,7 @@
 
         <div class="addOrganisators" id="addOrganisators">
             <div class="cross" @click="addOrganisators()">
-                <AkarIconsCross  />
+                <AkarIconsCross />
             </div>
             <h3>Ajouter un organisateur</h3>
             <form @submit.prevent="CallAddUser">
@@ -193,8 +193,8 @@ td.icons {
     text-align: center;
     color: #fff;
 
-    .cross{
-        cursor: pointer
+    .cross {
+        cursor: pointer;
     }
 
     svg {
