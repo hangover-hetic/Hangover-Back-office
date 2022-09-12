@@ -1,6 +1,6 @@
 <template>
-    <div id='app'>
-        <router-view :key='$route.path' />
+    <div id="app">
+        <router-view :key="$route.path" />
     </div>
 </template>
 
@@ -9,12 +9,11 @@ export default {
     metaInfo: {
         // if no subcomponents specify a metaInfo.title, this title will be used
         title: 'Hangover',
-        link: [{ rel: 'icon', href: '/favicon.svg' }]
+        link: [{ rel: 'icon', href: '/favicon.svg' }],
     },
-    mounted() {
-    },
+    mounted() {},
 
-    methods: {}
+    methods: {},
 }
 </script>
 
@@ -27,11 +26,5 @@ html {
     min-height: 100vh;
     background-color: #202020;
     margin-left: 10%;
-}
-
-.add-icon{
-    img{
-        
-}
 }
 </style>
