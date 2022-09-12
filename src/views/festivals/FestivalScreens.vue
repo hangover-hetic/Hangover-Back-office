@@ -1,18 +1,14 @@
 <template>
     <div class="screens">
-        <h1 class="h1-title">Ecrans - {{tokenScreens[0].festival.name}} </h1>
+        <h1 class="h1-title">Ecrans - </h1>
         <table>
             <thead>
                 <tr>
                     <th align="left">Token</th>
                     <th align="left">Lien</th>
                     <th align="right">
-                        <img
-                            id="addScreens"
-                            src="../../assets/img/add.svg"
-                            alt="addScreens"
-                            v-on:click="addScreens()"
-                        />
+                        <img id="addScreens" src="../../assets/img/add.svg" alt="addScreens"
+                            v-on:click="addScreens()" />
                     </th>
                 </tr>
             </thead>
@@ -22,9 +18,9 @@
                         <label for="elements">{{ item.token }}</label>
                     </td>
                     <td>
-                        <a :href="'http://screen.hangover.timotheedurand.fr/?token=' + item.token"
-                            >http://2c90-185-226-32-21.ngrok.io/?token={{ item.token }}</a
-                        >
+                        <a :href="'http://screen.hangover.timotheedurand.fr/?token=' + item.token">http://2c90-185-226-32-21.ngrok.io/?token={{
+                        item.token
+                        }}</a>
                     </td>
                     <td>
                         <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
@@ -40,6 +36,7 @@
 <script>
 import { http } from '../../assets/services/http-common'
 import TheNavbar from '@/components/Navbar'
+import Vue from 'vue'
 
 export default {
     name: 'screensPage',
@@ -74,14 +71,22 @@ export default {
                 festival: '/api/festivals/' + this.split,
             }).then(() => {
                 this.listScreens()
+                Vue.$toast.success("Votre écrans a été ajouté")
             })
+                .catch((e) => {
+                    Vue.$toast.error("Votre écrans n'a pas été ajouté" + e)
+                })
         },
 
         CallDelete(id) {
             http.delete('screens/' + id).then((res) => {
                 console.log(res)
                 this.listScreens()
+                Vue.$toast.success("L'écran a été supprimé")
             })
+                .catch((e) => {
+                    Vue.$toast.error("Votre écrans n'a pas été supprimé" + e)
+                })
         },
     },
 }

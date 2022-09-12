@@ -7,7 +7,7 @@
                     <th align="left">Nom du style de musique</th>
                     <th align="right">
                         <div class="add-icon">
-                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" v-on:click="addStyles()"/>
+                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" v-on:click="addStyles()" />
                         </div>
                     </th>
 
@@ -42,10 +42,11 @@ import TheNavbar from '@/components/Navbar'
 import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
+import Vue from 'vue'
 global.v = Vuex
 
 export default {
-    name : "StylesList",
+    name: "StylesList",
     store: store,
     components: {
         TheNavbar,
@@ -63,9 +64,14 @@ export default {
 
     methods: {
         deleteStyle(id) {
-            http.delete('styles/' + id).then(() => {
-                this.$store.dispatch('getStyles')
-            })
+            http.delete('styles/' + id)
+                .then(() => {
+                    this.$store.dispatch('getStyles')
+                    Vue.$toast.success("Style de musique supprimé")
+                })
+                .catch((e) => {
+                    Vue.$toast.error("Erreur lors de la suppression du style de musique : " + e)
+                })
         },
 
         addStyles() {
@@ -79,7 +85,11 @@ export default {
             }).then((res) => {
                 res.data
                 this.$store.dispatch('getStyles')
+                Vue.$toast.success("Style de musique ajouté")
             })
+                .catch((e) => {
+                    Vue.$toast.error("Erreur lors de l'ajout du style de musique : " + e)
+                })
         },
     },
 

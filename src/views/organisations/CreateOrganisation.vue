@@ -13,32 +13,27 @@
                     </div>
                 </div>
             </div>
+            <button type="submit">Créer</button>
             <div class="button_create">
-                <button type="submit">Créer</button>
+
             </div>
         </form>
-        <alertVue :msg="msg" :img="img" ref="alert" />
         <TheNavbar></TheNavbar>
     </div>
 </template>
 
 <script>
 import TheNavbar from '@/components/Navbar'
-import alertVue from '@/components/alert.vue'
 const dayjs = require('dayjs')
 import { http } from '../../assets/services/http-common'
-//import { mapState } from "vuex";
-//import store from "/src/store/index";
-//import Vuex from "vuex";
-//global.v = Vuex;
+import Vue from 'vue'
+
 
 export default {
     components: {
         TheNavbar,
-        alertVue,
     },
 
-    //store: store,
 
     data() {
         return {
@@ -52,12 +47,10 @@ export default {
             currentImage: undefined,
             previewImage: undefined,
             imageInfos: [],
-            msg: '',
-            img: 'success',
         }
     },
 
-    mounted() {},
+    mounted() { },
 
     methods: {
         PostOrganisation() {
@@ -68,22 +61,13 @@ export default {
                     name: this.name,
                 },
             })
-                .then((res) => {
+                .then(() => {
                     this.$store.dispatch('loadFestivals')
-                    this.response = res.data
-                    this.msg = "L'organisation a bien été créée"
-                    this.$refs.alert.Alert()
+                    Vue.$toast.success("Organisation créée")
+                    this.$router.go(-1)
                 })
-                .catch((error) => {
-                    this.img = 'error'
-                    if (error.response.status === 422) {
-                        this.msg = "le nom de l'organisation doit faire au moins 5 charactères"
-                    } else if (error.response.status === 401) {
-                        this.msg = "vous n'êtes pas autorisé à créer un organisation"
-                    } else {
-                        this.msg = 'une erreur est survenu : ' + error.message
-                    }
-                    this.$refs.alert.Alert()
+                .catch((e) => {
+                    Vue.$toast.error("Erreur : " + e)
                 })
         },
     },
@@ -99,14 +83,20 @@ export default {
 .createfestivals {
     margin: auto;
 }
+
 .box1 {
     display: flex;
     align-items: center;
+
     input {
         display: flex;
         align-self: center;
         padding: 75px 15px;
     }
+}
+
+.form {
+    margin-bottom: 2%
 }
 
 button {

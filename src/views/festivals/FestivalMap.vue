@@ -2,40 +2,19 @@
     <div class='map-page'>
         <h1 class='h1-title'>Carte</h1>
         <div class='map-container'>
-            <gmap-map
-                class='map'
-                :center='center'
-                ref='map'
-                :zoom='12'
-                @click='addMarker'
-                @idle='syncMapCenter'
-                @zoom_changed='saveZoom'
-                @center_changed='updateCenter'
-                :options='{
+            <gmap-map class='map' :center='center' ref='map' :zoom='12' @click='addMarker' @idle='syncMapCenter'
+                @zoom_changed='saveZoom' @center_changed='updateCenter' :options='{
                      styles: mapStyles
-                }'
-            >
-                <gmap-custom-marker
-                    :key='index'
-                    v-for='(m, index) in markers'
-                    :marker='m.position'
-                    @click.native='onClickMarker(index)'
-                >
+                }'>
+                <gmap-custom-marker :key='index' v-for='(m, index) in markers' :marker='m.position'
+                    @click.native='onClickMarker(index)'>
                     <img :src='types[m.icon]' style='height: 30px;' />
                     <p style='margin: 0;'>{{ m.name }}</p>
                 </gmap-custom-marker>
 
-                <gmap-polygon
-                    v-if='zone'
-                    :paths='[zone]'
-                    :zIndex='0'
-                    :editable='true'
-                    @paths_changed='onZoneEdit'
-                    @rightclick='handleClickForDelete'
-                    @center_changed='updateCenter'
-                    :options='polygon.polygonOptions'
-                    ref='polygon'
-                ></gmap-polygon>
+                <gmap-polygon v-if='zone' :paths='[zone]' :zIndex='0' :editable='true' @paths_changed='onZoneEdit'
+                    @rightclick='handleClickForDelete' @center_changed='updateCenter' :options='polygon.polygonOptions'
+                    ref='polygon'></gmap-polygon>
             </gmap-map>
             <div class='map-aside'>
                 <h2>Paramètres</h2>
@@ -50,25 +29,25 @@
                 <div>
                     <button @click='initZone'>Activer</button>
                     <button @click='removePath'>Supprimer</button>
+
                 </div>
+
                 <h3>Points d'intérêts</h3>
                 <label for='mode'>Modification : </label>
                 <input type='checkbox' v-model='modificationMode' id='mode' />
                 <label for='mode'>Suppression : </label>
                 <input type='checkbox' v-model='deleteMode' id='mode' />
+                <br /><br />
                 <form @submit.prevent='editName'>
-                    <label for='name'>Label :</label>
+                    <label for='name'>Label : </label>
                     <input type='text' v-model='name' placeholder='Scène 1' id='name' />
                     <button type='submit' v-if='indexId'>Modifier</button>
+
                 </form>
+                <br /><br />
                 <label>Type :</label>
-                <div
-                    class='icon'
-                    :class='{"selected" : type === typeSelected}'
-                    v-for='type in Object.keys(types)'
-                    :key='type'
-                    @click='setMarkerType(type)'
-                >
+                <div class='icon' :class='{"selected" : type === typeSelected}' v-for='type in Object.keys(types)'
+                    :key='type' @click='setMarkerType(type)'>
                     <img :src='types[type]' class='marker-icon' />
                     <p>{{ type }}</p>
                 </div>
@@ -110,7 +89,7 @@ export default {
             types: {
                 scene: SceneIcon,
                 poubelle: TrashIcon,
-                help : HelpIcon,
+                help: HelpIcon,
             },
             typeSelected: 'scene',
             icon: SceneIcon,
@@ -138,7 +117,7 @@ export default {
             },
             indexIdOld: [],
             modificationMode: false,
-            deleteMode : false,
+            deleteMode: false,
         }
     },
 
@@ -158,14 +137,14 @@ export default {
                 )
                 .then((loc) => {
                     const { latitude, longitude } = loc.data.data[0]
-                    this.reportedMapCenter = { lat : latitude, lng : longitude }
-                    this.center = { lat : latitude, lng : longitude }
+                    this.reportedMapCenter = { lat: latitude, lng: longitude }
+                    this.center = { lat: latitude, lng: longitude }
                     console.log(this.reportedMapCenter, this.center)
                 })
         },
 
         addMarker(event) {
-            if(this.modificationMode || this.deleteMode) return
+            if (this.modificationMode || this.deleteMode) return
             this.createMarker({
                 lat: event.latLng.lat(),
                 lng: event.latLng.lng()
@@ -175,14 +154,14 @@ export default {
             //this.center = marker;
         },
 
-        createMarker({lat, lng}) {
+        createMarker({ lat, lng }) {
             this.markers.push({
                 id: this.markers.length,
                 name: this.name,
-                position: {lat, lng},
+                position: { lat, lng },
                 icon: this.typeSelected
             })
-            this.$refs.map.panTo({lat, lng})
+            this.$refs.map.panTo({ lat, lng })
         },
 
         onClickMarker(index) {
@@ -190,7 +169,7 @@ export default {
                 console.error(`Le marker ${this.indexId} n'existe pas`)
                 return
             }
-            if(this.deleteMode) {
+            if (this.deleteMode) {
                 this.markers.splice(index, 1)
                 return
             }
@@ -235,7 +214,7 @@ export default {
             this.typeSelected = type
             this.icon = this.types[this.typeSelected]
         },
-        updateCenter: function(latLng) {
+        updateCenter: function (latLng) {
             this.reportedMapCenter = {
                 lat: latLng.lat(),
                 lng: latLng.lng()
@@ -283,7 +262,7 @@ export default {
         setInitialZone(zone) {
             this.zone = zone
         },
-        removePath: function() {
+        removePath: function () {
             this.zone = null
         },
         handleClickForDelete($event) {
@@ -297,6 +276,15 @@ export default {
 
 <style scoped lang='scss'>
 @import '../../assets/style/fonts.scss';
+
+button,
+input {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 15px 25px;
+    cursor: pointer
+}
 
 .map-container {
     position: relative;

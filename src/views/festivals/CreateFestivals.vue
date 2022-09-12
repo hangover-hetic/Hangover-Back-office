@@ -68,7 +68,7 @@ export default {
         }
     },
 
-    mounted() {},
+    mounted() { },
 
     methods: {
         PostFestival() {
@@ -87,7 +87,11 @@ export default {
                 this.$store.dispatch('loadFestivals')
                 this.response = res.data
                 this.$toast.success("Votre festival est bien crée !")
+                this.$router.go(-1)
             })
+                .catch((e) => {
+                    this.$toast.error("Erreur lors de la création du festival ! " + e)
+                })
         },
     },
 }
@@ -102,9 +106,11 @@ export default {
 .createfestivals {
     margin: auto;
 }
+
 .box1 {
     display: flex;
     align-items: center;
+
     input {
         display: flex;
         align-self: center;

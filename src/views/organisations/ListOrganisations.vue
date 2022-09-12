@@ -26,12 +26,10 @@
                     <td class="icons">
                         <img class="delete-icon" src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
                         <img v-on:click="addOrganisators(item.id)" src="../../assets/img/add-organisators.svg" />
-                        <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name } }"
-                            ><img src="../../assets/img/edit.svg"
-                        /></router-link>
-                        <router-link :to="{ name: 'organisators', params: { name: item.id } }"
-                            ><img src="../../assets/img/peoplegroupe.svg"
-                        /></router-link>
+                        <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name } }"><img
+                                src="../../assets/img/edit.svg" /></router-link>
+                        <router-link :to="{ name: 'organisators', params: { name: item.id } }"><img
+                                src="../../assets/img/peoplegroupe.svg" /></router-link>
                     </td>
                 </tr>
             </tbody>
@@ -45,32 +43,28 @@
             </form>
         </div>
         <TheNavbar></TheNavbar>
-        <alertVue :msg="msg" :img="img" ref="alert" />
     </div>
 </template>
 
 <script>
 import { http } from '../../assets/services/http-common'
-import alertVue from '@/components/alert.vue'
 import TheNavbar from '@/components/Navbar'
 import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
+import Vue from 'vue'
 global.v = Vuex
 
 export default {
     store: store,
     components: {
         TheNavbar,
-        alertVue,
     },
 
     data() {
         return {
             email: '',
             idOrga: '',
-            msg: '',
-            img: 'success',
         }
     },
 
@@ -85,19 +79,10 @@ export default {
                     this.$store.dispatch('loadOrganisations')
                 })
                 .then(() => {
-                    this.msg = "L'organisation a bien été supprimée"
-                    this.$refs.alert.Alert()
+                    Vue.$toast.success("Organisation supprimée")
                 })
-                .catch((error) => {
-                    this.img = 'error'
-                    if (error.response.status === 404) {
-                        this.msg = "L'organisation n'a pas été trouvée"
-                    } else if (error.response.status === 401) {
-                        this.msg = "vous n'êtes pas autorisé à supprimer une organisation"
-                    } else {
-                        this.msg = 'une erreur est survenu : ' + error.message
-                    }
-                    this.$refs.alert.Alert()
+                .catch((e) => {
+                    Vue.$toast.error("Erreur : " + e)
                 })
         },
 
@@ -116,30 +101,15 @@ export default {
                         relatedUser: '/api/users/' + relatedUser,
                         organisationTeam: '/api/organisation_teams/' + this.idOrga,
                     })
-                        .then((res) => {
-                            this.msg = "L'utilisateur à été ajouter à l'organisation"
-                            this.img = 'success'
-                            res.data
+                        .then(() => {
                             this.$store.dispatch('loadOrganisations')
-                            this.$refs.alert.Alert()
+                            Vue.$toast.success("Utilisateur ajouté")
                         })
-                        .catch((error) => {
-                            this.img = 'error'
-                            if (error.response.status === 404) {
-                                this.msg = "L'organisation n'a pas été trouvée"
-                            } else if (error.response.status === 401) {
-                                this.msg = "vous n'êtes pas autorisé à supprimer une organisation"
-                            } else {
-                                this.msg = 'une erreur est survenu : ' + error.message
-                            }
-                            this.$refs.alert.Alert()
+                        .catch((e) => {
+                            Vue.$toast.error("Erreur lors de l'ajout de l'utilisateur : " + e)
                         })
                 })
-                .catch(() => {
-                    this.msg = "L'utilisateur n'a oas été trouver"
-                    this.img = 'error'
-                    this.$refs.alert.Alert()
-                })
+
         },
     },
 
@@ -225,6 +195,7 @@ td.icons {
     input {
         margin: 5px 25px;
         color: #464646;
+
         &:nth-child(2) {
             width: 350px;
             margin-top: 10px;

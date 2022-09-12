@@ -8,7 +8,7 @@
           <div class="field__left">
             <div class="left__column">
               <label for="name">Nom</label>
-              <input class="dotted" id="name" v-model="singer.name" type="text"/>
+              <input class="dotted" id="name" v-model="singer.name" type="text" />
 
               <div class="id">
                 <label for="selectStyles">Styles de musique :</label>
@@ -21,38 +21,21 @@
             </div>
             <div class="right__column">
               <label for="date">Date de début</label>
-              <input class="dotted" id="date_start" v-model="start_time" type="datetime-local"/>
+              <input class="dotted" id="date_start" v-model="start_time" type="datetime-local" />
 
               <label for="startTime">Date de fin</label>
-              <input class="dotted" id="startTime" v-model="end_time" type="datetime-local"/>
+              <input class="dotted" id="startTime" v-model="end_time" type="datetime-local" />
             </div>
             <div class="box1 flex">
               <div class="singers">
                 <div class="image" v-if="singer.image !== null">
-                  <input
-                      class="image"
-                      type="file"
-                      accept="image/*"
-                      id="image"
-                      ref="file"
-                      @change="selectImage"
-                  />
-                  <img
-                      :src="'https://hangover.timotheedurand.fr' + singer.image.contentUrl"
-                      alt=""
-                      v-on:click="addImage()"
-                  />
+                  <input class="image" type="file" accept="image/*" id="image" ref="file" @change="selectImage" />
+                  <img :src="'https://hangover.timotheedurand.fr' + singer.image.contentUrl" alt=""
+                    v-on:click="addImage()" />
                 </div>
                 <div class="image" v-else>
                   <label for="image1">Image du chanteur</label>
-                  <input
-                      class="imageNone"
-                      type="file"
-                      accept="image/*"
-                      id="image"
-                      ref="file"
-                      @change="selectImage"
-                  />
+                  <input class="imageNone" type="file" accept="image/*" id="image" ref="file" @change="selectImage" />
                 </div>
               </div>
             </div>
@@ -72,12 +55,12 @@
 <script>
 import UploadService from '@/assets/services/UploadFilesService'
 import TheNavbar from '@/components/Navbar'
-import {http} from '../../assets/services/http-common'
+import { http } from '../../assets/services/http-common'
 import dayjs from 'dayjs'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
-
+import Vue from 'vue'
 global.v = Vuex
 
 export default {
@@ -117,6 +100,7 @@ export default {
       const image = document.getElementById('image')
       image.click()
       this.imageChanged = true
+
     },
 
     path() {
@@ -143,15 +127,17 @@ export default {
         return
       }
       UploadService.upload(this.currentImage)
-          .then((response) => {
-            this.idImage = response.data.id
+        .then((response) => {
+          this.idImage = response.data.id
 
-            this.putShow(this.idImage)
-            this.message = response.data.message
-            return UploadService.getFiles()
-          })
-          .catch(() => {
-          })
+          this.putShow(this.idImage)
+          this.message = response.data.message
+          Vue.$toast.success("Votre image à bien été modifié")
+          return UploadService.getFiles()
+        })
+        .catch((e) => {
+          Vue.$toast.error("Votre image n'a pas été modifié" + e)
+        })
     },
 
     putShow(idImage) {
@@ -168,9 +154,9 @@ export default {
       }).then((res) => {
         this.singer = res.data
         this.getShows()
-          this.$toast.success("Show modifié avec succès !")
+        this.$toast.success("Show modifié avec succès !")
       }).catch(e => {
-          this.$toast.error("Erreur" + e)
+        this.$toast.error("Erreur" + e)
       })
     },
 

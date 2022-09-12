@@ -40,6 +40,7 @@ import TheNavbar from '@/components/Navbar'
 import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
+import Vue from 'vue'
 global.v = Vuex
 
 export default {
@@ -63,10 +64,15 @@ export default {
 
     methods: {
         CallDelete(id) {
-            http.delete('users/' + id).then((response) => {
-                response.data
-                this.$store.dispatch('loadNameOrga')
-            })
+            http.delete('users/' + id)
+                .then((response) => {
+                    response.data
+                    this.$store.dispatch('loadNameOrga')
+                    Vue.$toast.success("utilisateur supprimé")
+                })
+                .catch((e) => {
+                    Vue.$toast.error("Erreur lors de la suppression de l'utilisateur : " + e)
+                })
         },
     },
 

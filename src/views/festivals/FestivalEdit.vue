@@ -3,75 +3,62 @@
     <form @submit.prevent="modifFestivals">
       <div class="logo">
         <div class="logo__festival selectFile__logo" v-if="this.screens.logo === null">
-          <input type="file" accept="image/*" id="iconNotFound" ref="logo" @change="selectImage"/>
-          <img class="logo" src="../../assets/img/logo.svg" v-on:click="addIcon()"/>
+          <input type="file" accept="image/*" id="iconNotFound" ref="logo" @change="selectImage" />
+          <img class="logo" src="../../assets/img/logo.svg" v-on:click="addIcon()" />
         </div>
 
         <div class="logo__festival selectFile__logo" v-else>
-          <input type="file" accept="image/*" id="icon" ref="logo" @change="selectImage"/>
-          <img
-              :src="'https://hangover.timotheedurand.fr' + this.screens.logo.contentUrl"
-              alt=""
-              v-on:click="addIcon()"
-          />
+          <input type="file" accept="image/*" id="icon" ref="logo" @change="selectImage" />
+          <img :src="'https://hangover.timotheedurand.fr' + this.screens.logo.contentUrl" alt=""
+            v-on:click="addIcon()" />
         </div>
 
         <div class="title">
-          <h1 class="h1-title">Modifier {{screens.name}}</h1>
+          <h1 class="h1-title">Modifier {{ screens.name }}</h1>
         </div>
       </div>
 
       <div class="form">
         <div class="box1" v-if="this.screens.cover !== null">
           <div class="image__festivals">
-            <img
-                v-if="this.screens.cover.contentUrl !== undefined"
-                :src="'https://hangover.timotheedurand.fr' + this.screens.cover.contentUrl"
-                alt=""
-                v-on:click="addImage()"
-            />
-            <input type="file" accept="image/*" id="image" ref="file" @change="selectImage"/>
+            <img v-if="this.screens.cover.contentUrl !== undefined"
+              :src="'https://hangover.timotheedurand.fr' + this.screens.cover.contentUrl" alt=""
+              v-on:click="addImage()" />
+            <input type="file" accept="image/*" id="image" ref="file" @change="selectImage" />
           </div>
         </div>
 
         <div class="box1" v-else>
-          <input
-              class="imageNone"
-              type="file"
-              accept="image/*"
-              id="imageNotFound"
-              ref="file"
-              @change="selectImage"
-          />
+          <input class="imageNone" type="file" accept="image/*" id="imageNotFound" ref="file" @change="selectImage" />
         </div>
 
         <div class="form__field">
           <div class="field__left">
             <div class="left__column">
               <label for="name">Nom du festival</label>
-              <input class="dotted" id="name" v-model="screens.name" type="text"/>
+              <input class="dotted" id="name" v-model="screens.name" type="text" />
 
               <label for="lieuFestival">Lieu du festival</label>
-              <input class="dotted" id="lieuFestival" v-model="screens.location" type="text"/>
+              <input class="dotted" id="lieuFestival" v-model="screens.location" type="text" />
 
               <label for="lieuFestival">Lien du festival</label>
-              <input class="dotted" id="lieuFestival" v-model="screens.link" type="url"/>
+              <input class="dotted" id="lieuFestival" v-model="screens.link" type="url" />
 
 
               <label for="couleur">Couleur des écrans</label>
               <div class="input-color">
-                <div class="color-preview" :style="{'background-color' : screens.screenColor}"/>
-                <input class="dotted" id="couleur" v-model="screens.screenColor" type="color"/>
+                <div class="color-preview" :style="{ 'background-color': screens.screenColor }" />
+                <input class="dotted" id="couleur" v-model="screens.screenColor" type="color" />
               </div>
 
             </div>
 
             <div class="right__column">
               <label for="date">Date de début</label>
-              <input class="dotted" id="date_start" v-model="start_date" type="date"/>
+              <input class="dotted" id="date_start" v-model="start_date" type="date" />
 
               <label for="date">Date de fin</label>
-              <input class="dotted" id="date_end" v-model="end_date" type="date"/>
+              <input class="dotted" id="date_end" v-model="end_date" type="date" />
 
               <label for="status">Status</label>
               <select id="status" v-model="screens.status" class="dotted">
@@ -85,7 +72,7 @@
 
       <div class="form__description">
         <label for="description">Description</label>
-        <textarea class="dotted" id="description" v-model="screens.description" type="text"/>
+        <textarea class="dotted" id="description" v-model="screens.description" type="text" />
       </div>
 
       <div class="button_create">
@@ -94,20 +81,12 @@
     </form>
     <div class="festival-modification-nav">
       <h3>Gérer</h3>
-      <router-link
-          :to="{ name: 'screens', params: { name: this.split } }"
-      >Ecrans</router-link>
-      <router-link
-          :to="{ name: 'festivalShows', params: { id: this.split } }"
-      >Shows</router-link>
-      <router-link
-          :to="{ name: 'moderation', params: { id: this.split } }"
-      >Modération</router-link>
-      <router-link
-          :to="{ name: 'carte', params: { id: this.split } }"
-      >Carte</router-link>
+      <router-link :to="{ name: 'screens', params: { name: this.split } }">Ecrans</router-link>
+      <router-link :to="{ name: 'festivalShows', params: { id: this.split } }">Shows</router-link>
+      <router-link :to="{ name: 'moderation', params: { id: this.split } }">Modération</router-link>
+      <router-link :to="{ name: 'carte', params: { id: this.split } }">Carte</router-link>
     </div>
-    <TheNavbar/>
+    <TheNavbar />
   </div>
 </template>
 
@@ -115,11 +94,11 @@
 import TheNavbar from '@/components/Navbar'
 
 const dayjs = require('dayjs')
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
-import {http} from '../../assets/services/http-common'
-
+import { http } from '../../assets/services/http-common'
+import Vue from 'vue'
 global.v = Vuex
 import UploadService from '../../assets/services/UploadFilesService'
 
@@ -185,7 +164,6 @@ export default {
 
     selectImage() {
       this.currentImage = this.$refs.file.files.item(0)
-      this.currentSingers = this.$refs.file1.files.item(0)
       this.currentLogo = this.$refs.logo.files.item(0)
     },
 
@@ -204,23 +182,25 @@ export default {
 
       if (this.file !== null && this.file.files.length !== 0) {
         UploadService.upload(this.currentImage)
-            .then((response) => {
-              this.idImage = response.data.id
+          .then((response) => {
+            this.idImage = response.data.id
 
-              http({
-                url: 'festivals/' + this.split,
-                method: 'Put',
-                data: {
-                  cover: 'api/media/' + this.idImage,
-                },
-              }).then(() => {
-                this.$store.dispatch('loadScreens')
-              })
-              this.message = response.data.message
-              return UploadService.getFiles()
+            http({
+              url: 'festivals/' + this.split,
+              method: 'Put',
+              data: {
+                cover: 'api/media/' + this.idImage,
+              },
+            }).then(() => {
+              this.$store.dispatch('loadScreens')
+              Vue.$toast.success("Votre image a bien été mise à jour")
             })
-            .catch(() => {
-            })
+            this.message = response.data.message
+            return UploadService.getFiles()
+          })
+          .catch((e) => {
+            Vue.$toast.error("Votre image n'a pas pu être mise à jour" + e)
+          })
       }
 
       this.file = document.getElementById('icon')
@@ -230,24 +210,26 @@ export default {
 
       if (this.file !== null && this.file.files.length !== 0) {
         UploadService.upload(this.currentLogo)
-            .then((response) => {
-              this.idImage = response.data.id
+          .then((response) => {
+            this.idImage = response.data.id
 
-              http({
-                url: 'festivals/' + this.split,
-                method: 'Put',
-                data: {
-                  logo: 'api/media/' + this.idImage,
-                },
-              }).then((res) => {
-                this.$store.dispatch('loadScreens')
-                this.response = res.data
-              })
-              this.message = response.data.message
-              return UploadService.getFiles()
+            http({
+              url: 'festivals/' + this.split,
+              method: 'Put',
+              data: {
+                logo: 'api/media/' + this.idImage,
+              },
+            }).then((res) => {
+              this.$store.dispatch('loadScreens')
+              this.response = res.data
+              Vue.$toast.success("Votre image a bien été mise à jour")
             })
-            .catch(() => {
-            })
+            this.message = response.data.message
+            return UploadService.getFiles()
+          })
+          .catch((e) => {
+            Vue.$toast.error("Votre image n'a pas pu être mise à jour" + e)
+          })
       }
 
       http({
@@ -266,6 +248,9 @@ export default {
       }).then(() => {
         this.$store.dispatch('loadScreens')
         setTimeout(this.addMediaImage, 500)
+        Vue.$toast.success("Les informations de votre Festival on été mise à jour")
+      }).catch((e) => {
+        Vue.$toast.error("Les informations de votre Festival n'ont pas été mise à jour" + e)
       })
     },
 
@@ -278,6 +263,9 @@ export default {
         festival: '/api/festivals/' + this.split,
       }).then(() => {
         this.listScreens()
+        Vue.$toast.success("")
+      }).catch((e) => {
+        Vue.$toast.error(e)
       })
     },
 
@@ -301,11 +289,11 @@ export default {
 
 
 .container {
-  color:white;
+  color: white;
   margin: auto;
   display: grid;
   grid-template-columns: 80% 1fr;
-  gap : 20px;
+  gap: 20px;
 
   .logo {
     display: flex;
@@ -340,7 +328,7 @@ export default {
   }
 }
 
-.button_create > button {
+.button_create>button {
   width: 144px;
 }
 
@@ -434,7 +422,7 @@ select {
 
 .input-color {
   display: flex;
-  gap : 10px;
+  gap: 10px;
 
   input {
     margin: 0;
@@ -450,14 +438,14 @@ select {
 .festival-modification-nav {
   display: flex;
   flex-direction: column;
-  gap:10px;
+  gap: 10px;
 
   a {
     text-decoration: none;
     box-sizing: border-box;
     padding: 20px 10px;
     background-color: white;
-    color:black;
+    color: black;
   }
 }
 

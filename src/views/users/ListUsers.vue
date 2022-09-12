@@ -10,9 +10,9 @@
                     <th align="left"></th>
 
                     <th align="right">
-<!--                        <div class="add-icon">-->
-<!--                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" />-->
-<!--                        </div>-->
+                        <!--                        <div class="add-icon">-->
+                        <!--                            <img class="add-icon" src="../../assets/img/add.svg" alt="add" />-->
+                        <!--                        </div>-->
                     </th>
                 </tr>
             </thead>
@@ -28,9 +28,9 @@
                     <td class="icon">
                         <img src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
                     </td>
-                    <router-link :to="{ name: 'user', params: { name: item.id } }"
-                        ><td class="icon"><img class="edit-icon" src="../../assets/img/edit.svg" /></td
-                    ></router-link>
+                    <router-link :to="{ name: 'user', params: { name: item.id } }">
+                        <td class="icon"><img class="edit-icon" src="../../assets/img/edit.svg" /></td>
+                    </router-link>
                 </tr>
             </tbody>
         </table>
@@ -44,6 +44,7 @@ import TheNavbar from '@/components/Navbar'
 import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
+import Vue from 'vue'
 global.v = Vuex
 
 export default {
@@ -61,10 +62,15 @@ export default {
 
     methods: {
         CallDelete(id) {
-            http.delete('users/' + id).then((response) => {
-                response.data
-                this.$store.dispatch('loadUsers')
-            })
+            http.delete('users/' + id)
+                .then((response) => {
+                    response.data
+                    this.$store.dispatch('loadUsers')
+                    Vue.$toast.success("Utilisateur supprimé")
+                })
+                .catch((e) => {
+                    Vue.$toast.error("Erreur lors de la suppression de l'utilisateur : " + e)
+                })
         },
     },
 

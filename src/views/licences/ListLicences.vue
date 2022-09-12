@@ -47,6 +47,7 @@ import TheNavbar from '@/components/Navbar'
 import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
+import Vue from 'vue'
 global.v = Vuex
 
 export default {
@@ -60,8 +61,6 @@ export default {
     data() {
         return {
             dayjs,
-            msg: '',
-            img: 'success',
         }
     },
 
@@ -75,20 +74,11 @@ export default {
         CallDelete(id) {
             http.delete('licences/' + id)
                 .then(() => {
-                    this.msg = 'La licence a bien été supprimé'
-                    this.$refs.alert.Alert()
                     this.$store.dispatch('getLicence')
+                    Vue.$toast.success("Licence supprimé")
                 })
-                .catch((error) => {
-                    this.img = 'error'
-                    if (error.response.status === 404) {
-                        this.msg = "la licence n'existe pas"
-                    } else if (error.response.status === 401) {
-                        this.msg = "vous n'êtes pas autorisé à supprimer cette licence"
-                    } else {
-                        this.msg = 'une erreur est survenu : ' + error.message
-                    }
-                    this.$refs.alert.Alert()
+                .catch((e) => {
+                    Vue.$toast.error("Erreur lors de la suppréssion de la licence : " + e)
                 })
         },
     },

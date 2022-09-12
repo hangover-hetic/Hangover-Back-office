@@ -33,6 +33,7 @@ import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
 import { http } from '@/assets/services/http-common'
+import Vue from 'vue'
 global.v = Vuex
 
 export default {
@@ -70,7 +71,11 @@ export default {
                 endDate: this.endDate,
             }).then(() => {
                 this.$store.dispatch('getSingleLicence')
+                Vue.$toast.success("Votre Licence a bien été modifié")
             })
+                .catch((e) => {
+                    Vue.$toast.error("La licence n'a pas été modifié : " + e)
+                })
         },
     },
 
@@ -85,9 +90,11 @@ export default {
 .createfestivals {
     margin: auto;
 }
+
 .box1 {
     display: flex;
     align-items: center;
+
     input {
         display: flex;
         align-self: center;

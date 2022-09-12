@@ -5,14 +5,10 @@
             <div class="user">
                 <div class="informations">
                     <div class="image__profil">
-                        <router-link
-                            :to="{ name: 'user', params: { name: item.relatedUser.id } }"
-                            v-if="item.relatedUser.profilePicture !== null"
-                            ><img
-                                :src="
-                                    'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
-                                "
-                        /></router-link>
+                        <router-link :to="{ name: 'user', params: { name: item.relatedUser.id } }"
+                            v-if="item.relatedUser.profilePicture !== null"><img :src="
+                                'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
+                            " /></router-link>
                     </div>
                     <div class="name">
                         <p>{{ item.relatedUser.firstName + ' ' + item.relatedUser.lastName }}</p>
@@ -49,14 +45,12 @@
             <div class="user">
                 <div class="informations">
                     <div class="image__profil">
-                        <router-link
-                            :to="{ name: 'user', params: { name: item.relatedUser.id } }"
-                            v-if="item.relatedUser.profilePicture !== null"
-                            ><img
-                                :src="
-                                    'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
-                                "
-                        /></router-link>
+                        <router-link :to="{ name: 'user', params: { name: item.relatedUser.id } }"
+                            v-if="item.relatedUser.firstName !== null">
+                            <!--<img :src="
+                                'https://hangover.timotheedurand.fr' + item.relatedUser.profilePicture.contentUrl
+                            " />-->
+                        </router-link>
                     </div>
                     <div class="name">
                         <p>{{ item.relatedUser.firstName + ' ' + item.relatedUser.lastName }}</p>
@@ -97,6 +91,7 @@
 import TheNavbar from '@/components/Navbar'
 import { http } from '../../assets/services/http-common'
 import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill'
+import Vue from 'vue'
 
 const EventSource = NativeEventSource || EventSourcePolyfill
 
@@ -148,21 +143,31 @@ export default {
                 console.log(this.post)
                 this.arr.push(this.post)
                 console.log(this.arr)
+                console.log(this.post)
             }
         },
 
         published(id) {
-            http.put('/posts/' + id + '/publish', {}).then(() => {
-                this.arr = []
-                this.oldPosts()
-            })
+            http.put('/posts/' + id + '/publish', {})
+                .then(() => {
+                    this.arr = []
+                    this.oldPosts()
+                    Vue.$toast.success("Le post a bien été publié")
+                })
+                .catch((e) => {
+                    Vue.$toast.error("Erreur lors de la publication du post" + e)
+                })
         },
 
         reject(id) {
             http.delete('/posts/' + id).then(() => {
                 this.arr = []
                 this.oldPosts()
+                Vue.$toast.success("Le post a bien été rejeté")
             })
+                .catch((e) => {
+                    Vue.$toast.error("Error, le post n'a pas été rejeté" + e)
+                })
         },
     },
 }
@@ -171,7 +176,7 @@ export default {
 <style scoped lang="scss">
 .posts {
     margin: 30px;
-    color : white;
+    color: white;
 }
 
 .user {

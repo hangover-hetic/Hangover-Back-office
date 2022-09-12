@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {http} from '../assets/services/http-common'
+import { http } from '../assets/services/http-common'
 
 Vue.use(Vuex)
 
@@ -111,7 +111,7 @@ export default new Vuex.Store({
     },
 
     actions: {
-        loadOrganisations({commit}) {
+        loadOrganisations({ commit }) {
             if (localStorage.getItem('rang') === 'ROLE_ADMIN') {
                 http.get('organisation_teams')
                     .then((response) => response.data)
@@ -127,7 +127,7 @@ export default new Vuex.Store({
             }
         },
 
-        loadFestivals({commit}) {
+        loadFestivals({ commit }) {
             const path = window.location.pathname
             const str = path.split('/')
             const split = str[str.length - 1]
@@ -139,15 +139,15 @@ export default new Vuex.Store({
                 })
         },
 
-        loadFestival({commit}, festivalId) {
-           return http.get('festivals/' + festivalId)
+        loadFestival({ commit }, festivalId) {
+            return http.get('festivals/' + festivalId)
                 .then((response) => response.data)
                 .then((festival) => {
                     commit('SET_FESTIVAL', festival)
                 })
         },
 
-        loadUsers({commit}) {
+        loadUsers({ commit }) {
             http.get('users')
                 .then((response) => response.data)
                 .then((users) => {
@@ -155,7 +155,7 @@ export default new Vuex.Store({
                 })
         },
 
-        loadNameOrga({commit}) {
+        loadNameOrga({ commit }) {
             const path = window.location.pathname
             const str = path.split('/')
             const splitNameOrga = str[str.length - 1]
@@ -167,7 +167,7 @@ export default new Vuex.Store({
                 })
         },
 
-        loadScreens({commit}) {
+        loadScreens({ commit }) {
             const path = window.location.pathname
             const split = path.substr(10)
 
@@ -178,7 +178,7 @@ export default new Vuex.Store({
                 })
         },
 
-        submitForm({commit}) {
+        submitForm({ commit }) {
             http({
                 url: 'authentication_token',
                 method: 'Post',
@@ -194,13 +194,14 @@ export default new Vuex.Store({
                     localStorage.setItem('rang', token.data.roles[0])
                     localStorage.setItem('idUser', token.data.user.id)
                     commit('POST_LOGIN', token)
+                    Vue.$toast.success("Vous êtes bien connecté")
                 })
                 .catch(function () {
-                    alert('username or passwor is not corret please retry')
+                    Vue.$toast.error("La connexion a échoué")
                 })
         },
 
-        getUser({commit}) {
+        getUser({ commit }) {
             const path = window.location.pathname
             const str = path.split('/')
             const split = str[str.length - 1]
@@ -220,7 +221,7 @@ export default new Vuex.Store({
                 })
         },
 
-        getLicence({commit}) {
+        getLicence({ commit }) {
             http.get('licences')
                 .then((licences) => {
                     this.licences = licences.data
@@ -230,7 +231,7 @@ export default new Vuex.Store({
                 })
         },
 
-        getSingleLicence({commit}) {
+        getSingleLicence({ commit }) {
             const path = window.location.pathname
             const str = path.split('/')
             const split = str[str.length - 1]
@@ -244,8 +245,8 @@ export default new Vuex.Store({
                 })
         },
 
-        getStyles({commit}) {
-          return  http.get('styles')
+        getStyles({ commit }) {
+            return http.get('styles')
                 .then((styles) => {
                     this.styles = styles.data
                     commit('SET_Styles', styles.data)
