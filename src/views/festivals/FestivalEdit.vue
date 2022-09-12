@@ -86,7 +86,7 @@
       <router-link :to="{ name: 'moderation', params: { id: this.split } }">Modération</router-link>
       <router-link :to="{ name: 'carte', params: { id: this.split } }">Carte</router-link>
     </div>
-    <TheNavbar />
+    <TheNavbar orga="rgb(99, 99, 99)"></TheNavbar>
   </div>
 </template>
 
@@ -439,13 +439,21 @@ select {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-right: 20px;
+
+  h3{
+    margin-top: 100px;
+    margin-bottom: 0px;
+   
+  }
 
   a {
     text-decoration: none;
     box-sizing: border-box;
     padding: 20px 10px;
-    background-color: white;
-    color: black;
+    background-color: transparent;
+    border: #fff 1px solid;
+    color: #fff;
   }
 }
 

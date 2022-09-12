@@ -1,7 +1,7 @@
 <template>
     <div class="organisationTeam">
         <h1 class="h1-title">Organisations</h1>
-        <table>
+        <table id="blur">
             <thead>
                 <tr>
                     <th align="left">Nom</th>
@@ -26,23 +26,28 @@
                     <td class="icons">
                         <img class="delete-icon" src="../../assets/img/delete.svg" v-on:click="CallDelete(item.id)" />
                         <img v-on:click="addOrganisators(item.id)" src="../../assets/img/add-organisators.svg" />
-                        <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name } }"><img
-                                src="../../assets/img/edit.svg" /></router-link>
-                        <router-link :to="{ name: 'organisators', params: { name: item.id } }"><img
-                                src="../../assets/img/peoplegroupe.svg" /></router-link>
+                        <router-link :to="{ name: 'festivals', params: { name: item.id, orga: item.name } }"
+                            ><img src="../../assets/img/edit.svg"
+                        /></router-link>
+                        <router-link :to="{ name: 'organisators', params: { name: item.id } }"
+                            ><img src="../../assets/img/peoplegroupe.svg"
+                        /></router-link>
                     </td>
                 </tr>
             </tbody>
         </table>
 
         <div class="addOrganisators" id="addOrganisators">
+            <div class="cross" @click="addOrganisators()">
+                <AkarIconsCross  />
+            </div>
             <h3>Ajouter un organisateur</h3>
             <form @submit.prevent="CallAddUser">
-                <input type="email" v-model="email" />
+                <input placeholder="Timoté@gmail.com" type="email" v-model="email" />
                 <input type="submit" value="Ajouter un organisateur" />
             </form>
         </div>
-        <TheNavbar></TheNavbar>
+        <TheNavbar orga="rgb(99, 99, 99)"></TheNavbar>
     </div>
 </template>
 
@@ -53,12 +58,14 @@ import { mapState } from 'vuex'
 import store from '/src/store/index'
 import Vuex from 'vuex'
 import Vue from 'vue'
+import AkarIconsCross from '../../assets/img/AkarIconsCross.vue'
 global.v = Vuex
 
 export default {
     store: store,
     components: {
         TheNavbar,
+        AkarIconsCross,
     },
 
     data() {
@@ -79,37 +86,37 @@ export default {
                     this.$store.dispatch('loadOrganisations')
                 })
                 .then(() => {
-                    Vue.$toast.success("Organisation supprimée")
+                    Vue.$toast.success('Organisation supprimée')
                 })
                 .catch((e) => {
-                    Vue.$toast.error("Erreur : " + e)
+                    Vue.$toast.error('Erreur : ' + e)
                 })
         },
 
         addOrganisators(id) {
             const organisator = document.getElementById('addOrganisators')
+            const blur = document.getElementById('blur')
+            blur.classList.toggle('blured')
             organisator.classList.toggle('show')
             this.idOrga = id
         },
 
         CallAddUser() {
-            http.get('users?email=' + this.email)
-                .then((res) => {
-                    const relatedUser = res.data[0].id
+            http.get('users?email=' + this.email).then((res) => {
+                const relatedUser = res.data[0].id
 
-                    http.post('organisators', {
-                        relatedUser: '/api/users/' + relatedUser,
-                        organisationTeam: '/api/organisation_teams/' + this.idOrga,
-                    })
-                        .then(() => {
-                            this.$store.dispatch('loadOrganisations')
-                            Vue.$toast.success("Utilisateur ajouté")
-                        })
-                        .catch((e) => {
-                            Vue.$toast.error("Erreur lors de l'ajout de l'utilisateur : " + e)
-                        })
+                http.post('organisators', {
+                    relatedUser: '/api/users/' + relatedUser,
+                    organisationTeam: '/api/organisation_teams/' + this.idOrga,
                 })
-
+                    .then(() => {
+                        this.$store.dispatch('loadOrganisations')
+                        Vue.$toast.success('Utilisateur ajouté')
+                    })
+                    .catch((e) => {
+                        Vue.$toast.error("Erreur lors de l'ajout de l'utilisateur : " + e)
+                    })
+            })
         },
     },
 
@@ -179,9 +186,40 @@ td.icons {
     width: 500px;
     height: 300px;
     border-radius: 15px;
-    background-color: #464646;
+    border: 1px solid #fff;
+    background-color: transparent;
     position: absolute;
     justify-content: center;
+    text-align: center;
+    color: #fff;
+
+    .cross{
+        cursor: pointer
+    }
+
+    svg {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 2rem;
+    }
+
+    input {
+        padding: 15px 25px;
+        background-color: transparent;
+        color: #fff !important;
+        border: 1px solid #fff;
+    }
+
+    input:nth-child(1) {
+        margin: 25px;
+        padding: 10px 15px;
+        width: 250px;
+    }
+}
+
+.blured {
+    filter: blur(4px);
 }
 
 .show {

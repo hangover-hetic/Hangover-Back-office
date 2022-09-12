@@ -44,7 +44,7 @@
 
         </form>
 
-        <TheNavbar></TheNavbar>
+        <TheNavbar account="rgb(99, 99, 99)"></TheNavbar>
     </div>
 </template>
 

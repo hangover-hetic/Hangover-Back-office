@@ -32,7 +32,7 @@
                 <input type="submit" value="Ajouter un style" />
             </form>
         </div>
-        <TheNavbar></TheNavbar>
+        <TheNavbar styles="rgb(99, 99, 99)"></TheNavbar>
     </div>
 </template>
 

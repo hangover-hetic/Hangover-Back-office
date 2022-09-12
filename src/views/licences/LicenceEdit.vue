@@ -22,7 +22,7 @@
             </div>
         </form>
 
-        <TheNavbar></TheNavbar>
+        <TheNavbar licence="rgb(99, 99, 99)"></TheNavbar>
     </div>
 </template>
 

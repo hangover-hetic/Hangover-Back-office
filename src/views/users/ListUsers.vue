@@ -34,7 +34,7 @@
                 </tr>
             </tbody>
         </table>
-        <TheNavbar></TheNavbar>
+        <TheNavbar user="rgb(99, 99, 99)"></TheNavbar>
     </div>
 </template>
 

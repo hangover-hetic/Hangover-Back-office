@@ -34,7 +34,7 @@
                 </tr>
             </tbody>
         </table>
-        <TheNavbar></TheNavbar>
+        <TheNavbar licence="rgb(99, 99, 99)"></TheNavbar>
         <alertVue :msg="msg" :img="img" ref="alert" />
     </div>
 </template>

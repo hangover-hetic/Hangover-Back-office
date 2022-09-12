@@ -74,7 +74,7 @@
       </div>
 
 
-    <TheNavBar/>
+      <TheNavBar orga="rgb(99, 99, 99)"></TheNavBar>
   </div>
 </template>
 

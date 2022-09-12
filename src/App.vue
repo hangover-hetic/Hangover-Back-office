@@ -28,4 +28,10 @@ html {
     background-color: #202020;
     margin-left: 10%;
 }
+
+.add-icon{
+    img{
+        
+}
+}
 </style>

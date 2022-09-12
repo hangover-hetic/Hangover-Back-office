@@ -10,23 +10,23 @@ export default {
             <div id="logo">
                 <img src="../assets/img/hangover-logo.png" alt="" />
             </div>
-            <router-link to="/organisationTeam">
+            <router-link to="/organisationTeam" :style="{backgroundColor : orga}">
                 <font-awesome-icon icon="fa-solid fa-building" class="size" />
             </router-link>
-            <router-link to="/users" v-if="role">
-                <font-awesome-icon icon="fa-solid fa-user-group" class="size" />
+            <router-link to="/users" v-if="role" :style="{backgroundColor : user}">
+                <font-awesome-icon icon="fa-solid fa-user-group" class="size"/>
             </router-link>
-            <router-link :to="{ path: '/account/' + idUser }">
+            <router-link :to="{ path: '/account/' + idUser }" :style="{backgroundColor : account}">
                 <font-awesome-icon icon="fa-solid fa-circle-user" class="size" />
             </router-link>
-            <router-link :to="{ path: '/licences' }" v-if="role">
-                <font-awesome-icon icon="fa-solid fa-file-contract" class="size" />
+            <router-link :to="{ path: '/licences' }" v-if="role" :style="{backgroundColor : licence}">
+                <font-awesome-icon icon="fa-solid fa-file-contract" class="size"/>
             </router-link>
-            <router-link :to="{ path: '/styles' }" v-if="role">
-                <font-awesome-icon icon="fa-solid fa-music" class="size" />
+            <router-link :to="{ path: '/styles' }" v-if="role" :style="{backgroundColor : styles}">
+                <font-awesome-icon icon="fa-solid fa-music" class="size"/>
             </router-link>
             <a href="#" v-on:click="signOut()">
-                <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="size-arrow-bottom" />
+                <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" class="size-arrow-bottom"/>
             </a>
         </nav>
     </div>
@@ -35,6 +35,31 @@ export default {
 <script>
 export default {
     name: 'TheNavBar',
+
+    props:{
+        orga:{
+            type: String,
+            default: ''
+        },
+        user:{
+            type: String,
+            default: ''
+        },
+        account:{
+            type: String,
+            default: ''
+        },
+        licence:{
+            type: String,
+            default: ''
+        },
+        styles:{
+            type: String,
+            default: ''
+        }
+
+    },
+
     data() {
         return {
             role: false,

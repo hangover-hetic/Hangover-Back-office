@@ -55,7 +55,7 @@
                 <button @click='postMap'>Enregister la carte</button>
             </div>
         </div>
-        <TheNavbar />
+        <TheNavbar orga="rgb(99, 99, 99)"></TheNavbar>
     </div>
 </template>
 

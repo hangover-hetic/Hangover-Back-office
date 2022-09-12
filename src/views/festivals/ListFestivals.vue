@@ -40,7 +40,7 @@
                 </tr>
             </tbody>
         </table>
-        <TheNavbar></TheNavbar>
+        <TheNavbar orga="rgb(99, 99, 99)"></TheNavbar>
     </div>
 </template>
 
